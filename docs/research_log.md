@@ -157,3 +157,25 @@ This log records design decisions, rejected alternatives, data issues, failed hy
 **Interpretation:** The sampled duplicates appear to be mechanical exact-row duplication rather than economically distinct daily observations.
 
 **Decision:** Do not yet collapse duplicates based only on the sample. Run a full-dataset row-hash integrity check across all 14,016 duplicate groups. If no conflicting group exists, define the deterministic cleaning rule as retaining one exact row per PERMNO-date key.
+
+
+---
+
+## RL-013 — Duplicate-key integrity gate passed
+**Date:** 2026-10-02
+
+**Full-dataset verification:** All 14,016 duplicated PERMNO-date groups were checked using full-row hashes across the complete extracted schema.
+
+**Result:**
+- duplicate groups: 14,016
+- excess rows: 14,881
+- exact duplicate groups: 14,016
+- conflicting groups: 0
+- maximum multiplicity: 12
+- maximum distinct row versions within any duplicate group: 1
+
+**Decision:** Exact duplicate rows may be deterministically collapsed to one observation per PERMNO-date key.
+
+**Cleaning rule:** retain one row per unique full-row record and enforce uniqueness of PERMNO-date after removal of exact duplicates.
+
+**Gate status:** PERMNO-date integrity PASSED.
