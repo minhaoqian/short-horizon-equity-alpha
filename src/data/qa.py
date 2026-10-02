@@ -2,6 +2,9 @@
 
 These functions intentionally perform no forecasting. Their purpose is to
 validate the point-in-time security panel before any alpha research begins.
+
+WRDS web exports use lowercase column names, so the default schema below
+matches the actual download interface.
 """
 
 from __future__ import annotations
@@ -15,13 +18,13 @@ import pandas as pd
 
 @dataclass(frozen=True)
 class CRSPColumns:
-    date: str = "DlyCalDt"
-    permno: str = "PERMNO"
-    price: str = "DlyPrc"
-    open: str = "DlyOpen"
-    ret: str = "DlyRet"
-    volume: str = "DlyVol"
-    market_cap: str = "DlyCap"
+    date: str = "dlycaldt"
+    permno: str = "permno"
+    price: str = "dlyprc"
+    open: str = "dlyopen"
+    ret: str = "dlyret"
+    volume: str = "dlyvol"
+    market_cap: str = "dlycap"
 
 
 def validate_required_columns(
@@ -90,12 +93,7 @@ def add_trailing_adv(
     window: int = 20,
     min_periods: int = 15,
 ) -> pd.DataFrame:
-    """Add trailing average dollar volume using only current/past observations.
-
-    Dollar volume uses abs(price) * share volume. The rolling mean includes the
-    current day because the baseline signal is assumed to be formed after the
-    close. If execution timing changes, this convention must be revisited.
-    """
+    """Add trailing average dollar volume using only current/past observations."""
     work = df.sort_values([columns.permno, columns.date]).copy()
     work["dollar_volume"] = (
         pd.to_numeric(work[columns.price], errors="coerce").abs()
@@ -118,8 +116,8 @@ def candidate_liquid_universe(
 ) -> pd.Series:
     """Candidate liquidity mask.
 
-    CRSP CIZ DlyCap is reported in thousands of dollars. Therefore a $1bn
-    market-cap floor corresponds to DlyCap > 1,000,000.
+    CRSP CIZ dlycap is reported in thousands of dollars. Therefore a $1bn
+    market-cap floor corresponds to dlycap > 1,000,000.
 
     This function remains a QA scaffold; thresholds are not yet final.
     """
@@ -144,7 +142,7 @@ def open_coverage_by_liquidity_bucket(
     columns: CRSPColumns = CRSPColumns(),
     n_buckets: int = 5,
 ) -> pd.DataFrame:
-    """Open-price coverage by year and lag-safe ADV bucket."""
+    """Open-price coverage by year and ADV bucket."""
     work = add_trailing_adv(df, columns=columns)
     work[columns.date] = pd.to_datetime(work[columns.date])
     work["year"] = work[columns.date].dt.year
