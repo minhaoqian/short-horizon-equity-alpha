@@ -21,19 +21,14 @@ This document is the pre-analysis research contract. Specifications may be chang
 ## Conditional specifications
 
 ### Execution convention
-Preferred:
+Locked baseline:
 - observe features using information available through close of day t
-- form signal after close t
+- form the signal after close t
 - execute at open t+1
 
-This specification is **not yet locked**. It requires empirical verification of CRSP opening-price coverage in the chosen liquid universe.
+This rule was locked after empirical coverage testing in the candidate liquid universe using true trailing ADV20. Annual opening-price coverage is at least 99.294% over 1993–2025 and is effectively complete in recent years.
 
-Fallback:
-- signal after close t
-- execute at close t+1
-- measure the forward holding-period return strictly after execution
-
-The execution convention will be selected based on data quality and implementability, never on which convention produces the higher Sharpe ratio.
+The baseline 5-day forward target therefore begins at the t+1 open. Any robustness specification using a different execution convention must be labelled explicitly and may not replace the baseline because of superior realised performance.
 
 ### Universe thresholds
 Candidate baseline filters:
