@@ -95,3 +95,17 @@ This log records design decisions, rejected alternatives, data issues, failed hy
 **Action:** Corrected the Stage 1A QA utility and documented the unit convention explicitly.
 
 **Research-control lesson:** Source units must be verified before any universe filter or feature is operationalised.
+
+
+---
+
+## RL-009 — WRDS daily extraction schema confirmed
+**Date:** 2026-10-02
+
+**Finding:** The CIZ Daily Stock File web query exposes the core fields required for Stage 1A, including PERMNO/PERMCO, daily OHLC/price fields, total/price/income returns, volume, bid/ask, market capitalisation, delisting flag, price-adjustment factor, and ordinary/non-ordinary dividend amounts.
+
+**Non-issue:** Several optional cumulative adjustment / return-quality variables considered during planning are not exposed in this query form. They are not necessary for Stage 1A data-quality testing and do not justify delaying the extraction.
+
+**Implementation note:** WRDS web exports use lowercase variable names. Repository QA code was aligned to the actual export schema.
+
+**Query decision:** Proceed with the full 1993–2025 entire-database daily extraction with no universe filters applied in WRDS.
