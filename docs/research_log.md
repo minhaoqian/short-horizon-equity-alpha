@@ -259,3 +259,17 @@ This classification identifies 112,197 historical metadata intervals covering 26
 **Interpretation:** Historical security classification data are sufficiently complete and internally consistent for point-in-time universe construction.
 
 **Remaining universe decision:** determine the baseline PrimaryExch / TradingStatusFlg restrictions before locking the final ordinary common-equity universe.
+
+
+---
+
+## RL-017 — Baseline common-equity universe locked
+**Date:** 2026-10-02
+
+**Decision:** Lock the baseline point-in-time ordinary US common-equity classification as SecurityType='EQTY', SecuritySubType='COM', ShareType='NS', USIncFlg='Y', IssuerType in ('ACOR','CORP'), PrimaryExch in ('N','A','Q'), and TradingStatusFlg='A'.
+
+**Exchange/status diagnostic:** N/A/Q retains approximately 99.98% of annual observations on average in the candidate liquid common-equity panel; the minimum annual retention is about 99.84%. Only 1,898 B-exchange observations and 227 I-exchange observations fall outside N/A/Q, involving three PERMNOs in total.
+
+**Interpretation:** The N/A/Q restriction has economically immaterial breadth impact while producing a cleaner NYSE / NYSE American / NASDAQ baseline universe.
+
+**Gate status:** security-classification universe PASSED.
