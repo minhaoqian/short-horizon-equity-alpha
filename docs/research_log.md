@@ -109,3 +109,17 @@ This log records design decisions, rejected alternatives, data issues, failed hy
 **Implementation note:** WRDS web exports use lowercase variable names. Repository QA code was aligned to the actual export schema.
 
 **Query decision:** Proceed with the full 1993–2025 entire-database daily extraction with no universe filters applied in WRDS.
+
+
+---
+
+## RL-010 — Large-file processing workflow
+**Date:** 2026-10-02
+
+**Finding:** The full 1993–2025 WRDS daily extract is multi-GB, as expected for an entire-database daily panel.
+
+**Decision:** Raw licensed CRSP data remain local and are not uploaded to GitHub or external chat storage.
+
+**Implementation:** Added a DuckDB-based Stage 1A QA script that queries compressed CSV directly and can spill to disk, avoiding a full pandas in-memory load.
+
+**Research implication:** None. File size changes the engineering workflow, not the methodology or sample definition.
