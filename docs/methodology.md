@@ -31,14 +31,14 @@ This rule was locked after empirical coverage testing in the candidate liquid un
 The baseline 5-day forward target therefore begins at the t+1 open. Any robustness specification using a different execution convention must be labelled explicitly and may not replace the baseline because of superior realised performance.
 
 ### Universe thresholds
-Candidate baseline filters:
-- ordinary US common equities
+Locked baseline filters:
+- ordinary US common equities under the locked point-in-time security-classification rules
 - price > $5
 - market capitalisation > $1bn
 - trailing 20-day ADV > $20m
-- adequate history for required features
+- at least 15 valid observations in the 20-day ADV window
 
-Exact thresholds remain conditional on cross-sectional distribution and coverage diagnostics.
+These thresholds were locked after a pre-specified sensitivity analysis using only sample breadth, time-series stability, opening-price coverage, and implementability proxies. No return-performance statistic was used.
 
 ### Sample period
 Candidate extraction period:
