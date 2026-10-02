@@ -143,3 +143,17 @@ This log records design decisions, rejected alternatives, data issues, failed hy
 **Decision:** Do not deduplicate mechanically. Inspect representative full source rows to identify the cause before defining a deterministic resolution rule.
 
 **Gate status:** schema passed; next-open execution provisionally supported; unique-key integrity remains under investigation.
+
+
+---
+
+## RL-012 — Representative duplicate rows inspected
+**Date:** 2026-10-02
+
+**Diagnostic:** Inspected 25 high-multiplicity duplicate PERMNO-date groups comprising 122 raw rows and all 29 extracted fields.
+
+**Finding:** Within every inspected PERMNO-date group, all observed fields were exactly identical. No price, return, volume, capitalisation, identifier, flag, or corporate-action field differed within a sampled duplicate group.
+
+**Interpretation:** The sampled duplicates appear to be mechanical exact-row duplication rather than economically distinct daily observations.
+
+**Decision:** Do not yet collapse duplicates based only on the sample. Run a full-dataset row-hash integrity check across all 14,016 duplicate groups. If no conflicting group exists, define the deterministic cleaning rule as retaining one exact row per PERMNO-date key.
