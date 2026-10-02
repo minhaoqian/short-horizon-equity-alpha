@@ -318,3 +318,23 @@ This classification identifies 112,197 historical metadata intervals covering 26
 **Rationale:** The baseline is a balanced, interpretable middle specification with strong open-price coverage and sufficient cross-sectional breadth across the full sample, without using any performance statistic.
 
 **Gate status:** liquidity-threshold gate PASSED.
+
+
+---
+
+## RL-020 — Stage 1D methodology check before target construction
+**Date:** 2026-10-02
+
+**Objective:** Freeze the final signal-date eligibility panel and define a five-trading-day forward target consistent with the locked next-open execution convention.
+
+**Locked timing:** information through close t -> signal after close t -> execution at open t+1.
+
+**Candidate target:** open-to-open price return from t+1 through t+6, i.e. Open(t+6)/Open(t+1)-1.
+
+**Integrity concern:** A security may lack a valid t+1 or t+6 opening price because of suspension, delisting, or other trading discontinuity. Blindly dropping such observations could create selection bias, particularly if failures are related to poor future returns.
+
+**Permitted evidence in this gate:** label availability, endpoint-open coverage, five-day-horizon delisting incidence, trading-calendar integrity, and sample attrition only.
+
+**Prohibited evidence:** IC, model fit, Sharpe, portfolio returns, PnL, or any performance statistic.
+
+**Decision rule:** The primary target will be frozen only after quantifying endpoint failure and delisting within the forecast horizon. Any fallback treatment must preserve point-in-time logic and be documented before model training.
