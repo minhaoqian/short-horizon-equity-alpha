@@ -289,3 +289,32 @@ This classification identifies 112,197 historical metadata intervals covering 26
 **Sensitivity design:** compare nearby economically interpretable thresholds around the candidate baseline. The purpose is diagnostic, not optimisation.
 
 **Gate condition:** final thresholds may be locked only after confirming that the baseline produces a sufficiently broad and historically stable ordinary-US-common-equity universe without compromising next-open data coverage.
+
+
+---
+
+## RL-019 — Liquidity thresholds locked after non-performance sensitivity analysis
+**Date:** 2026-10-02
+
+**Methodology constraint:** Threshold selection used only universe breadth, time-series stability, opening-price coverage, and implementability proxies. No returns, IC, Sharpe, or PnL were examined.
+
+**Sensitivity grid:** Price floors $3/$5/$10; market-cap floors $0.5bn/$1bn/$2bn; ADV20 floors $10m/$20m/$50m.
+
+**Baseline diagnostics for price > $5, market cap > $1bn, ADV20 > $20m:**
+- mean annual securities: about 1,181
+- minimum annual securities: 285
+- maximum annual securities: 1,895
+- mean annual open coverage: 99.836%
+- minimum annual open coverage: 99.267%
+- daily panel spans 8,293 trading dates
+- median daily eligible securities: 858
+- mean daily eligible securities: about 808
+- maximum daily eligible securities: 1,475
+
+**Neighbouring-threshold interpretation:** Lowering ADV20 to $10m materially broadens the universe; raising ADV20 to $50m materially narrows it. Moving the price floor from $5 to $3 or $10 has comparatively modest breadth impact once the size/liquidity filters are imposed. A $2bn cap floor narrows the sample materially; a $0.5bn floor broadens it.
+
+**Decision:** Lock the baseline investability filters at price > $5, market capitalisation > $1bn, trailing 20-day ADV > $20m, with at least 15 valid observations in the ADV20 window.
+
+**Rationale:** The baseline is a balanced, interpretable middle specification with strong open-price coverage and sufficient cross-sectional breadth across the full sample, without using any performance statistic.
+
+**Gate status:** liquidity-threshold gate PASSED.
