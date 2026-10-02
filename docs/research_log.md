@@ -82,3 +82,16 @@ This log records design decisions, rejected alternatives, data issues, failed hy
 **Permitted work:** schema verification, extraction design, coverage diagnostics, eligibility logic, missingness checks, delisting checks.
 
 **Not permitted yet:** model training or portfolio backtesting.
+
+---
+
+## RL-008 — CRSP CIZ market-cap unit verified
+**Date:** 2026-10-02
+
+**Finding:** Official CRSP CIZ documentation defines `DlyCap` as daily market capitalisation reported in thousands of dollars.
+
+**Implication:** A $1bn threshold maps to `DlyCap > 1,000,000` in the native CRSP field, not `1,000,000,000`.
+
+**Action:** Corrected the Stage 1A QA utility and documented the unit convention explicitly.
+
+**Research-control lesson:** Source units must be verified before any universe filter or feature is operationalised.
