@@ -210,3 +210,22 @@ signal formed after the close on day t -> execute at the open on day t+1.
 **Implication for primary 5-day target:** the label must begin at the next-open execution price and exclude all return information prior to that fill.
 
 **Gate status:** execution timing PASSED.
+
+
+---
+
+## RL-015 — Historical security metadata extraction initiated
+**Date:** 2026-10-02
+
+**Source:** CRSP CIZ Names / historical security information.
+
+**Fields retained:** PERMNO, PERMCO, SecInfoStartDt, SecInfoEndDt, SecurityType, SecuritySubType, ShareType, IssuerType, USIncFlg, PrimaryExch, Ticker, CUSIP, SICCD, TradingStatusFlg.
+
+**Point-in-time rule:** a metadata row is valid for a daily observation only when:
+SecInfoStartDt <= date <= SecInfoEndDt.
+
+**Candidate ordinary US common-equity definition:** SecurityType='EQTY', SecuritySubType='COM', ShareType='NS', USIncFlg='Y', IssuerType in ('ACOR','CORP').
+
+**Rationale:** This reproduces the CIZ mapping corresponding to the legacy ordinary US common-stock share-code convention while explicitly excluding REIT issuer type from the core baseline.
+
+**Status:** classification values and interval integrity must be empirically checked before the universe definition is locked.
