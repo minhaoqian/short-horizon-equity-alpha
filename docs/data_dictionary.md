@@ -1,6 +1,6 @@
-# Data Dictionary — v0.1
+# Data Dictionary — v0.2
 
-The first data layer is CRSP CIZ daily US stock data. Exact WRDS table names and field availability will be verified against the user's current subscription before extraction code is finalised.
+The first data layer is CRSP CIZ daily US stock data. WRDS currently references the complete daily security table as `crsp.StkDlySecurityData`.
 
 ## Identification
 
@@ -8,7 +8,7 @@ The first data layer is CRSP CIZ daily US stock data. Exact WRDS table names and
 |---|---|
 | PERMNO | primary historical security identifier |
 | PERMCO | company identifier |
-| date / DlyCalDt | trading date |
+| DlyCalDt | trading date |
 | ticker | display only; never the primary historical join key |
 | company/security name | diagnostics and reporting |
 
@@ -28,20 +28,22 @@ Uses:
 - price-based eligibility filters
 - forward return construction
 
+CRSP defines `DlyPrc` as the last regular-session trade price, using a bid/ask average when a closing trade price is unavailable. Price flags must therefore remain available for diagnostics.
+
 ## Returns
 
 Candidate fields:
 - DlyRet
 - DlyRetx
-- any available return-index / adjusted-return fields required for robust compounding
+- available return flags / indexes needed for robust compounding
 
-The distinction between total return and ex-distribution price return must be maintained.
+The distinction between total return and ex-distribution price return must be maintained. In CIZ, delisting returns are incorporated into the return framework rather than appended later using the legacy FIZ/SIZ workflow.
 
 ## Volume and liquidity
 
 Candidate fields:
 - DlyVol
-- DlyPrcVol / dollar-volume equivalent
+- DlyPrcVol where available
 - DlyBid
 - DlyAsk
 
@@ -54,8 +56,16 @@ Derived candidates:
 
 ## Size
 
-Candidate field:
+Primary field:
 - DlyCap
+
+**Critical unit convention:** CRSP CIZ reports `DlyCap` in **thousands of dollars**.
+
+Therefore:
+- $1bn market cap = `DlyCap = 1,000,000`
+- $5bn market cap = `DlyCap = 5,000,000`
+
+All code must either retain the native `*_thousands` convention explicitly or convert once to dollars using a named field such as `market_cap_usd`. Silent unit conversion is prohibited.
 
 Uses:
 - universe eligibility
@@ -65,10 +75,10 @@ Uses:
 ## Corporate actions / data quality
 
 Candidate fields and flags:
-- delisting indicator(s)
-- price flags
-- return-missing flags
-- market-cap flags
+- DlyDelFlg
+- DlyPrcFlg
+- return-missing / return flags where available
+- DlyCapFlg
 - distribution / adjustment information
 
 No missing observation will be automatically treated as zero return.
@@ -113,4 +123,5 @@ Every final feature must receive:
 3. information timestamp,
 4. minimum-history rule,
 5. missing-data treatment,
-6. winsorisation / normalisation rule.
+6. winsorisation / normalisation rule,
+7. source-unit convention.
