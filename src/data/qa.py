@@ -112,26 +112,29 @@ def candidate_liquid_universe(
     df: pd.DataFrame,
     columns: CRSPColumns = CRSPColumns(),
     price_floor: float = 5.0,
-    market_cap_floor: float = 1_000_000_000.0,
+    market_cap_floor_thousands: float = 1_000_000.0,
     adv_floor: float = 20_000_000.0,
     adv_col: str = "adv_20",
 ) -> pd.Series:
     """Candidate liquidity mask.
 
-    Units of market capitalisation must be verified against the extracted CRSP
-    field before this mask is used. This function is a QA scaffold, not a final
-    sample-definition decision.
+    CRSP CIZ DlyCap is reported in thousands of dollars. Therefore a $1bn
+    market-cap floor corresponds to DlyCap > 1,000,000.
+
+    This function remains a QA scaffold; thresholds are not yet final.
     """
     if adv_col not in df.columns:
         raise ValueError(f"{adv_col} not found; call add_trailing_adv first.")
 
     price = pd.to_numeric(df[columns.price], errors="coerce").abs()
-    market_cap = pd.to_numeric(df[columns.market_cap], errors="coerce")
+    market_cap_thousands = pd.to_numeric(
+        df[columns.market_cap], errors="coerce"
+    )
     adv = pd.to_numeric(df[adv_col], errors="coerce")
 
     return (
         (price > price_floor)
-        & (market_cap > market_cap_floor)
+        & (market_cap_thousands > market_cap_floor_thousands)
         & (adv > adv_floor)
     )
 
