@@ -4,15 +4,21 @@ Designed for multi-GB WRDS CSV / CSV.GZ extracts without loading the full
 dataset into pandas memory.
 
 Usage:
-    python scripts/01_crsp_data_qa_large.py data/raw/crsp_daily_1993_2025.csv.gz
+    python3 scripts/01_crsp_data_qa_large.py data/raw/crsp_daily_1993_2025.csv.gz
 """
 
 from __future__ import annotations
 
 import argparse
 from pathlib import Path
+import sys
+import time
 
 import duckdb
+
+
+def log(msg: str) -> None:
+    print(msg, flush=True)
 
 
 def qident(name: str) -> str:
@@ -29,17 +35,26 @@ def main() -> None:
     )
     args = parser.parse_args()
 
+    if not args.input.exists():
+        raise FileNotFoundError(f"Input file not found: {args.input}")
+
     args.output_dir.mkdir(parents=True, exist_ok=True)
+    Path(".duckdb_tmp").mkdir(exist_ok=True)
+
     input_path = str(args.input.resolve()).replace("'", "''")
     con = duckdb.connect()
-
-    # Let DuckDB spill to disk rather than relying on RAM.
     con.execute("SET preserve_insertion_order=false")
     con.execute("SET temp_directory='.duckdb_tmp'")
 
-    relation = f"read_csv_auto('{input_path}', header=true, sample_size=-1, all_varchar=false)"
+    log(f"Input: {args.input}")
+    log(f"Size: {args.input.stat().st_size / (1024**3):.2f} GB")
+    log("[1/6] Detecting CSV schema from a sample...")
 
-    # Schema snapshot
+    relation = (
+        f"read_csv_auto('{input_path}', header=true, "
+        f"sample_size=200000, all_varchar=false)"
+    )
+
     schema = con.execute(f"DESCRIBE SELECT * FROM {relation}").fetchdf()
     schema.to_csv(args.output_dir / "schema.csv", index=False)
 
@@ -51,58 +66,74 @@ def main() -> None:
 
     p = {k: qident(cols[k]) for k in required}
 
-    # Basic row / identifier diagnostics.
-    basic = con.execute(f"""
-        SELECT
-            COUNT(*) AS rows,
-            COUNT(DISTINCT {p['permno']}) AS unique_permnos,
-            MIN(CAST({p['dlycaldt']} AS DATE)) AS min_date,
-            MAX(CAST({p['dlycaldt']} AS DATE)) AS max_date
-        FROM {relation}
-    """).fetchdf()
-    basic.to_csv(args.output_dir / "basic_summary.csv", index=False)
+    log("[2/6] Materialising the required columns once with DuckDB.")
+    log("      For a 2.4 GB gzip file this can take several minutes.")
+    log("      DuckDB may use .duckdb_tmp/ on disk if RAM is insufficient.")
 
-    # Duplicate security-date rows.
-    dups = con.execute(f"""
+    t0 = time.time()
+    con.execute(f"""
+        CREATE TEMP TABLE crsp_qa AS
         SELECT
             {p['permno']} AS permno,
             CAST({p['dlycaldt']} AS DATE) AS dlycaldt,
-            COUNT(*) AS n
+            TRY_CAST({p['dlyprc']} AS DOUBLE) AS dlyprc,
+            TRY_CAST({p['dlyopen']} AS DOUBLE) AS dlyopen,
+            TRY_CAST({p['dlyret']} AS DOUBLE) AS dlyret,
+            TRY_CAST({p['dlyvol']} AS DOUBLE) AS dlyvol,
+            TRY_CAST({p['dlycap']} AS DOUBLE) AS dlycap
         FROM {relation}
+    """)
+    log(f"      Loaded once in {(time.time()-t0)/60:.1f} minutes.")
+
+    log("[3/6] Computing row counts and duplicate PERMNO-date checks...")
+    basic = con.execute("""
+        SELECT
+            COUNT(*) AS rows,
+            COUNT(DISTINCT permno) AS unique_permnos,
+            MIN(dlycaldt) AS min_date,
+            MAX(dlycaldt) AS max_date
+        FROM crsp_qa
+    """).fetchdf()
+    basic.to_csv(args.output_dir / "basic_summary.csv", index=False)
+
+    dups = con.execute("""
+        SELECT
+            permno,
+            dlycaldt,
+            COUNT(*) AS n
+        FROM crsp_qa
         GROUP BY 1, 2
         HAVING COUNT(*) > 1
         ORDER BY n DESC, permno, dlycaldt
     """).fetchdf()
     dups.to_csv(args.output_dir / "duplicate_security_dates.csv", index=False)
 
-    # Annual field coverage.
-    coverage = con.execute(f"""
+    log("[4/6] Computing yearly field coverage...")
+    coverage = con.execute("""
         SELECT
-            EXTRACT(year FROM CAST({p['dlycaldt']} AS DATE))::INTEGER AS year,
+            EXTRACT(year FROM dlycaldt)::INTEGER AS year,
             COUNT(*) AS observations,
-            COUNT(DISTINCT {p['permno']}) AS securities,
-            AVG(CASE WHEN {p['dlyprc']} IS NOT NULL THEN 1 ELSE 0 END) AS dlyprc_coverage,
-            AVG(CASE WHEN {p['dlyopen']} IS NOT NULL THEN 1 ELSE 0 END) AS dlyopen_coverage,
-            AVG(CASE WHEN {p['dlyret']} IS NOT NULL THEN 1 ELSE 0 END) AS dlyret_coverage,
-            AVG(CASE WHEN {p['dlyvol']} IS NOT NULL THEN 1 ELSE 0 END) AS dlyvol_coverage,
-            AVG(CASE WHEN {p['dlycap']} IS NOT NULL THEN 1 ELSE 0 END) AS dlycap_coverage
-        FROM {relation}
+            COUNT(DISTINCT permno) AS securities,
+            AVG(CASE WHEN dlyprc IS NOT NULL THEN 1 ELSE 0 END) AS dlyprc_coverage,
+            AVG(CASE WHEN dlyopen IS NOT NULL THEN 1 ELSE 0 END) AS dlyopen_coverage,
+            AVG(CASE WHEN dlyret IS NOT NULL THEN 1 ELSE 0 END) AS dlyret_coverage,
+            AVG(CASE WHEN dlyvol IS NOT NULL THEN 1 ELSE 0 END) AS dlyvol_coverage,
+            AVG(CASE WHEN dlycap IS NOT NULL THEN 1 ELSE 0 END) AS dlycap_coverage
+        FROM crsp_qa
         GROUP BY 1
         ORDER BY 1
     """).fetchdf()
     coverage.to_csv(args.output_dir / "yearly_coverage.csv", index=False)
 
-    # Yearly distributions for raw price, CRSP-native market cap (thousand USD),
-    # and daily dollar volume.
-    distributions = con.execute(f"""
+    log("[5/6] Computing annual price / size / dollar-volume distributions...")
+    distributions = con.execute("""
         WITH x AS (
             SELECT
-                EXTRACT(year FROM CAST({p['dlycaldt']} AS DATE))::INTEGER AS year,
-                ABS(TRY_CAST({p['dlyprc']} AS DOUBLE)) AS price,
-                TRY_CAST({p['dlycap']} AS DOUBLE) AS dlycap_thousand_usd,
-                ABS(TRY_CAST({p['dlyprc']} AS DOUBLE))
-                  * TRY_CAST({p['dlyvol']} AS DOUBLE) AS dollar_volume
-            FROM {relation}
+                EXTRACT(year FROM dlycaldt)::INTEGER AS year,
+                ABS(dlyprc) AS price,
+                dlycap AS dlycap_thousand_usd,
+                ABS(dlyprc) * dlyvol AS dollar_volume
+            FROM crsp_qa
         )
         SELECT
             year,
@@ -121,18 +152,16 @@ def main() -> None:
     """).fetchdf()
     distributions.to_csv(args.output_dir / "yearly_distributions.csv", index=False)
 
-    # Opening-price coverage in a simple candidate liquid cross-section.
-    # dlycap is in thousands of USD, so 1bn USD = 1,000,000.
-    liquid_open = con.execute(f"""
+    log("[6/6] Computing opening-price coverage in a candidate liquid sample...")
+    liquid_open = con.execute("""
         WITH x AS (
             SELECT
-                EXTRACT(year FROM CAST({p['dlycaldt']} AS DATE))::INTEGER AS year,
-                ABS(TRY_CAST({p['dlyprc']} AS DOUBLE)) AS price,
-                TRY_CAST({p['dlycap']} AS DOUBLE) AS cap_kusd,
-                ABS(TRY_CAST({p['dlyprc']} AS DOUBLE))
-                  * TRY_CAST({p['dlyvol']} AS DOUBLE) AS dollar_volume,
-                {p['dlyopen']} AS dlyopen
-            FROM {relation}
+                EXTRACT(year FROM dlycaldt)::INTEGER AS year,
+                ABS(dlyprc) AS price,
+                dlycap AS cap_kusd,
+                ABS(dlyprc) * dlyvol AS dollar_volume,
+                dlyopen
+            FROM crsp_qa
         )
         SELECT
             year,
@@ -145,13 +174,21 @@ def main() -> None:
         GROUP BY year
         ORDER BY year
     """).fetchdf()
-    liquid_open.to_csv(args.output_dir / "open_coverage_candidate_liquid.csv", index=False)
+    liquid_open.to_csv(
+        args.output_dir / "open_coverage_candidate_liquid.csv",
+        index=False,
+    )
 
-    print("\nStage 1A large-file QA complete.")
-    print(basic.to_string(index=False))
-    print(f"Duplicate PERMNO-date groups: {len(dups):,}")
-    print(f"Outputs: {args.output_dir.resolve()}")
+    log("")
+    log("Stage 1A QA complete.")
+    log(basic.to_string(index=False))
+    log(f"Duplicate PERMNO-date groups: {len(dups):,}")
+    log(f"Outputs: {args.output_dir.resolve()}")
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\nStopped by user.", file=sys.stderr)
+        sys.exit(130)
