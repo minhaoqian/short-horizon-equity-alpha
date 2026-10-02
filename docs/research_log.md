@@ -386,3 +386,24 @@ The correct diagnostic is therefore DlyFacPrc != 1 (with numerical tolerance), n
 Other Stage 1E findings remain valid: ordinary-dividend windows are material (~5.39% of eligible five-day windows), while genuine entry/exit-open failures and delisting windows are each around one-tenth of one percent overall.
 
 The audit will be rerun with the corrected factor-event definition before the target is frozen.
+
+
+---
+
+## RL-024 — Stage 1E corporate-action audit passed; cumulative adjustment data required
+**Date:** 2026-10-02
+
+Corrected five-day-window audit across 6,699,101 eligible signal observations:
+- right-censored windows: 8,686 (0.130%)
+- genuine missing entry opens: 7,596 (0.113%)
+- genuine missing exit opens: 7,703 (0.115%)
+- ordinary-dividend windows: 360,788 (5.386%)
+- non-ordinary-dividend windows: 8,446 (0.126%)
+- non-unit DlyFacPrc windows: 12,617 (0.188%)
+- delisting windows: 8,416 (0.126%)
+
+**Interpretation:** corporate-action factor events are rare but non-negligible, while ordinary dividends occur in more than five percent of candidate holding windows. Therefore a raw opening-price ratio is not an adequate headline target.
+
+**Decision:** obtain CRSP cumulative price-adjustment data (DlyCumFacPr or equivalent) before freezing the primary next-open-to-next-open target. Existing DlyFacPrc must not be used as a substitute cumulative factor.
+
+**Target status:** still conditional pending cumulative-adjustment extraction and verification.
