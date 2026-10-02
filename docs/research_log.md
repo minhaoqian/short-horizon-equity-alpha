@@ -273,3 +273,19 @@ This classification identifies 112,197 historical metadata intervals covering 26
 **Interpretation:** The N/A/Q restriction has economically immaterial breadth impact while producing a cleaner NYSE / NYSE American / NASDAQ baseline universe.
 
 **Gate status:** security-classification universe PASSED.
+
+
+---
+
+## RL-018 — Stage 1C methodology check before liquidity-threshold analysis
+**Date:** 2026-10-02
+
+**Permitted evidence for threshold selection:** cross-sectional breadth, time-series stability, opening-price coverage, and implementability proxies only.
+
+**Prohibited evidence:** future returns, IC, Sharpe ratio, PnL, or any strategy-performance statistic.
+
+**Candidate baseline retained ex ante:** price > $5, market capitalisation > $1bn, trailing ADV20 > $20m, with at least 15 valid observations in the rolling ADV window.
+
+**Sensitivity design:** compare nearby economically interpretable thresholds around the candidate baseline. The purpose is diagnostic, not optimisation.
+
+**Gate condition:** final thresholds may be locked only after confirming that the baseline produces a sufficiently broad and historically stable ordinary-US-common-equity universe without compromising next-open data coverage.
