@@ -36,14 +36,16 @@ Final filters will be coded from point-in-time security metadata. Candidate crit
 - minimum trailing ADV
 - sufficient trailing history
 
-The exact CRSP security-type fields will be documented once the CIZ schema is confirmed.
+The exact CIZ security-type fields will be verified before the final eligibility query is frozen.
 
 ## Stage 1C — liquidity thresholds
 
-Candidate baseline:
+Candidate economic thresholds:
 - price > $5
 - market cap > $1bn
 - ADV_20 > $20m
+
+**CRSP native-unit reminder:** `DlyCap` is in thousands of dollars, so a $1bn candidate floor corresponds to `DlyCap > 1,000,000`.
 
 These are starting hypotheses, not final choices.
 
@@ -72,7 +74,7 @@ date
 permno
 eligible
 price
-market_cap
+market_cap_usd
 adv_20
 eligibility_reason / exclusion_reason
 ```
