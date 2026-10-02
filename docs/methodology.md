@@ -99,3 +99,19 @@ Later constrained implementation may include:
 8. Hyperparameters cannot be tuned on the final holdout.
 9. Headline portfolio results must be net of costs.
 10. Failed hypotheses and rejected specifications remain in the research record.
+
+
+## Locked security-classification universe
+
+Historical security metadata are joined point-in-time using `SecInfoStartDt <= date <= SecInfoEndDt`.
+
+Baseline security eligibility:
+- SecurityType = EQTY
+- SecuritySubType = COM
+- ShareType = NS
+- USIncFlg = Y
+- IssuerType in (ACOR, CORP)
+- PrimaryExch in (N, A, Q)
+- TradingStatusFlg = A
+
+This definition was locked after metadata-integrity and exchange/status breadth diagnostics.
