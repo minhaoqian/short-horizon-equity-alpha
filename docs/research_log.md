@@ -179,3 +179,34 @@ This log records design decisions, rejected alternatives, data issues, failed hy
 **Cleaning rule:** retain one row per unique full-row record and enforce uniqueness of PERMNO-date after removal of exact duplicates.
 
 **Gate status:** PERMNO-date integrity PASSED.
+
+
+---
+
+## RL-014 — Next-open execution gate passed using true ADV20
+**Date:** 2026-10-02
+
+**Candidate liquid-universe rule tested:**
+- |price| > $5
+- market capitalisation > $1bn
+- trailing 20-day ADV > $20m
+- at least 15 valid observations in the 20-day ADV window
+
+**Opening-price coverage result (1993–2025):**
+- minimum annual coverage: 99.294% (2002)
+- mean annual coverage: 99.844%
+- median annual coverage: approximately 99.998%
+- recent years are effectively 100% in most cases
+
+**Universe breadth:**
+- median daily eligible count: 1,178 securities
+- mean daily eligible count: about 1,131
+- maximum daily eligible count: 2,426
+- 2025-12-31 eligible count: 2,381
+
+**Decision:** Lock the baseline execution convention as:
+signal formed after the close on day t -> execute at the open on day t+1.
+
+**Implication for primary 5-day target:** the label must begin at the next-open execution price and exclude all return information prior to that fill.
+
+**Gate status:** execution timing PASSED.
