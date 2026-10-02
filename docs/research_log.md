@@ -229,3 +229,33 @@ SecInfoStartDt <= date <= SecInfoEndDt.
 **Rationale:** This reproduces the CIZ mapping corresponding to the legacy ordinary US common-stock share-code convention while explicitly excluding REIT issuer type from the core baseline.
 
 **Status:** classification values and interval integrity must be empirically checked before the universe definition is locked.
+
+
+---
+
+## RL-016 — Historical metadata point-in-time gate passed
+**Date:** 2026-10-02
+
+**Metadata sample:**
+- 191,048 historical security-information rows
+- 40,518 unique PERMNOs
+- history spanning 1925-12-31 through 2025-12-31
+- zero missing interval start dates
+- zero missing interval end dates
+- zero invalid intervals
+- zero overlapping intervals
+
+**Point-in-time join result:** Candidate liquid daily observations matched historical security metadata at 100% in every calendar year from 1993 through 2025.
+
+**Candidate ordinary-US-common classification:**
+- SecurityType = 'EQTY'
+- SecuritySubType = 'COM'
+- ShareType = 'NS'
+- USIncFlg = 'Y'
+- IssuerType in ('ACOR','CORP')
+
+This classification identifies 112,197 historical metadata intervals covering 26,914 unique PERMNOs.
+
+**Interpretation:** Historical security classification data are sufficiently complete and internally consistent for point-in-time universe construction.
+
+**Remaining universe decision:** determine the baseline PrimaryExch / TradingStatusFlg restrictions before locking the final ordinary common-equity universe.
