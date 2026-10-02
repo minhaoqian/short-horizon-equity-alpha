@@ -370,3 +370,19 @@ CRSP DlyRet already incorporates applicable price-adjustment factors and dividen
 Stage 1E will therefore quantify the incidence of corporate actions and endpoint failures before deciding whether the current extract is sufficient or whether DlyCumFacPr / cumulative adjustment data must be downloaded.
 
 No model-performance statistics may be used in this decision.
+
+
+---
+
+## RL-023 — Stage 1E audit bug identified and corrected
+**Date:** 2026-10-02
+
+The first corporate-action audit incorrectly flagged DlyFacPrc != 0 as a factor event. In CRSP CIZ, DlyFacPrc=1 is the dominant no-adjustment state, so this condition incorrectly classified nearly every holding window as containing a factor event.
+
+Observed DlyFacPrc frequency confirms this: 64,941,709 rows have DlyFacPrc=1. Only about 15,382 non-unit factor rows are present among rows with observed DlyFacPrc, approximately 0.0237%.
+
+The correct diagnostic is therefore DlyFacPrc != 1 (with numerical tolerance), not DlyFacPrc != 0.
+
+Other Stage 1E findings remain valid: ordinary-dividend windows are material (~5.39% of eligible five-day windows), while genuine entry/exit-open failures and delisting windows are each around one-tenth of one percent overall.
+
+The audit will be rerun with the corrected factor-event definition before the target is frozen.
