@@ -136,7 +136,7 @@ def main() -> None:
                        AND COALESCE(d.dlynonorddivamt,0)<>0 THEN 1 ELSE 0 END) AS nonordinary_dividend_window,
             MAX(CASE WHEN d.td BETWEEN e.signal_td+1 AND e.signal_td+6
                        AND d.dlyfacprc IS NOT NULL
-                       AND ABS(d.dlyfacprc) > 1e-12 THEN 1 ELSE 0 END) AS nonunit_factor_window,
+                       AND ABS(d.dlyfacprc - 1.0) > 1e-12 THEN 1 ELSE 0 END) AS nonunit_factor_window,
             MAX(CASE WHEN d.td BETWEEN e.signal_td+1 AND e.signal_td+6
                        AND d.dlydelflg IS NOT NULL
                        AND TRIM(CAST(d.dlydelflg AS VARCHAR)) NOT IN ('','0','N')
