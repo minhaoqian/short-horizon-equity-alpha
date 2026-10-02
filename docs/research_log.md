@@ -123,3 +123,23 @@ This log records design decisions, rejected alternatives, data issues, failed hy
 **Implementation:** Added a DuckDB-based Stage 1A QA script that queries compressed CSV directly and can spill to disk, avoiding a full pandas in-memory load.
 
 **Research implication:** None. File size changes the engineering workflow, not the methodology or sample definition.
+
+
+---
+
+## RL-011 — Stage 1A first-pass CRSP QA completed
+**Date:** 2026-10-02
+
+**Sample:** 64,974,442 daily rows, 30,363 unique PERMNOs, 1993-01-04 through 2025-12-31.
+
+**Finding 1 — opening-price coverage:** Raw all-security opening-price coverage rises from about 87.5% in 1993 to about 98.5% in 2025. In the preliminary liquid-security diagnostic, annual opening-price coverage is at least 99.27% and averages about 99.83%.
+
+**Interpretation:** Missing opening prices are largely an illiquid-security problem, so next-open execution appears feasible for the intended liquid universe.
+
+**Caveat:** The first liquid diagnostic used same-day dollar volume, not the pre-specified trailing ADV20. Execution timing remains formally unlocked until a lag-safe ADV20 test is completed.
+
+**Finding 2 — duplicate keys:** 14,016 PERMNO-date groups contain duplicates, representing 14,881 excess rows, about 0.0229% of the extract. Maximum multiplicity is 12.
+
+**Decision:** Do not deduplicate mechanically. Inspect representative full source rows to identify the cause before defining a deterministic resolution rule.
+
+**Gate status:** schema passed; next-open execution provisionally supported; unique-key integrity remains under investigation.
