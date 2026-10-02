@@ -1,0 +1,9 @@
+pandas>=2.2
+numpy>=2.0
+pyarrow>=17.0
+scipy>=1.14
+statsmodels>=0.14
+scikit-learn>=1.5
+matplotlib>=3.9
+pytest>=8.0
+jupyter>=1.1
