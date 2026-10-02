@@ -136,7 +136,7 @@ def main() -> None:
                        AND COALESCE(d.dlynonorddivamt,0)<>0 THEN 1 ELSE 0 END) AS nonordinary_dividend_window,
             MAX(CASE WHEN d.td BETWEEN e.signal_td+1 AND e.signal_td+6
                        AND d.dlyfacprc IS NOT NULL
-                       AND ABS(d.dlyfacprc) > 1e-12 THEN 1 ELSE 0 END) AS nonzero_factor_window,
+                       AND ABS(d.dlyfacprc) > 1e-12 THEN 1 ELSE 0 END) AS nonunit_factor_window,
             MAX(CASE WHEN d.td BETWEEN e.signal_td+1 AND e.signal_td+6
                        AND d.dlydelflg IS NOT NULL
                        AND TRIM(CAST(d.dlydelflg AS VARCHAR)) NOT IN ('','0','N')
@@ -157,7 +157,7 @@ def main() -> None:
             SUM(CASE WHEN right_censored=0 AND has_entry_open>0 AND has_exit_open=0 THEN 1 ELSE 0 END) AS genuine_missing_exit_open,
             SUM(ordinary_dividend_window) AS ordinary_dividend_windows,
             SUM(nonordinary_dividend_window) AS nonordinary_dividend_windows,
-            SUM(nonzero_factor_window) AS nonzero_factor_windows,
+            SUM(nonunit_factor_window) AS nonunit_factor_windows,
             SUM(delist_window) AS delist_windows
         FROM audit
         GROUP BY 1
@@ -173,7 +173,7 @@ def main() -> None:
             SUM(CASE WHEN right_censored=0 AND has_entry_open>0 AND has_exit_open=0 THEN 1 ELSE 0 END) AS genuine_missing_exit_open,
             SUM(ordinary_dividend_window) AS ordinary_dividend_windows,
             SUM(nonordinary_dividend_window) AS nonordinary_dividend_windows,
-            SUM(nonzero_factor_window) AS nonzero_factor_windows,
+            SUM(nonunit_factor_window) AS nonunit_factor_windows,
             SUM(delist_window) AS delist_windows
         FROM audit
     """).fetchdf()
@@ -189,7 +189,7 @@ def main() -> None:
             OR has_exit_open=0
             OR ordinary_dividend_window=1
             OR nonordinary_dividend_window=1
-            OR nonzero_factor_window=1
+            OR nonunit_factor_window=1
             OR delist_window=1
           )
         USING SAMPLE 1000 ROWS
