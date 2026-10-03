@@ -407,3 +407,17 @@ Corrected five-day-window audit across 6,699,101 eligible signal observations:
 **Decision:** obtain CRSP cumulative price-adjustment data (DlyCumFacPr or equivalent) before freezing the primary next-open-to-next-open target. Existing DlyFacPrc must not be used as a substitute cumulative factor.
 
 **Target status:** still conditional pending cumulative-adjustment extraction and verification.
+
+
+---
+
+## RL-025 — Stage 1F methodology check: cumulative-factor verification
+**Date:** 2026-10-03
+
+The WRDS CIZ standalone daily cumulative-adjustment table was located and extracted from `crsp.stkdlycumulativeadjfactor`. The extract contains annual CSV files for 1993–2025 with PERMNO, DlyCalDt, DlyCumFacPr, and DlyCumFacShr.
+
+Before the forecast target is frozen, the cumulative-factor data must pass three non-performance checks: (1) year/schema/key integrity, (2) join coverage against the CRSP daily panel, and (3) event-level verification that the documented price adjustment removes mechanical split-related discontinuities around changes in DlyCumFacPr.
+
+No IC, model fit, Sharpe, PnL, or portfolio-return evidence may be used in this gate.
+
+**Target status:** still conditional pending cumulative-factor verification.
