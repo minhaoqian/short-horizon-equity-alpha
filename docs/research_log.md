@@ -500,3 +500,65 @@ Before constructing the open-to-open five-day target, the decomposition must rep
 **Prohibited evidence:** forecast IC, model fit, Sharpe, PnL, or any strategy-performance statistic.
 
 **Gate:** validate the CRSP-consistent total-return decomposition first. Endpoint/delisting treatment remains a separate unresolved sub-gate.
+
+
+---
+
+## RL-030 — Stage 1G methodology check: reconstruction coverage and outlier attribution
+**Date:** 2026-10-03
+
+**Scope:** Resolve the missingness and largest-discrepancy questions left open by the existing reconstruction outputs. No new research stage, target construction, or model training is authorized in this step.
+
+**Permitted evidence:** coverage, reconstruction error, data integrity, numerical consistency, and locked point-in-time eligibility. IC, model fit, Sharpe, PnL, and portfolio-performance evidence are prohibited.
+
+**Diagnostic plan:** Reuse the cumulative-factor parquet and saved 500 largest errors. Because no row-level daily reconstruction cache exists, scan only the required daily fields once into a local, uncommitted parquet cache. Reproduce the original reconstruction denominator and counts before interpreting any attribution. Report both overlapping missingness predicates and mutually exclusive primary reasons in a fixed order: missing current factor, missing current price, missing previous comparable price, zero current factor, zero previous comparable price, missing total return, missing ex-distribution return, near-zero return denominator, other. The partition order is a reporting convention, not a causal ranking.
+
+**Numerical rules:** Retain the existing denominator tolerance of 1e-14. Use 1e-6 only as a diagnostic check of whether source previous-price reconstruction agrees with the exported return to its observed six-decimal precision; it does not establish a new target acceptance threshold. Price/factor events, unchanged prices, large calendar gaps, and extreme returns are diagnostic indicators, not proof of stale prices or causal explanations. Retain raw flag values rather than inventing undocumented flag meanings.
+
+**Eligibility limitation:** Observation-date eligibility is not equivalent to eligibility at an earlier signal date. An observation outside the eligible universe may still affect a holding window initiated earlier; no exclusion rule may be inferred from current-date ineligibility.
+
+**Gate status:** OPEN pending these diagnostics; the primary target remains conditional.
+
+
+---
+
+## RL-031 — Stage 1G coverage and outlier diagnostics completed; reconstruction gate remains OPEN
+**Date:** 2026-10-03
+
+**Reproducible diagnostic:** `scripts/13_diagnose_reconstruction_gate.py`, with reusable implementation in `src/data/reconstruction_diagnostics.py`. Local cached selected daily fields and 32 security-history partitions reuse the verified cumulative-factor parquet and original top-500 discrepancy export. No original Stage 1G reconstruction script was rerun. Cache input size/mtime fingerprints and schema version are checked on reuse; caches and row-level licensed diagnostic exports remain local and uncommitted.
+
+**Engineering failures preserved:** Two full-panel window attempts exhausted the configured 4GB and 6GB memory budgets. Partitioning by PERMNO modulo 32 resolved this without splitting any security history or changing the research sample. Two export-query errors (reserved alias and ambiguous joined field names) were corrected before successful completion. These failures do not establish economic evidence.
+
+**Integrity QA:** Exactly 64,959,561 unique PERMNO-date rows, 64,056,350 comparable reconstructions, 903,211 noncomparable observations, and 6,699,101 locked eligible observations reproduce the prior audits. All 500 saved discrepancy keys matched once; their recomputed errors agree with the saved values. Nonfinite observed returns and nonfinite non-null reconstructions each count zero. Primary-reason counts sum exactly to 903,211.
+
+**Noncomparable coverage:** 98.6096% comparable. Mutually exclusive primary reasons, using the RL-030 ordering:
+- missing current factor: 19,668 (2.1776% of noncomparable rows)
+- missing current price after the factor-missing category: 844,241 (93.4711%)
+- missing previous comparable price after the preceding categories: 39,302 (4.3514%)
+- remaining primary categories, including missing returns, near-zero denominator, and other: zero, because their observations already belong to preceding missing-price/factor categories
+
+Overlapping predicates must not be summed:
+- missing current DlyCumFacPr: 19,668 (2.1776%)
+- missing current raw price: 844,663 (93.5178%)
+- missing previous comparable price: 879,828 (97.4111%)
+- zero current factor: 5,241 (0.5803%)
+- zero previous comparable price: zero
+- missing DlyRet: 869,521 (96.2700%)
+- missing DlyRetX: 869,521 (96.2700%)
+- abs(1+DlyRetX) <= 1e-14: 22 (0.0024%)
+
+The 879,828 missing previous comparable prices decompose into 30,363 first observations in the extraction, 844,225 missing previous raw prices, and 5,240 previous zero factors. No missing previous-factor or other cases remain in that decomposition. Forty-five noncomparable observations satisfy locked observation-date eligibility; all have missing previous raw prices, with observed source DlyPrevPrc and return-duration flags P1 (41) or P2 (4). Their source-previous-price accounting checks match DlyRetX within 1e-6, but substituting that field into the eventual holding-window target is not approved here.
+
+**Largest-error attribution:** All 500 original largest-error examples fail locked observation-date eligibility. Overlapping liquidity failures include 490 below the market-cap threshold, 476 below the ADV20 threshold, and 88 below the price threshold; none fail the ADV observation-count minimum. None has a current delisting flag, missing current/source-previous raw price, or a calendar gap greater than four days. Source DlyPrevPrc equals the previous observed raw price in all 500, so replacing the lag with that field alone does not explain these discrepancies. One unchanged-price and one absolute-return-greater-than-one proxy occur. Raw price and return-duration flags are preserved in the local frequency table; these proxies are not proof of stale pricing or undocumented flag meanings.
+
+Nonordinary distribution amounts are nonzero in 498/500 examples. Four have cumulative-factor changes and nonunit period factors. The diagnostic identity
+
+`(abs(DlyPrc) * DlyFacPrc + DlyNonOrdDivAmt) / abs(DlyPrevPrc)`
+
+matches `1 + DlyRetX` within 1e-6 in 499/500 examples. The remaining error is approximately 6.51e-6 in a factor-change example with a very small cumulative factor and a rounded period factor; rounding is a plausible explanation, not a verified cause. This accounting evidence indicates that the original adjusted-price-only reconstruction omits a nonordinary-distribution component present in the exported ex-distribution return. It is not evidence that a new open-to-open total-return target has been validated. No stale-price or delisting explanation is established for the leading errors.
+
+**Locked eligible sample:** Of 6,699,056 comparable eligible observations, 6,699,046 have no nonordinary distribution. Their maximum absolute total-factor error is 7.6633e-7, with none above 1e-6. Ten have nonordinary distributions; four have original reconstruction errors above 0.001, with a maximum of 0.0367134. All ten match the source-previous-price/nonordinary-distribution diagnostic identity within 1e-6. Therefore the discrepancy is not confined to ineligible edge securities. Current-date ineligibility also cannot establish absence from holding windows formed on earlier eligible signal dates.
+
+**Decision:** Reconstruction gate remains OPEN. Do not freeze the primary target. The original `(1+DlyRet)/(1+DlyRetX)` multiplier, combined with adjusted-price ratios alone, is insufficient to account for the observed nonordinary distributions. Retain all exceptions; do not silently exclude them or alter the locked universe.
+
+**One next action:** Within Stage 1G, document and validate a distribution-aware close-to-close decomposition, including the treatment of the 45 missing-lag-price eligible observations, before reconsidering reconstruction closure. Endpoint/delisting target rules remain a separate unstarted sub-gate. No model or performance evidence was used.
