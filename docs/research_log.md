@@ -441,3 +441,19 @@ The 1993–2025 extract from `crsp.stkdlycumulativeadjfactor` was verified local
 **Interpretation:** the standalone cumulative-adjustment table is internally clean and matches the daily stock panel almost completely.
 
 **Remaining Stage 1F gate:** verify event-level adjustment direction by comparing raw-open discontinuities with cumulative-factor-adjusted open discontinuities around factor changes. The primary forecast target remains conditional until this event-level check passes.
+
+
+---
+
+## RL-027 — Stage 1F event-level adjustment direction validated; zero-factor edge case remains
+**Date:** 2026-10-03
+
+The 500 largest raw-open discontinuities around cumulative-price-factor changes were inspected.
+
+**Event-level result:** among 499 observations with both raw and adjusted jumps defined, the cumulative-factor adjustment reduced the open-price discontinuity in 499/499 cases. The median absolute raw open jump was about 39.7 (3,971%), compared with about 0.127 (12.7%) after adjustment. The 95th percentile fell from about 159.3 to about 0.478.
+
+**Interpretation:** this strongly validates the documented adjustment direction using raw price divided by DlyCumFacPr for cross-date price comparability.
+
+**Edge case:** one sampled event contains a zero cumulative price factor, making the adjusted price undefined; additional events contain extremely small factors. Before closing Stage 1F, quantify non-positive/tiny DlyCumFacPr values in the full factor panel and determine whether they intersect the locked eligible universe.
+
+**Gate status:** event-level adjustment direction PASSED; numerical edge-case check remains OPEN.
