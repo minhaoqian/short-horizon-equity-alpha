@@ -22,7 +22,7 @@ Can short-horizon cross-sectional equity forecasts generate economically meaning
 
 **Stage 1G — Target Formula Freeze**
 
-CRSP extraction, key integrity, point-in-time universe construction, execution timing, liquidity thresholds, corporate-action auditing, and cumulative-factor verification have passed. Close-to-close distribution-aware return reconstruction has also passed (RL-033), with missing previous-price cases retained as explicitly timed multi-period returns. The exact 5-day next-open target remains unfrozen: holding-boundary dividend treatment and endpoint/delisting rules still require verification before any predictive model is trained.
+CRSP extraction, key integrity, point-in-time universe construction, execution timing, liquidity thresholds, corporate-action auditing, and cumulative-factor verification have passed. Close-to-close distribution-aware return reconstruction has also passed (RL-033), with missing previous-price cases retained as explicitly timed multi-period returns. The endpoint/delisting/distribution-boundary audit is recorded in RL-035. Stage 1G remains OPEN: missing opening prices and absent delisting/distribution event histories prevent a complete timing-safe target. The 5-day next-open target is unfrozen; no predictive model may be trained.
 
 ## Core design
 

@@ -113,7 +113,7 @@ Derived compact QA tables may be committed only when licensing and repository po
 
 ## Current handoff state
 
-Latest completed methodology log entry: **RL-033**.
+Latest completed methodology log entry: **RL-035**.
 
 Current stage: **Stage 1G — Target Formula Freeze**.
 
@@ -125,7 +125,7 @@ Cumulative-basis reconstruction must retain the factor transport documented in
 period return factor.
 
 Reproduction script (completed diagnostic):
-`scripts/14_validate_distribution_reconstruction.py`
+`scripts/15_audit_target_boundaries.py`
 
 Local inputs and outputs:
 - fingerprinted daily and cumulative-factor caches in `data/interim/`
@@ -136,7 +136,15 @@ The 45 missing-lag eligible observations remain in the sample with explicit
 multi-period flags. DlyPrevPrc recovers source two/three-period returns only;
 missing daily prices must not be interpolated or forward-filled.
 
-Next action: plan Stage 1G holding-boundary dividend treatment and
-endpoint/delisting rules. This sub-gate has not been executed.
+Endpoint/delisting/distribution-boundary audit completed; **Stage 1G OPEN**.
+See `docs/stage1g_target_boundary_proposal.md`. Entry-day ex-date entitlement is
+excluded; exit-day entitlement is included. DlyDelFlg marks a stored delisting
+return, not the actual delisting date. Missing entry/exit opens and unvalued
+holdings must not be silently removed or replaced with invented prices.
+
+Next action: obtain compact CIZ StkDelists and StkDistributions histories for
+flagged securities, including event/amount dates, payment types and successor
+links, then resolve this same gate. Missing opening-price measurements also
+remain unresolved. No event history extraction has been executed in this step.
 
 The primary five-day next-open target is **not frozen**. Do not train models.

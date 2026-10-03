@@ -598,3 +598,41 @@ matches `1 + DlyRetX` within 1e-6 in 499/500 examples. The remaining error is ap
 **Decision:** Close the Stage 1G close-to-close reconstruction sub-gate. The two RL-031 issues are resolved through definition-grounded distribution accounting and explicit multi-period treatment. Stage 1G and the primary five-day target remain unfinished. No model training or new stage was entered.
 
 **One next action:** Plan the endpoint/delisting and holding-boundary treatment within Stage 1G before freezing the next-open target; do not execute it in this change.
+
+
+---
+
+## RL-034 — Stage 1G methodology check: next-open endpoints, delisting, and distribution boundaries
+**Date:** 2026-10-03
+
+**Scope:** Audit only the fixed signal-close t / entry-open t+1 / planned-exit-open t+6 economic object. No new stage or model training. Permitted evidence: official definitions, endpoint and event coverage, source interval timing, numerical consistency, and locked point-in-time eligibility. IC, Sharpe, PnL, model fit, and all strategy-performance evidence are prohibited.
+
+**Plan:** Reuse the fingerprinted daily/cumulative-factor partitions and prior endpoint QA. Index future dates by the global market trading calendar, not the next observed security row. Separate extraction censoring from historical absence of rows or positive opening prices. Retain all signal-date eligible keys. Count ordinary/nonordinary distributions separately at entry, interior dates, and exit; a source multi-period amount is not automatically an ex-date-specific event. Inspect the actual CIZ daily delisting flag definition before interpreting prior flag-window counts as actual delisting counts. Do not manufacture missing execution prices or append legacy delisting returns to an already incorporated CIZ return. Record unresolved valuation, successor-security, entitlement, or event-date cases explicitly rather than dropping them.
+
+**Decision discipline:** Freeze only if every proposed path has an identified economic interval and valid data treatment. Numeric reconstruction success alone does not prove next-open target availability or boundary correctness.
+
+
+---
+
+## RL-035 — Stage 1G next-open boundary audit completed; target gate remains OPEN
+**Date:** 2026-10-03
+
+**Record:** `docs/stage1g_target_boundary_proposal.md` documents the explicit asset/claims ledger proposal, sources, boundaries, missing-data disposition, full path table and missing fields. This is not a frozen target specification.
+
+**Definition correction:** Official CIZ definitions identify DlyDelFlg as a stored delisting-return flag, while DelDlyDt is conventionally the trading day after the actual DelistingDt. Earlier 8,416-window "delisting" counts must be interpreted as return-flag windows, not actual delistings occurring during the holding interval. DelAmtDt and successor/payment details are required before a return recorded in the window can be used as a b-time value. Do not append legacy delisting returns to CIZ returns already incorporating them.
+
+**Boundary rule:** Actual ex-dates satisfy `entry_date < ex_date <= exit_date`. Entry-day entitlement is excluded; exit-day entitlement is included, but exit-day close-to-close/intraday returns are not. Stock/due-bill events require actual ex-dates/payment types, not record-date heuristics. The candidate economic ledger holds cash/fixed receivables without reinvestment or interest; this is proposed only, not locked or used to construct labels. Nonordinary amounts cannot be assumed cash or a quantity adjustment without event details.
+
+**Integrity and counts:** Reused 32 fingerprinted cache partitions and the global trading calendar, with 6,699,101 unique signal keys. Right-censored: 8,686 (0.129659%). Historical missing entry open: 7,596 (0.113388%). Historical missing exit after valid entry: 7,703 (0.114986%), of which 6,916 have a stored return flag and 787 do not. All missing entry rows exist; 6,012 are TR with positive volume, so an absent open is not proof of no execution. Exit missing-row count after valid entry is 5,531. The remaining quoted/missing/delisting price-flag counts and metadata are preserved in local QA outputs and the proposal.
+
+**Distribution coverage (overlapping proxies):** Ordinary amounts at entry/interior/exit: 60,316 / 240,523 / 60,020; offsets 2–6 union 300,514 (4.485885%). Nonordinary amounts at entry/interior/exit: 1,472 / 5,584 / 1,390; offsets 2–6 union 6,974 (0.104104%). No observed source multi-period amount/factor event occurs in offsets 2–6, but daily amounts still do not identify payment types or received securities. Daily delisting-return flags offsets 1–6 total 8,416, offsets 2–6 total 6,948; neither substitutes for the missing event history.
+
+**Mutually exclusive review paths:** Price-only candidate 6,363,239 (94.986462%); ordinary-cash candidate 299,291 (4.467629%); nonordinary/factor review 12,586 (0.187876%); right-censoring 8,686; missing entry 7,596; return-flag delisting review after entry 6,916; missing exit without flag 787. These sum to the full denominator. The 27,885 historical noncandidate cases are review/availability cases, not a proven census of irreducibly unpriceable holdings. Conservative event review includes entry-day events; obtaining event details may clear some. No sample was deleted or model-ready complete-case panel approved.
+
+**Unresolved:** Current local files lack StkDelists actual delisting and amount dates, payment form, completion/missing-return reason and successor links; StkDistributions event payment type/share factors/ex-dates/received-security links; DlyPrevDt and DlyRetMissFlg. Some execution opens are simply unobserved even with trading activity. Scalar cumulative price factors, source multi-period returns or later settlement values cannot safely manufacture those endpoints. Do not interpolate, forward-fill, assume zero/-100% loss, or extend exit to the next observed row. Holdings after verified entry must remain in the ledger until valued or explicitly unresolved, preventing retrospective disappearance.
+
+**QA:** Five boundary/calendar/coverage tests passed. Aggregate coverage reproduces prior endpoint diagnostics, with preserved overlapping counts and a unique-key audit. No raw daily scan, target construction, model training, or new stage. Only documentation, reproducible diagnostic code and tests are committed; licensed row-level outputs remain local.
+
+**Decision:** Stage 1G OPEN; primary target remains unfrozen. The proposal does not yet cover every path without data or valuation ambiguity.
+
+**One next action:** Obtain compact CIZ delisting and distribution histories for flagged securities to resolve event timing, payment and successor links, then continue this same gate. Event history will not by itself fix missing opening-price measurements.
