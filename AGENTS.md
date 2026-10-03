@@ -68,7 +68,7 @@ Currently locked:
 - Security universe: point-in-time ordinary US common equity under the locked CRSP CIZ classification
 - Liquidity filters: price > $5, market cap > $1bn, ADV20 > $20m, with at least 15 valid observations in the 20-day ADV window
 
-The primary forecast target is **not yet frozen**. Do not treat the candidate open-to-open formula as final until the cumulative-factor/corporate-action gate is closed.
+The primary forecast target is **not yet frozen**. Cumulative-factor verification and close-to-close return reconstruction have passed. Do not treat the candidate open-to-open formula as final until holding-boundary dividend treatment and endpoint/delisting rules are verified.
 
 ## Research integrity rules
 
@@ -113,20 +113,30 @@ Derived compact QA tables may be committed only when licensing and repository po
 
 ## Current handoff state
 
-Latest completed methodology log entry: **RL-025**.
+Latest completed methodology log entry: **RL-033**.
 
-Current stage: **Stage 1F — Cumulative-Factor Verification**.
+Current stage: **Stage 1G — Target Formula Freeze**.
 
-Available next script:
-`scripts/10_verify_cumulative_factors.py`
+Completed sub-gate: **close-to-close distribution-aware reconstruction PASSED**.
+Validated source-interval returns are `(P*F+N)/P0-1` (price) and
+`(P*F+N+O)/P0-1` (total), using CRSP previous price and period factor.
+Cumulative-basis reconstruction must retain the factor transport documented in
+`docs/stage1g_return_reconstruction.md`; cumulative factors cannot replace the
+period return factor.
 
-Expected local inputs:
-- `data/raw/crsp_daily_1993_2025.csv.gz`
-- `data/raw/crsp_cumfac_1993_2025.zip`
+Reproduction script (completed diagnostic):
+`scripts/14_validate_distribution_reconstruction.py`
 
-The Stage 1F gate must verify:
-1. cumulative-factor year/schema/key integrity,
-2. join coverage against the CRSP daily panel,
-3. event-level adjustment behavior around genuine factor changes.
+Local inputs and outputs:
+- fingerprinted daily and cumulative-factor caches in `data/interim/`
+- `data/raw/crsp_names_history.csv`
+- local QA outputs in `results/tables/stage1g/`
 
-Only after this gate passes may the primary 5-day target be frozen.
+The 45 missing-lag eligible observations remain in the sample with explicit
+multi-period flags. DlyPrevPrc recovers source two/three-period returns only;
+missing daily prices must not be interpolated or forward-filled.
+
+Next action: plan Stage 1G holding-boundary dividend treatment and
+endpoint/delisting rules. This sub-gate has not been executed.
+
+The primary five-day next-open target is **not frozen**. Do not train models.

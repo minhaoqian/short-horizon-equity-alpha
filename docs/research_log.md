@@ -562,3 +562,39 @@ matches `1 + DlyRetX` within 1e-6 in 499/500 examples. The remaining error is ap
 **Decision:** Reconstruction gate remains OPEN. Do not freeze the primary target. The original `(1+DlyRet)/(1+DlyRetX)` multiplier, combined with adjusted-price ratios alone, is insufficient to account for the observed nonordinary distributions. Retain all exceptions; do not silently exclude them or alter the locked universe.
 
 **One next action:** Within Stage 1G, document and validate a distribution-aware close-to-close decomposition, including the treatment of the 45 missing-lag-price eligible observations, before reconsidering reconstruction closure. Endpoint/delisting target rules remain a separate unstarted sub-gate. No model or performance evidence was used.
+
+
+---
+
+## RL-032 — Stage 1G methodology check: definition-grounded distribution reconstruction and missing-price timing
+**Date:** 2026-10-03
+
+**Scope:** Resolve only the two RL-031 items. Re-read AGENTS.md, methodology.md, and latest research log. Use official CRSP CIZ field/calculation/flag definitions, reconstruction error, coverage, numerical consistency, data integrity, and locked eligibility only. IC, Sharpe, PnL, model fit, and performance-based specification selection are prohibited. No new research stage or predictive model is permitted.
+
+**Plan:** Reuse the selected daily parquet and 32 diagnostic partitions without scanning raw daily data. Independently reconstruct price and total returns from prices, period factor, and nonordinary/ordinary distribution amounts; do not use observed returns to define the reconstructed value. Validate the original comparable population and the entire locked eligible population separately, and export every eligible nonordinary-distribution observation. Audit all 45 missing-lag cases against the global trading calendar, preceding rows and earlier valid prices, plus historical security metadata. Do not interpolate or forward-fill. Separate recovery of a CRSP multi-period return from recovery of a missing daily execution/valuation price.
+
+**Numerical discipline:** Six-decimal exported returns/factors/distribution amounts may generate rounding errors. Check input-precision propagation using a stated fixed bound derived from rounding, rather than selecting an error threshold after inspecting returns. Do not treat cumulative-factor ratios as interchangeable with the period return factor without checking the CRSP definition and numerical relation; retain failed formulas. Keep the reconstruction gate OPEN until both numerical and timing questions are fully resolved.
+
+
+---
+
+## RL-033 — Stage 1G distribution-aware reconstruction passed; missing-lag timing resolved
+**Date:** 2026-10-03
+
+**Definition evidence and record:** See `docs/stage1g_return_reconstruction.md` for the official July 2026 CRSP calculation/user-guide URLs, inspected pages, derivation, rejected formulas, aggregate QA, and case disposition. DlyRetX excludes ordinary dividends only. Distribution amounts cover ex-dates in the source return interval on the previous-price basis. The validated independent equations are `R_X=(P*F+N)/P0-1` and `R_T=(P*F+N+O)/P0-1`, with P0 from DlyPrevPrc. They do not use observed return ratios. The cumulative-basis equivalent requires factor transport `K=F*C/C0`; substituting a cumulative-factor ratio for the period factor or simply adding all nonordinary cash to an adjusted-price ratio is rejected.
+
+**Validation:** Original comparable count 64,056,350; locked eligible count 6,699,101, including all 45 formerly missing-lag reconstructions. Full-market price/total maximum error 1.3200e-4, P99 4.94382e-7, median 2.22222e-7. Eligible price/total maximum 4.78846e-6, P99 4.95050e-7, median 2.45902e-7. Raw and common-basis reconstructions agree within 1.78e-15 in the original comparable population. Complete formula coverage, no nonfinite output, and no sign/factor-integrity failure were found.
+
+**All eligible nonordinary observations retained:** Ten rows. Price error maximum/P99/median: 4.66205e-7 / 4.62500e-7 / 2.22972e-7. Total error maximum/P99/median: 4.26343e-7 / 4.26226e-7 / 2.77597e-7. Per-row results are retained locally in `eligible_nonordinary_reconstruction.csv`.
+
+**Precision gate:** Propagating six-decimal rounding of prices, factor, amounts, and observed return yields zero bound violations in every audited population; no undefined bounds are accepted. This is export-precision consistency, not an arbitrary uniform 1e-6 cutoff or proof of individual unrounded values. Seven eligible errors exceed 1e-6 but fall inside the derived bound. A provisional bound that omitted current/previous price rounding failed on nine broad-market penny-price rows and was rejected. The naive cumulative-price-plus-cash formula also failed (maximum eligible nonordinary price error 0.7284507); retained as a failed alternative.
+
+**45-case cause/timing closure:** All 45 immediately previous trading-day rows exist and are flagged MP, with missing price/open and zero volume. There are no absent-row or listing-start cases, no recorded prior-day halt/suspension, and no current/prior-day factor/distribution event. Metadata records Active. Forty-one source returns span two trading periods (P1), four span three (P2); source previous prices exactly match the earlier valid prices, with no intervening valid price. Source-date cumulative factors also match the factors used by the basis check. Source-return errors maximum/P99/median: 5.00000e-7 / 4.86928e-7 / 2.09147e-7. The physical reason for an MP quote, including an unrecorded intraday halt, is not established; no speculative cause is asserted or needed for accounting/timing disposition.
+
+**Disposition:** Preserve all 45 eligible signal dates and explicit multi-period/missing-price flags. DlyPrevPrc may reconstruct the actual source interval's return at the current close, not a missing day's price or a one-day return. No interpolation, forward-fill, daily spreading, or blanket signal-date exclusion. Missing execution endpoints and holding-interval compatibility must be resolved in the separate endpoint/delisting target sub-gate; this entry does not approve any target fallback.
+
+**Execution and QA:** `scripts/14_validate_distribution_reconstruction.py` reused fingerprinted caches; no raw daily rescan. Six accounting/timing tests passed. Per-case context/source-date matching and aggregate consistency checks passed. Licensed row-level outputs and official-document copies remain local.
+
+**Decision:** Close the Stage 1G close-to-close reconstruction sub-gate. The two RL-031 issues are resolved through definition-grounded distribution accounting and explicit multi-period treatment. Stage 1G and the primary five-day target remain unfinished. No model training or new stage was entered.
+
+**One next action:** Plan the endpoint/delisting and holding-boundary treatment within Stage 1G before freezing the next-open target; do not execute it in this change.
