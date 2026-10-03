@@ -20,9 +20,9 @@ Can short-horizon cross-sectional equity forecasts generate economically meaning
 
 ## Current stage
 
-**Stage 1A — CRSP extraction and data QA**
+**Stage 1G — Target Formula Freeze**
 
-No predictive model is to be trained until the data and timing gates are passed.
+CRSP extraction, key integrity, point-in-time universe construction, execution timing, liquidity thresholds, corporate-action auditing, and cumulative-factor verification have passed. The remaining data-design task is to freeze the exact 5-day next-open target, including dividend and delisting treatment, before any predictive model is trained.
 
 ## Core design
 
