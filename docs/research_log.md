@@ -421,3 +421,23 @@ Before the forecast target is frozen, the cumulative-factor data must pass three
 No IC, model fit, Sharpe, PnL, or portfolio-return evidence may be used in this gate.
 
 **Target status:** still conditional pending cumulative-factor verification.
+
+
+---
+
+## RL-026 — Stage 1F cumulative-factor integrity checks passed
+**Date:** 2026-10-03
+
+The 1993–2025 extract from `crsp.stkdlycumulativeadjfactor` was verified locally.
+
+**Integrity results:**
+- 33 annual files present, covering 1993 through 2025
+- zero missing `DlyCumFacPr` values
+- zero missing `DlyCumFacShr` values
+- zero duplicate PERMNO-date rows
+- annual join coverage against the CRSP daily panel is approximately 99.95%–99.98% throughout the sample
+- 17,851 genuine cumulative-price-factor change events identified
+
+**Interpretation:** the standalone cumulative-adjustment table is internally clean and matches the daily stock panel almost completely.
+
+**Remaining Stage 1F gate:** verify event-level adjustment direction by comparing raw-open discontinuities with cumulative-factor-adjusted open discontinuities around factor changes. The primary forecast target remains conditional until this event-level check passes.
