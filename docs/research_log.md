@@ -480,3 +480,23 @@ Combined with the prior event-level evidence that cumulative-factor adjustment r
 **Gate status:** Stage 1F PASSED.
 
 **Next stage:** target formula freeze, including explicit dividend treatment and endpoint/delisting rules.
+
+
+---
+
+## RL-029 — Stage 1G methodology check: total-return reconstruction before target freeze
+**Date:** 2026-10-03
+
+**Locked economic object:** return earned by buying at the open on t+1 and exiting at the open on t+6.
+
+**Price component:** cross-date prices must be made comparable with `DlyCumFacPr`, using adjusted price = raw price / DlyCumFacPr.
+
+**Dividend component:** a raw adjusted-price ratio alone is not a total return. Candidate dividend treatment will use the relationship between CRSP total return (`DlyRet`) and ex-distribution return (`DlyRetX`) to isolate the income/distribution multiplier.
+
+Before constructing the open-to-open five-day target, the decomposition must reproduce CRSP's own close-to-close daily returns on observations where all required fields are valid.
+
+**Permitted evidence:** reconstruction error, coverage, numerical edge cases, and field consistency only.
+
+**Prohibited evidence:** forecast IC, model fit, Sharpe, PnL, or any strategy-performance statistic.
+
+**Gate:** validate the CRSP-consistent total-return decomposition first. Endpoint/delisting treatment remains a separate unresolved sub-gate.
