@@ -457,3 +457,26 @@ The 500 largest raw-open discontinuities around cumulative-price-factor changes 
 **Edge case:** one sampled event contains a zero cumulative price factor, making the adjusted price undefined; additional events contain extremely small factors. Before closing Stage 1F, quantify non-positive/tiny DlyCumFacPr values in the full factor panel and determine whether they intersect the locked eligible universe.
 
 **Gate status:** event-level adjustment direction PASSED; numerical edge-case check remains OPEN.
+
+
+---
+
+## RL-028 — Stage 1F cumulative-factor gate passed
+**Date:** 2026-10-03
+
+Full-panel numerical edge-case QA found 5,241 zero cumulative-price-factor rows and additional extremely small positive factors in the broad CRSP factor table, but none of these problematic values enter the locked eligible universe.
+
+Within the 6,699,101 locked eligible signal-date observations:
+- missing DlyCumFacPr: 0
+- zero DlyCumFacPr: 0
+- negative DlyCumFacPr: 0
+- DlyCumFacPr < 1e-6: 0
+- minimum observed eligible DlyCumFacPr: 0.000002
+
+Combined with the prior event-level evidence that cumulative-factor adjustment reduced mechanical open-price discontinuities in 499/499 comparable high-jump factor-change examples, this closes the cumulative-adjustment validation gate.
+
+**Decision:** use DlyCumFacPr for cross-date price comparability in the target-construction layer.
+
+**Gate status:** Stage 1F PASSED.
+
+**Next stage:** target formula freeze, including explicit dividend treatment and endpoint/delisting rules.
