@@ -694,3 +694,19 @@ matches `1 + DlyRetX` within 1e-6 in 499/500 examples. The remaining error is ap
 **Validation/decision:** Local dry run reports 12 queries and wrds_query_executed=false. Three tests passed: query restrictions, missing daily-key rejection and fake-connection resume/checksum corruption handling. No real WRDS connection, remote query, data download or raw-daily scan. Stage 1G remains OPEN. Runtime WRDS dependency/environment is required when extraction is explicitly authorized; it is not installed by this change.
 
 **One next action:** Review the prepared script and authorize execution in the existing WRDS-capable environment.
+
+
+---
+
+## RL-039 — Stage 1G authorized extraction blocked before queries by connection timeout
+**Date:** 2026-10-03
+
+**Scope/preflight:** User authorized the approved full 19-column delisting table, 3,064-PERMNO distribution batches of 500 and exact 7,900 daily-key batches of 2,000. Re-read instructions/methodology/latest log. Source-cache size/mtime fingerprints match; selector counts, date ranges, original-window provenance counts and daily-key uniqueness match construction manifest. Download outputs are gitignored; no licensed files staged. No methodology change or interpretation.
+
+**Execution attempt:** Default WRDS username initially resolved to local neil and fell back to interactive input, yielding EOFError before connection. Added optional --wrds-username and retried with user-confirmed neilqian using the home-directory pgpass. Stalled connection stopped before any extraction, then retried with SSL required and 30-second connection timeout. WRDS wrapper again fell back to interactive input/EOFError. A bounded direct PostgreSQL connection diagnostic, without observation queries, exposed the underlying OperationalError: connection to server at wrds-pgdata.wharton.upenn.edu (165.123.60.118), port 9737 failed: timeout expired. This is not evidence of wrong credentials or a CRSP subscription denial. User-terminal connectivity does not establish connectivity from this Codex process.
+
+**Recovery code:** Extraction now prints batch progress, stops only a failing source while preserving completed batch files, and continues independent sources without scope expansion. Confirmed username can be passed without password; connection timeout bounded. Existing three local tests pass. No server observation query executed and no downloaded batches exist.
+
+**Record/decision:** Local ignored download_manifest.json records approved query plan/selector SHA256, preflight checks, connection error, zero completed batches/downloaded rows and untested daily coverage. All 7,900 daily keys remain pending; no source-unmatched conclusion is possible. Stage 1G remains OPEN; extraction QA NOT RUN, preflight QA passed. No raw daily scan, target interpretation or licensed-data commit.
+
+**One next action:** Restore WRDS PostgreSQL connectivity from the Codex execution environment, then resume the same approved extraction without broadening scope.

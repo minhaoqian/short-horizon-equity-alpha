@@ -78,32 +78,59 @@ def run(connection):
         m={'plan':plan,'created_at_utc':datetime.now(timezone.utc).isoformat(),'batches':{},'complete':False}
     folder=OUT/'download_batches';folder.mkdir(exist_ok=True)
     save_json(path,m)
+    failed_sources=set()
+    m['errors']={}
+    m['connection_verified']=True
+    m.setdefault('wrds_observation_queries_executed',0)
+    m.pop('last_error',None)
+    save_json(path,m)
     for table,index,sql,params,scope in work:
+        if table in failed_sources:
+            continue
         key=f'{table}_{index:03d}';file=folder/f'{key}.parquet'
         if key in m['batches']:
             assert file.exists() and digest(file)==m['batches'][key]['sha256'],'Completed batch missing or changed'
             df=pd.read_parquet(file);validate(table,df,scope)
+            print(f'{key}: resumed {len(df)} validated rows',flush=True)
             continue
         # Only SELECT statements; no server temp tables, count queries or writes.
         try:
+            print(f'{key}: querying',flush=True)
+            m['wrds_observation_queries_executed']+=1
+            save_json(path,m)
             df=connection.raw_sql(sql,params=params)
             stats=validate(table,df,scope)
             tmp=file.with_suffix('.parquet.tmp');df.to_parquet(tmp,index=False);tmp.replace(file)
             m['batches'][key]={**stats,'file':str(file.relative_to(OUT)),'sha256':digest(file),'completed_at_utc':datetime.now(timezone.utc).isoformat()}
             m.pop('last_error',None);save_json(path,m)
+            print(f'{key}: completed {len(df)} rows',flush=True)
         except Exception as exc:
             # Avoid persisting exception text that could contain connection secrets.
             m['last_error']={'batch':key,'exception_type':type(exc).__name__};save_json(path,m)
-            raise
+            failed_sources.add(table)
+            # DB driver message omits SQLAlchemy's connection URL/parameters.
+            message=str(getattr(exc,'orig',exc))
+            m['errors'][table]={'batch':key,'exception_type':type(exc).__name__,'message':message}
+            save_json(path,m)
+            print(f'{key}: FAILED {type(exc).__name__}: {message}',flush=True)
     m['outputs']={}
     for table in COLUMNS:
+        if table in failed_sources:
+            continue
         frames=[pd.read_parquet(folder/f'{t}_{i:03d}.parquet') for t,i,*_ in work if t==table]
         df=pd.concat(frames,ignore_index=True)
         scope=set().union(*(s for t,i,sql,p,s in work if t==table and s is not None)) if table!='stkdelists' else None
         stats=validate(table,df,scope)
         file=OUT/f'{table}.parquet';tmp=file.with_suffix('.parquet.tmp');df.to_parquet(tmp,index=False);tmp.replace(file)
         m['outputs'][table]={**stats,'file':file.name,'sha256':digest(file)}
-    m['complete']=True;m['completed_at_utc']=datetime.now(timezone.utc).isoformat();save_json(path,m)
+    m['complete']=not failed_sources;m['completed_at_utc']=datetime.now(timezone.utc).isoformat();save_json(path,m)
+    m['source_status']={table:{'status':'FAILED' if table in failed_sources else 'COMPLETE',
+      'completed_batches':sum(key.startswith(table+'_') for key in m['batches']),
+      'downloaded_rows':sum(v['rows'] for key,v in m['batches'].items() if key.startswith(table+'_'))} for table in COLUMNS}
+    if 'stkdlysecuritydata' in m['outputs']:
+        m['daily_matched_keys']=m['outputs']['stkdlysecuritydata']['rows']
+        m['daily_coverage_status']='PASSED: all requested existing keys matched'
+    save_json(path,m)
     return m
 
 
@@ -111,14 +138,20 @@ def main():
     import argparse
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--execute',action='store_true',help='Connect to WRDS and execute the extraction; default is local plan only')
+    parser.add_argument('--wrds-username',help='WRDS username for matching the existing home-directory pgpass entry')
     args=parser.parse_args()
     if not args.execute:
         work=jobs()
         print(json.dumps({'queries':len(work),'by_table':{t:sum(j[0]==t for j in work) for t in COLUMNS},'wrds_query_executed':False},indent=2))
         return
     import wrds
-    connection=wrds.Connection()
-    try: run(connection)
+    connection=wrds.Connection(wrds_connect_args={'sslmode':'require','connect_timeout':30,'application_name':'Stage1G'},
+        **({'wrds_username':args.wrds_username} if args.wrds_username else {}))
+    try:
+        check=connection.raw_sql("SELECT table_schema,table_name FROM information_schema.tables WHERE table_schema='crsp' AND table_name='stkdelists'")
+        assert len(check)==1,'WRDS metadata check did not find crsp.stkdelists'
+        print('WRDS connection active; metadata check passed',flush=True)
+        run(connection)
     finally: connection.close()
 
 
