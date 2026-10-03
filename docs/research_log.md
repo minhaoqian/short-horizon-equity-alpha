@@ -676,3 +676,21 @@ matches `1 + DlyRetX` within 1e-6 in 499/500 examples. The remaining error is ap
 **Decision:** Stage 1G remains OPEN; target methodology unchanged. No raw daily scan, WRDS query, download or successor extraction. AGENTS handoff remains at RL-035; this entry records preparation only and does not close or advance any research gate.
 
 **One next action:** Review long selectors and authorize the narrow WRDS extraction before any remote query.
+
+
+---
+
+## RL-038 — Stage 1G resumable WRDS extraction code prepared, not executed
+**Date:** 2026-10-03
+
+**Methodology check:** Re-read project instructions, methodology and latest log. Scope: extraction execution design only, using user-confirmed live schemas/table sizes and existing selectors. No performance evidence, target methodology change or new stage.
+
+**Revised approved strategy:** User reports approximately 29,833 delisting rows, 1.10 million distribution rows and 110 million daily rows. Download all stkdelists rows with the 19 required columns; delist_windows remains a local analysis object, not a server restriction. Choose distribution method B: all event dates for only 3,064 selected PERMNOs, 13 columns, then apply exact windows locally during later analysis. No payment-date restriction. Selected distributions are bounded by the reported 1.10 million table rows; actual selected count remains unknown. Daily extraction uses only the 7,900 exact keys and four columns, no existing daily-field re-download. No source table COUNT or schema query is added.
+
+**Implementation:** `scripts/18_extract_stage1g_wrds.py` / `src/data/stage1g_wrds_extraction.py`. Default execution prints a local plan only; --execute is required before importing WRDS/connecting. Existing WRDS connection may be supplied to run(connection). One delisting query, seven distribution batches of <=500 PERMNOs, four daily batches of <=2,000 keys: 12 data queries on a fresh run. Bound parameters, EXISTS daily-key matching, no server writes. Atomic batch files and download_manifest.json support resume, selector SHA256 binding, completed-batch checksum validation and final output consolidation. Incomplete/invalid daily coverage fails rather than silently dropping or creating keys. Duplicate distribution/daily keys and unexpected columns/security/date keys fail. Manifest records row counts, security counts, date ranges, checksums, completion and batch error type without persisting connection exception text.
+
+**Expected local ignored outputs:** data/interim/stage1g_extraction/stkdelists.parquet, stkdistributions.parquet, stkdlysecuritydata.parquet, download_batches/*.parquet and download_manifest.json. Existing selector manifest is preserved. No licensed outputs committed.
+
+**Validation/decision:** Local dry run reports 12 queries and wrds_query_executed=false. Three tests passed: query restrictions, missing daily-key rejection and fake-connection resume/checksum corruption handling. No real WRDS connection, remote query, data download or raw-daily scan. Stage 1G remains OPEN. Runtime WRDS dependency/environment is required when extraction is explicitly authorized; it is not installed by this change.
+
+**One next action:** Review the prepared script and authorize execution in the existing WRDS-capable environment.
