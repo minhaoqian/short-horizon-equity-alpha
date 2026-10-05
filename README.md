@@ -20,7 +20,9 @@ Can short-horizon cross-sectional equity forecasts generate economically meaning
 
 ## Current stage
 
-**Stage 1G — Target Formula Freeze: CLOSED (RL-042)**
+**Stage 2A — Feature Framework / Baseline Signals: proposal prepared (RL-043)**
+
+Stage 1G remains CLOSED (RL-042).
 
 The five-day next-open wealth target and explicit missing-label policy are
 frozen in docs/methodology.md. All 6,699,101 eligible signal keys are retained;
@@ -32,7 +34,9 @@ and sensitivity analysis.
 
 Local licensed dataset: data/interim/stage1g_targets/targets_5d.parquet.
 Reproduction: scripts/20_construct_stage1g_targets.py.
-Next stage: **Stage 2 — Feature engineering**, not started.
+Feature definitions, timing, preprocessing and descriptive-output plans are
+proposed in docs/stage2a_feature_framework_proposal.md. No feature computation
+or model training has begun.
 
 ## Core design
 

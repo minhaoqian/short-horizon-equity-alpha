@@ -770,3 +770,20 @@ matches `1 + DlyRetX` within 1e-6 in 499/500 examples. The remaining error is ap
 **Decision:** Stage 1G CLOSED; target specification and explicit missing-label contract frozen in docs/methodology.md. AGENTS.md and README handoff synchronized; old boundary proposal marked historical/superseded. No feature engineering, training or new stage started. Later validation must report coverage against the original denominator and assess selection/bounds for unresolved entered holdings rather than silently deleting them.
 
 **Next stage:** Stage 2 — Feature engineering. Not begun.
+
+---
+
+## RL-043 — Stage 2A feature framework proposed; computation not started
+**Date:** 2026-10-06
+
+**Methodology check/current state:** Read AGENTS.md, methodology, log through RL-042, README, Stage 1G target manifest and final dataset schema. Stage 1G CLOSED: 6,699,101 eligible keys, 6,676,750 numeric labels; outcome metadata are not predictor inputs. Scope is proposal only. Evidence allowed: economics/interpretability, official field definitions, point-in-time timing and data integrity. IC, Sharpe, PnL, model fit and any forecasting-performance evidence prohibited. No Stage 1 contract change.
+
+**Proposal:** docs/stage2a_feature_framework_proposal.md defines reversal_5, momentum_60_skip5 (55 daily returns ending t-5), volatility_20, turnover_20, dollar_liquidity_20, dollar-volume shock versus the previous 20 days, event-free gap_1 and intraday_1. Features end at close t, use global-calendar windows and historical rows without retrospective eligibility filtering. Strict admitted-return windows exclude multi-period/delisting/ambiguous received-asset amounts unavailable at the as-of close. Ordinary cash and verified pure splits require source consistency. Gap-event adjustment deferred rather than misclassifying ex-date effects as gaps. DlyCap dollar conversion is 1000; turnover is a total-cap proxy, not free float. Historical revision-free vintages are not established by the existing snapshot.
+
+**Preprocessing/missingness proposal:** Same-date all close-t eligible observations, independently of future label availability; finite-value 1st/99th percentile clipping with linear quantiles, population z-scores, >=30 observations, explicit constant-section flag. Return windows complete; liquidity windows >=15/20 with full calendar span and recorded valid count. Missing raw/z values and reasons preserved; optional later zero/mask model encoding is not performed now. Reject global normalization, forward/back-filling, performance-based windows and learned imputation at this stage. Sector/industry neutralization deferred pending point-in-time classification and separately logged interpretation. These are proposals, not frozen feature settings.
+
+**Architecture/output assessment:** Separate allowlisted feature inputs from targets; reusable src/features modules and scripts entry points planned but not written. Preserve every target key/status through a later left join. Reproducible coverage, missingness, distributions, clipping/dispersion and pairwise feature-correlation tables and descriptive heatmaps/time series proposed under results/tables/stage2a and results/figures/stage2a. Explicitly assess outputs at every material later sub-stage. No full feature computation, feature code, charts or predictive result produced in this proposal step. Data-driven figures await real validated features.
+
+**Remaining QA/decision:** Small synthetic/local-fixture tests must verify availability masks, units/status, after-t perturbation invariance, calendar/gap/warm-up handling, same-date preprocessing and label-mask independence before scaling. Stage 2A proposal prepared; Stage 1G frozen specification unchanged. No WRDS, raw-daily scan, ML or portfolio work.
+
+**One next action:** Approve the proposal, then implement only the small feature-framework QA fixture before full-scale computation.

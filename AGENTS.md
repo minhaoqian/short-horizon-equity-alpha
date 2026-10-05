@@ -113,7 +113,11 @@ Derived compact QA tables may be committed only when licensing and repository po
 
 ## Current handoff state
 
-Latest completed methodology log entry: **RL-042**.
+Latest completed methodology log entry: **RL-043**.
+
+Current work: **Stage 2A — Feature Framework / Baseline Signals: proposal only**.
+See `docs/stage2a_feature_framework_proposal.md`. No feature computation or ML
+has begun; proposed feature settings are not yet frozen.
 
 Completed stage: **Stage 1G — Target Formula Freeze: CLOSED**.
 Cumulative-factor verification and distribution-aware close-to-close
@@ -141,4 +145,5 @@ bounds/sensitivity analysis; complete-case evaluation remains conditional on
 measurability. The 45 missing-lag source observations remain preserved; never
 interpolate/forward-fill them. No model has been trained.
 
-Next stage: **Stage 2 — Feature engineering**. Not started in RL-042.
+Next action: approve the Stage 2A proposal, then implement a small feature-framework
+QA fixture before full-panel computation. Preserve the frozen Stage 1G contract.
