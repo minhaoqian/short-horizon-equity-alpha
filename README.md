@@ -20,9 +20,19 @@ Can short-horizon cross-sectional equity forecasts generate economically meaning
 
 ## Current stage
 
-**Stage 1G — Target Formula Freeze**
+**Stage 1G — Target Formula Freeze: CLOSED (RL-042)**
 
-CRSP extraction, key integrity, point-in-time universe construction, execution timing, liquidity thresholds, corporate-action auditing, and cumulative-factor verification have passed. Close-to-close distribution-aware return reconstruction has also passed (RL-033), with missing previous-price cases retained as explicitly timed multi-period returns. The endpoint/delisting/distribution-boundary audit is recorded in RL-035. Stage 1G remains OPEN: missing opening prices and absent delisting/distribution event histories prevent a complete timing-safe target. The 5-day next-open target is unfrozen; no predictive model may be trained.
+The five-day next-open wealth target and explicit missing-label policy are
+frozen in docs/methodology.md. All 6,699,101 eligible signal keys are retained;
+6,676,750 have numeric labels (99.666358%). Distributions are not reinvested,
+cash earns zero interest, and entitlement is entry_date < DisExDt <= exit_date.
+Missing openings and unvalued holdings remain explicitly unlabeled; no prices
+or returns are invented. Complete-case selection risk requires later bounds
+and sensitivity analysis.
+
+Local licensed dataset: data/interim/stage1g_targets/targets_5d.parquet.
+Reproduction: scripts/20_construct_stage1g_targets.py.
+Next stage: **Stage 2 — Feature engineering**, not started.
 
 ## Core design
 

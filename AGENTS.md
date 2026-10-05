@@ -68,7 +68,7 @@ Currently locked:
 - Security universe: point-in-time ordinary US common equity under the locked CRSP CIZ classification
 - Liquidity filters: price > $5, market cap > $1bn, ADV20 > $20m, with at least 15 valid observations in the 20-day ADV window
 
-The primary forecast target is **not yet frozen**. Cumulative-factor verification and close-to-close return reconstruction have passed. Do not treat the candidate open-to-open formula as final until holding-boundary dividend treatment and endpoint/delisting rules are verified.
+The primary forecast target and explicit missing-label policy are **frozen** in docs/methodology.md (RL-042). Stage 1G is CLOSED. Preserve all eligible keys and never treat outcome-derived label availability as signal-time eligibility or a predictor.
 
 ## Research integrity rules
 
@@ -113,38 +113,32 @@ Derived compact QA tables may be committed only when licensing and repository po
 
 ## Current handoff state
 
-Latest completed methodology log entry: **RL-035**.
+Latest completed methodology log entry: **RL-042**.
 
-Current stage: **Stage 1G — Target Formula Freeze**.
+Completed stage: **Stage 1G — Target Formula Freeze: CLOSED**.
+Cumulative-factor verification and distribution-aware close-to-close
+reconstruction passed; source-interval price/total returns remain
+(P*F+N)/P0-1 and (P*F+N+O)/P0-1. Period factor transport remains required.
 
-Completed sub-gate: **close-to-close distribution-aware reconstruction PASSED**.
-Validated source-interval returns are `(P*F+N)/P0-1` (price) and
-`(P*F+N+O)/P0-1` (total), using CRSP previous price and period factor.
-Cumulative-basis reconstruction must retain the factor transport documented in
-`docs/stage1g_return_reconstruction.md`; cumulative factors cannot replace the
-period return factor.
+The approved next-open wealth ledger and missing-label contract are frozen in
+`docs/methodology.md`. Signal after close t; observed entry open t+1; planned
+exit open t+6. Entitlement: entry_date < DisExDt <= exit_date. No reinvestment,
+zero interest on cash. Received assets require verified quantities/boundary
+values; cash delistings require independently measurable wealth. No fabricated
+prices, shifted horizons or unsupported zero/-100% labels.
 
-Reproduction script (completed diagnostic):
-`scripts/15_audit_target_boundaries.py`
+Reproduction: `scripts/20_construct_stage1g_targets.py`.
+Output: `data/interim/stage1g_targets/targets_5d.parquet`, with manifest and
+32 reproducible partitions. All licensed outputs remain local/uncommitted.
+6,699,101 unique eligible keys; 6,676,750 numeric labels (99.666358%).
+Statuses: ordinary/event-adjusted 6,673,134; missing entry 7,596;
+measurable cash delisting 3,616; unresolved exit 4,087;
+right-censored 8,686; other unresolved corporate action 1,982.
 
-Local inputs and outputs:
-- fingerprinted daily and cumulative-factor caches in `data/interim/`
-- `data/raw/crsp_names_history.csv`
-- local QA outputs in `results/tables/stage1g/`
+All missing labels retain reasons and holdings/event flags. These are outcome
+metadata, not predictors. The 6,069 valid-entry unresolved paths require later
+bounds/sensitivity analysis; complete-case evaluation remains conditional on
+measurability. The 45 missing-lag source observations remain preserved; never
+interpolate/forward-fill them. No model has been trained.
 
-The 45 missing-lag eligible observations remain in the sample with explicit
-multi-period flags. DlyPrevPrc recovers source two/three-period returns only;
-missing daily prices must not be interpolated or forward-filled.
-
-Endpoint/delisting/distribution-boundary audit completed; **Stage 1G OPEN**.
-See `docs/stage1g_target_boundary_proposal.md`. Entry-day ex-date entitlement is
-excluded; exit-day entitlement is included. DlyDelFlg marks a stored delisting
-return, not the actual delisting date. Missing entry/exit opens and unvalued
-holdings must not be silently removed or replaced with invented prices.
-
-Next action: obtain compact CIZ StkDelists and StkDistributions histories for
-flagged securities, including event/amount dates, payment types and successor
-links, then resolve this same gate. Missing opening-price measurements also
-remain unresolved. No event history extraction has been executed in this step.
-
-The primary five-day next-open target is **not frozen**. Do not train models.
+Next stage: **Stage 2 — Feature engineering**. Not started in RL-042.

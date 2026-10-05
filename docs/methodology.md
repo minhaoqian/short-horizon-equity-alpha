@@ -48,15 +48,74 @@ The final modelling period will be chosen after data QA. Earlier observations ma
 
 ## Forecast target
 
-Primary target is a five-trading-day forward return beginning strictly after the chosen execution time.
+**Stage 1G CLOSED — target specification frozen (RL-042).**
 
-For next-open execution, candidate definition:
+For every locked eligible signal formed after close t, entry date a is global
+market date t+1 and planned exit date b is t+6. Do not shift these dates to
+available security rows or re-filter holdings using future eligibility.
+Buy one post-event share at the observed positive finite regular-session open a.
+
+The five-day total-return label is:
 
 ```
-y_i,t = Open_i,t+6 / Open_i,t+1 - 1
+y_i,t = (sum_j quantity_j(b) * observed_open_j(b)
+         + cash(b) + established_measurable_receivables(b)) / observed_open_i(a) - 1
 ```
 
-If close-based execution is selected, the target will be redefined so that no return used in the label predates the assumed fill.
+Positions include retained parent and verified successor assets. With no event,
+this reduces to exit_open/entry_open - 1. Cash earns zero interest and is not
+reinvested; established fixed cash receivables are carried at face value.
+Entitlement is entry_date < DisExDt <= exit_date: entry-day rights are excluded,
+exit-day rights included. Use actual ex-dates, never payment/storage dates to
+assign rights. Apply verified splits before the relevant opening, including
+exit-day splits. Cash amounts use the actual owned-share basis; documented
+single-period daily amounts use the previous-price/share basis. Same-date cash
+and split accounting must preserve that basis rather than arbitrarily order
+individual distribution records. Pure split multipliers are 1+DisFacShr;
+DlyCumFacShr is a consistency check, not DlyCumFacPr as a share multiplier.
+
+Cash-only delistings receive numeric labels only when exit-boundary cash wealth
+is independently measurable from matched event terms. Preserve the asset or
+claim resulting from delisting; DelRet/storage dates do not themselves establish
+exit-opening wealth, and payments/returns must not be counted twice. Later
+settlement amounts are not substituted for values unavailable at the boundary.
+Received securities, rights, property and compound assets require verified
+quantities and exit-boundary values; otherwise the entire label is missing.
+
+Every original eligible key is retained with one mutually exclusive status:
+
+| Label status | Frozen construction count |
+|---|---:|
+| measurable_ordinary_event_adjusted | 6,673,134 |
+| missing_entry_measurement | 7,596 |
+| measurable_cash_only_delisting | 3,616 |
+| valid_entry_unresolved_exit_wealth | 4,087 |
+| administrative_right_censoring | 8,686 |
+| other_unresolved_corporate_action | 1,982 |
+
+Only the two measurable statuses have numeric labels. Missing entry means a
+missing execution-price measurement, not necessarily a proven no-fill.
+Unresolved exit holdings and corporate-action assets remain explicitly unvalued;
+right-censoring is administrative. Every missing label has an explicit reason.
+No forward-fill, interpolation, later-price substitution, horizon shifting,
+or zero/-100% assumption without supporting evidence is permitted.
+
+Label statuses and event flags are outcome metadata, never signal predictors
+or future eligibility filters. Supervised training/evaluation use only numeric
+labels after the relevant horizon/claim information has matured, under strict
+walk-forward timing. Report coverage against the original eligible denominator.
+Complete-case evaluation is conditional on measurability and is not asserted
+to be unbiased for the full universe. Later robustness must retain the 6,069
+valid-entry unresolved holdings in explicit sensitivity/bounds analyses, using
+established components where possible; do not assume missing-at-random or
+silently delete delistings. A nonnegative long-position wealth assumption alone
+provides a -100% lower bound, not a finite upper bound. This is a robustness
+assumption, not an imputed primary label. Overlapping labels require explicit
+handling in subsequent validation design.
+
+Reproduction: scripts/20_construct_stage1g_targets.py, using existing local
+Stage 1G caches only. Licensed output: data/interim/stage1g_targets/targets_5d.parquet;
+manifest.json records coverage, input fingerprints and accounting QA.
 
 ## Model ladder
 

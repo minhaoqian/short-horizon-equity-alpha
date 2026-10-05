@@ -1,3 +1,7 @@
+> Historical RL-035 proposal/audit. Superseded by the approved frozen contract in
+> docs/methodology.md and RL-042; historical counts and missing-input statements
+> below describe the original audit, not the current handoff.
+
 # Stage 1G — Next-open target boundary proposal (OPEN)
 
 This is a proposed accounting specification plus a coverage audit, not a frozen
