@@ -20,7 +20,7 @@ Can short-horizon cross-sectional equity forecasts generate economically meaning
 
 ## Current stage
 
-**Stage 2A — Feature Framework / Baseline Signals: proposal prepared (RL-043)**
+**Stage 2A — Feature Framework / Baseline Signals: synthetic QA passed (RL-044)**
 
 Stage 1G remains CLOSED (RL-042).
 
@@ -35,8 +35,9 @@ and sensitivity analysis.
 Local licensed dataset: data/interim/stage1g_targets/targets_5d.parquet.
 Reproduction: scripts/20_construct_stage1g_targets.py.
 Feature definitions, timing, preprocessing and descriptive-output plans are
-proposed in docs/stage2a_feature_framework_proposal.md. No feature computation
-or model training has begun.
+documented in docs/stage2a_feature_framework_proposal.md. The small synthetic
+framework passed 24 tests; see docs/stage2a_fixture_qa.md. No historical feature
+computation or model training has begun; full-panel computation is not authorized.
 
 ## Core design
 

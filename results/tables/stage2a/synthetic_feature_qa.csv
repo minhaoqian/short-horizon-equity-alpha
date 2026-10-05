@@ -1,0 +1,17 @@
+scenario,feature,signal_date,raw,missing,reason,n_valid,window_start,window_end,calendar_positions
+complete,reversal_5,2020-04-15,4.999996000232265e-06,False,observed,5,2020-04-09,2020-04-15,5
+complete,momentum_60_skip5,2020-04-15,0.0018917894587238138,False,observed,55,2020-01-23,2020-04-08,55
+complete,volatility_20,2020-04-15,0.0019808291724745766,False,observed,20,2020-03-19,2020-04-15,20
+complete,turnover_20,2020-04-15,0.0949171969134603,False,observed,20,2020-03-19,2020-04-15,20
+complete,dollar_liquidity_20,2020-04-15,11.508604179133775,False,observed,20,2020-03-19,2020-04-15,20
+complete,volume_shock_20,2020-04-15,0.0010295347155224732,False,observed,20,2020-03-18,2020-04-15,21
+complete,intraday_1,2020-04-15,0.0009990009990010762,False,observed,1,2020-04-15,2020-04-15,1
+complete,gap_1,2020-04-15,0.0009999999999998899,False,observed,1,2020-04-14,2020-04-15,2
+missing_security_row,reversal_5,2020-04-15,,True,insufficient_valid_observations,3,2020-04-09,2020-04-15,5
+missing_security_row,momentum_60_skip5,2020-04-15,0.0018917894587238138,False,observed,55,2020-01-23,2020-04-08,55
+missing_security_row,volatility_20,2020-04-15,,True,insufficient_valid_observations,18,2020-03-19,2020-04-15,20
+missing_security_row,turnover_20,2020-04-15,0.09492584235797162,False,observed,19,2020-03-19,2020-04-15,20
+missing_security_row,dollar_liquidity_20,2020-04-15,11.508699649194606,False,observed,19,2020-03-19,2020-04-15,20
+missing_security_row,volume_shock_20,2020-04-15,0.0009260662240908601,False,observed,19,2020-03-18,2020-04-15,21
+missing_security_row,intraday_1,2020-04-15,0.0009990009990010762,False,observed,1,2020-04-15,2020-04-15,1
+missing_security_row,gap_1,2020-04-15,0.0009999999999998899,False,observed,1,2020-04-14,2020-04-15,2
