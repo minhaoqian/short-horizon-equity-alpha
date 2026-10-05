@@ -40,3 +40,21 @@ def test_resume_uses_validated_local_batch_without_query(tmp_path,monkeypatch):
     (tmp_path/'download_batches/stkdelists_000.parquet').write_bytes(b'changed')
     with pytest.raises(AssertionError,match='changed'):
         module.run(connection)
+
+
+def test_single_login_never_invokes_retry_wrapper():
+    from src.data.stage1g_wrds_extraction import single_login
+    class FakeModule:
+        attempts=0
+        class Connection:
+            def __init__(self,**kwargs):
+                assert kwargs['autoconnect'] is False
+            def _Connection__make_sa_engine_conn(self,raise_err):
+                assert raise_err
+                FakeModule.attempts+=1
+                raise RuntimeError('authentication failed')
+            def connect(self):
+                raise AssertionError('Retry wrapper must not run')
+    with pytest.raises(RuntimeError,match='authentication failed'):
+        single_login(FakeModule,'example')
+    assert FakeModule.attempts==1

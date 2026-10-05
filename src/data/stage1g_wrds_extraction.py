@@ -65,6 +65,15 @@ def save_json(path,value):
     tmp=path.with_suffix('.json.tmp');tmp.write_text(json.dumps(value,indent=2,default=str)+'\n');tmp.replace(path)
 
 
+def single_login(wrds_module,username):
+    """Exactly one engine connection, bypassing WRDS automatic fallback/retry."""
+    db=wrds_module.Connection(autoconnect=False,wrds_username=username,
+        wrds_hostname='wrds-pgdata.wharton.upenn.edu',wrds_port=9737,wrds_dbname='wrds',
+        wrds_connect_args={'sslmode':'require','connect_timeout':90,'application_name':'Stage1G'})
+    db._Connection__make_sa_engine_conn(raise_err=True)
+    return db
+
+
 def run(connection):
     """Execute only on explicit authorization; supplied connection is not closed."""
     work=jobs()
@@ -79,12 +88,17 @@ def run(connection):
     folder=OUT/'download_batches';folder.mkdir(exist_ok=True)
     save_json(path,m)
     failed_sources=set()
+    session_lost=False
     m['errors']={}
     m['connection_verified']=True
     m.setdefault('wrds_observation_queries_executed',0)
     m.pop('last_error',None)
     save_json(path,m)
     for table,index,sql,params,scope in work:
+        if session_lost:
+            if f'{table}_{index:03d}' not in m['batches']:
+                failed_sources.add(table)
+            continue
         if table in failed_sources:
             continue
         key=f'{table}_{index:03d}';file=folder/f'{key}.parquet'
@@ -99,6 +113,11 @@ def run(connection):
             m['wrds_observation_queries_executed']+=1
             save_json(path,m)
             df=connection.raw_sql(sql,params=params)
+            if table=='stkdlysecuritydata':
+                actual={(int(p),pd.Timestamp(dt).date()) for p,dt in df[['permno','dlycaldt']].itertuples(index=False,name=None)}
+                m.setdefault('daily_unmatched_keys',{})[key]=[
+                    {'permno':p,'dlycaldt':str(dt)} for p,dt in sorted(scope-actual)]
+                save_json(path,m)
             stats=validate(table,df,scope)
             tmp=file.with_suffix('.parquet.tmp');df.to_parquet(tmp,index=False);tmp.replace(file)
             m['batches'][key]={**stats,'file':str(file.relative_to(OUT)),'sha256':digest(file),'completed_at_utc':datetime.now(timezone.utc).isoformat()}
@@ -113,6 +132,11 @@ def run(connection):
             m['errors'][table]={'batch':key,'exception_type':type(exc).__name__,'message':message}
             save_json(path,m)
             print(f'{key}: FAILED {type(exc).__name__}: {message}',flush=True)
+            driver=getattr(exc,'orig',exc)
+            if getattr(exc,'connection_invalidated',False) or type(driver).__name__ in ('OperationalError','InterfaceError'):
+                session_lost=True
+                m['session_lost']=True
+                print('Session unavailable: stop remaining queries; no reconnect',flush=True)
     m['outputs']={}
     for table in COLUMNS:
         if table in failed_sources:
@@ -130,6 +154,10 @@ def run(connection):
     if 'stkdlysecuritydata' in m['outputs']:
         m['daily_matched_keys']=m['outputs']['stkdlysecuritydata']['rows']
         m['daily_coverage_status']='PASSED: all requested existing keys matched'
+    if session_lost:
+        for table,status in m['source_status'].items():
+            if status['completed_batches']==0 and table not in m['errors']:
+                status['status']='NOT STARTED: session lost; no reconnect'
     save_json(path,m)
     return m
 
@@ -145,14 +173,23 @@ def main():
         print(json.dumps({'queries':len(work),'by_table':{t:sum(j[0]==t for j in work) for t in COLUMNS},'wrds_query_executed':False},indent=2))
         return
     import wrds
-    connection=wrds.Connection(wrds_connect_args={'sslmode':'require','connect_timeout':30,'application_name':'Stage1G'},
-        **({'wrds_username':args.wrds_username} if args.wrds_username else {}))
+    if not args.wrds_username:
+        parser.error('--wrds-username is required for noninteractive single-attempt authentication')
+    print('Exactly one WRDS login attempt; approve Duo if prompted',flush=True)
+    try:
+        connection=single_login(wrds,args.wrds_username)
+    except Exception as exc:
+        driver=getattr(exc,'orig',exc)
+        print(f'LOGIN FAILED {type(exc).__name__} / {type(driver).__name__}: {driver}',flush=True)
+        raise SystemExit(1)
     try:
         check=connection.raw_sql("SELECT table_schema,table_name FROM information_schema.tables WHERE table_schema='crsp' AND table_name='stkdelists'")
         assert len(check)==1,'WRDS metadata check did not find crsp.stkdelists'
         print('WRDS connection active; metadata check passed',flush=True)
         run(connection)
-    finally: connection.close()
+    finally:
+        connection.close()
+        print('WRDS connection closed',flush=True)
 
 
 if __name__=='__main__': main()

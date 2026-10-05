@@ -710,3 +710,23 @@ matches `1 + DlyRetX` within 1e-6 in 499/500 examples. The remaining error is ap
 **Record/decision:** Local ignored download_manifest.json records approved query plan/selector SHA256, preflight checks, connection error, zero completed batches/downloaded rows and untested daily coverage. All 7,900 daily keys remain pending; no source-unmatched conclusion is possible. Stage 1G remains OPEN; extraction QA NOT RUN, preflight QA passed. No raw daily scan, target interpretation or licensed-data commit.
 
 **One next action:** Restore WRDS PostgreSQL connectivity from the Codex execution environment, then resume the same approved extraction without broadening scope.
+
+
+---
+
+## RL-040 — Stage 1G approved WRDS extraction completed; extraction QA passed
+**Date:** 2026-10-05
+
+**Methodology check:** Re-read instructions, methodology and latest log. Scope restricted to approved extraction and schema/key/coverage/checksum QA; no endpoint/delisting economic interpretation, performance evidence, target-methodology change or new stage. User confirmed successful same-IP website/Duo login and authorized extraction with exactly one API login attempt.
+
+**Preflight/authentication:** Source-cache size/mtime fingerprints and download-manifest selector SHA256 match. Twelve approved query jobs; no previously completed batches. Licensed selector/output directory confirmed gitignored. Updated extraction entry point to create WRDS Connection(autoconnect=False) and call the installed package's single engine-connection method, bypassing automatic fallback/retry. Explicit confirmed username, SSL and 90-second login timeout; no password printed or stored in repository. Exactly one API login succeeded, followed by one information_schema existence check; no authentication retry or reconnection. Connection closed cleanly after extraction. Session-loss handling prevents remaining data queries from implicitly reconnecting; completed batches remain intact.
+
+**Approved extraction/row counts:** Full crsp.stkdelists, approved 19 columns: 1/1 batch, 29,833 rows / 29,833 PERMNOs. crsp.stkdistributions, approved 13 columns, all event dates for 3,064 selected PERMNOs, batches <=500: 7/7 batches, 223,291 rows / 3,061 returned PERMNOs. All selected securities were included in the batch predicates; three have no returned distribution records, explicitly recorded in the local manifest without inferring why. No payment-date restriction. crsp.stkdlysecuritydata, four columns and only 7,900 exact requested keys, batches <=2,000: 4/4 batches, 7,900 rows / 1,774 PERMNOs. Twelve observation queries completed, no WRDS errors, no broadened scope.
+
+**QA:** Approved column lists match all batch/final outputs; dates parse; nonnull security keys. Distribution keys (permno,disexdt,disseqnbr) and daily keys (permno,dlycaldt) unique; no unexpected securities/daily dates. Final row counts equal completed-batch sums, SHA256 checksums verified for every batch/final file. No exact duplicate rows; delisting security/date keys unique. All 7,900 requested daily keys match: zero unmatched or unexpected keys. Four local extraction tests passed, including single-login failure without retry. A local QA reporting conversion incorrectly called item() on a Python integer, then was corrected; no remote query was repeated.
+
+**Local outputs:** data/interim/stage1g_extraction/stkdelists.parquet, stkdistributions.parquet, stkdlysecuritydata.parquet, download_batches/*.parquet and updated download_manifest.json. Manifest records row counts, source coverage, no-record distribution securities, unmatched daily keys, checksums, authentication attempt count and extraction QA. Licensed outputs/manifests remain uncommitted; only code/tests/log committed. Existing selectors preserved. No local raw daily scan.
+
+**Decision:** Extraction QA PASSED. Stage 1G remains OPEN and primary target unfrozen. No event-ledger interpretation or target construction performed.
+
+**One next action:** Obtain authorization for the cache-only endpoint/delisting/distribution-boundary diagnostic using the newly extracted event histories; do not execute that diagnostic in this step.
