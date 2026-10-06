@@ -1147,3 +1147,16 @@ Research-lead approved ADS election, fixed0.535, whole/fraction separation, symm
 **Date:** 2026-10-06
 
 BothD/M remain unidentified after final bounded search; close historical-identification branch UNRESOLVED, not a claim documents do not exist. Stage4A strictfailure, Stage4B feasibilityfailure and Stage4C economic recovery preserved unchanged. Original Stage4D report retained. New closure report and Stage4E proposal separate evidence from assumptions. Proposed equal-status hypothetical pre-open D0Mar31/D2Apr2/D5Apr7; hypothetical effective-date ADS-close fractional method requires independent quote certification; hypothetical same-D cash credit and timely instruction processing explicitly flagged. No scenario selected using outcomes. Signed claims/whole assets, immutable caps and strict unknown propagation preserved. Proposal requires review before execution, focused QA then feasibility only; no PnL authorized. Frozenmethodology unchanged. Safe search/scenario tables, docs/log/handoff QA and diff/license checks; no code changed or new test run needed. No figure appropriate for discrete unresolved evidence/proposal. Nextaction: research-lead review of Stage4E assumptions.
+
+
+---
+
+## RL-073 — Stage4E conditional feasibility structure approved; quotation prerequisite first
+**Date:** 2026-10-06
+
+Research-lead approves equal-status D0Mar31/D2Apr2/D5Apr7 hypothetical pre-open delivery, ADS election, frozen0.535, signed whole/fraction quantities, same-D fractional cash credit, no netting and original scheduled-exit anchored five-datecap. Sole authorized continuation: certify prescribed March28 ADS close, then adapter/focused QA and development feasibility, never performance. Re-read methodology/log/AGENTS and prior proposal/code. Preserve prior strictfailure/fallbackfailure/legalrecovery/historical-unresolved findings.
+
+## RL-074 — CRSP closing trade certified; prescribed publication quotation not certified, explicit stop
+**Date:** 2026-10-06
+
+Narrow existing parquet query yields one positive March28 HSBC ADS price with TR flag. Official local CRSP guide certifies last regular-session closing trade semantics; no bid/ask substitution. Issuer circular§2.2.2(b) specifies WSJ US National Edition quotation; neither cache nor two narrowly scoped searches establishes exact publication equality. Do not equate valid CRSP close with certified prescribed quotation silently. Required gate remains unresolved; user explicitly requires stop. Private quote manifest ignored, safe documentation contains no licensed price extract. No adapter/test/scenario/feasibility/PnL/WRDS/rawscan/holdout run. Previous artifacts and methodology unchanged. Next review: explicitly approve verified CRSP same-date close as hypothetical cash reference, or certify prescribed WSJ quote. Docs/diff/license QA only; no figure useful for binary prerequisite.

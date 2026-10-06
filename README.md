@@ -26,11 +26,13 @@ Can short-horizon cross-sectional equity forecasts generate economically meaning
 identify actual holder delivery D or issuer fractional-cash method M. Approved
 structure and0.535 entitlement remain; earlier Stage4A/B/C findings are preserved.
 
-**Stage 4E — Hypothetical Settlement: proposal awaiting review**
+**Stage 4E — Conditional feasibility approved; quote prerequisite stopped (RL-074)**
 
 [Conditional scenario proposal](docs/stage4e_hypothetical_settlement_proposal.md)
-separates assumed delivery/cash settlement from historical evidence. No scenario
-execution, feasibility rerun or portfolio performance has occurred.
+separates assumed delivery/cash settlement from historical evidence.
+[Quote prerequisite](docs/stage4e_quote_certification_gate.md): CRSP closing-trade
+semantics certified; specified WSJ quotation remains uncertified. No adapter,
+scenario execution, feasibility rerun or portfolio performance has occurred.
 
 **Stage 4C — Successor Quantity Recovery: OPEN / executable inventory gate (RL-068)**
 

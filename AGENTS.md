@@ -113,19 +113,19 @@ Derived compact QA tables may be committed only when licensing and repository po
 
 ## Current handoff state
 
-Latest completed methodology log entry: **RL-072**.
+Latest completed methodology log entry: **RL-074**.
 
-Current work: **Stage 4D historical-identification branch CLOSED UNRESOLVED; Stage 4E hypothetical proposal awaiting review**.
-Accepted 0.535 signed ADS-equivalent ratio remains fixed. ADS election,
-whole/fraction separation, symmetric shorts, no cohort netting and delivery gating
-are approved structurally. Final bounded search did not identify historical D/M;
-see docs/stage4d_historical_identification_closure.md and RL-071–072.
-Stage4E proposes explicitly hypothetical D0/D2/D5, fixed effective-date quotation
-cash method subject to quote certification, same-D cash credit and account
-processing assumptions. None is approved for execution or historical evidence.
-Preserve Stage4A/B/C artifacts, frozen methodology and five-date cap.
-No PnL/performance/WRDS/raw scan/holdout or authentication. Documentation-only;
-119 previous tests, no new code. Stop for Stage4E review before implementation.
+Current work: **Stage 4E conditional feasibility approved; quotation prerequisite STOPPED for review**.
+See docs/stage4e_quote_certification_gate.md. March28 HSBC ADS cached close has
+TR flag: CRSP regular-session closing trade certified. Required WSJ publication
+quotation/equality is not certified. Do not substitute it silently. D0/D2/D5,
+0.535 ratio, signed whole/fraction obligations, no netting and five-date cap stay
+approved and unchanged; no adapter or scenario feasibility has run.
+Preserve Stage4A strictfailure, Stage4B failed feasibility, Stage4C ratio recovery
+and Stage4D historical CLOSED UNRESOLVED findings permanently.
+No performance/WRDS/raw scan/holdout/authentication; no new test results claimed.
+Next review: approve named CRSP closing trade as hypothetical cash reference,
+or certify specified WSJ quote, before implementation.
 
 Completed stage: **Stage 3A — Walk-Forward Baseline Signal Combination: CLOSED**.
 See docs/stage3a_completion.md and RL-057–RL-059. All 68 quarterly expanding
@@ -188,7 +188,7 @@ bounds/sensitivity analysis; complete-case evaluation remains conditional on
 measurability. The 45 missing-lag source observations remain preserved; never
 interpolate/forward-fill them. Stage 3A baseline models have been fitted only under the approved development protocol.
 
-Next action: review docs/stage4e_hypothetical_settlement_proposal.md; no simulation or performance authorized. Final bounded Stage4D search exhausted; historical D/M remain unidentified. See docs/stage4d_historical_identification_closure.md. Preserve all earlier strict/fallback/entitlement findings.
+Next action: review docs/stage4e_quote_certification_gate.md; no price substitution or scenario execution until quotation prerequisite is resolved.
 Stop before further models, feature selection, portfolios, new horizons or holdout evaluation.
 
 ## Autonomous execution policy
