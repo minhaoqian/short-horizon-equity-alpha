@@ -113,9 +113,16 @@ Derived compact QA tables may be committed only when licensing and repository po
 
 ## Current handoff state
 
-Latest completed methodology log entry: **RL-051**.
+Latest completed methodology log entry: **RL-052**.
 
-Current work: **Stage 2A — Feature Framework / Baseline Signals: CLOSED**.
+Current work: **Stage 2B — Baseline Signal Evaluation: OPEN / pre-performance review**.
+See docs/stage2b_evaluation_proposal.md and RL-052. Source/key/coverage preflight
+passed: 6,699,101 keys / 6,676,750 numeric labels; 68 repository tests pass.
+No IC or target-spread statistic computed. Evaluation/holdout dates and boundary
+policy remain undefined; nearby horizons would require new target construction.
+Stop for review of temporal scope and proposed IC-decay deferral before results.
+
+Completed stage: **Stage 2A — Feature Framework / Baseline Signals: CLOSED**.
 See docs/stage2a_completion.md. 6,699,101 unique eligible feature keys retained;
 eight approved raw/clipped/z baselines, explicit missingness, global outcome-
 independent effective-date events. All 109 chronology conflicts checked: 92
@@ -151,9 +158,9 @@ bounds/sensitivity analysis; complete-case evaluation remains conditional on
 measurability. The 45 missing-lag source observations remain preserved; never
 interpolate/forward-fill them. No model has been trained.
 
-Next action: research-lead authorization/specification for baseline predictive
-signal evaluation, including strict walk-forward and overlapping-label controls.
-Do not begin it automatically. Preserve the frozen Stage 1G contract.
+Next action: research-lead confirmation of Stage 2B evaluation/untouched-holdout
+dates and boundary treatment, plus deferral of new-horizon IC decay. Resume fixed
+5D evaluation only after review; do not change frozen targets/features.
 
 ## Autonomous execution policy
 

@@ -20,7 +20,7 @@ Can short-horizon cross-sectional equity forecasts generate economically meaning
 
 ## Current stage
 
-**Stage 2A — Feature Framework / Baseline Signals: CLOSED (RL-050)**
+**Stage 2B — Baseline Signal Evaluation: OPEN / methodology review (RL-052)**
 
 Stage 1G remains CLOSED (RL-042).
 
@@ -42,8 +42,10 @@ reconciliation govern admission. See [Stage 2A completion](docs/stage2a_completi
 Licensed features: data/interim/stage2a_features/parts/ (32 parquet partitions).
 Descriptive coverage/distribution/dispersion/correlation tables and four figures
 are under results/tables/stage2a/ and results/figures/stage2a/.
-Predictive evaluation, feature selection, ML and portfolios have not begun and
-require separate authorization. Stage 1G remains frozen.
+Stage 2A is CLOSED. Stage 2B source/key/coverage preflight passed; no IC computed.
+See [evaluation proposal](docs/stage2b_evaluation_proposal.md). Evaluation/holdout
+dates need review; nearby-horizon decay would require new targets. Feature
+selection, ML and portfolios have not begun. Stage 1G remains frozen.
 
 ## Core design
 
