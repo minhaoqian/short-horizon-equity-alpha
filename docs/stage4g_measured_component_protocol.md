@@ -1,6 +1,6 @@
 # Stage 4G — Conditional Measured-Component Performance Protocol
 
-Date: 2026-10-06. **PROPOSAL FOR RESEARCH-LEAD REVIEW.** RL-086–087. No performance computation, implementation or new data access authorized by this document. Frozen Stage1–4F specifications remain unchanged.
+Date: 2026-10-06. Original proposal: RL-086–087. **APPROVED FOR IMPLEMENTATION by research-lead decision recorded in RL-088.** The original proposal wording below is retained as the prespecification record; approval supersedes its proposal-only stop instructions. Frozen Stage1–4F specifications remain unchanged. Annualized dispersion must be labeled **annualized SD of conditional measured-component daily contribution**. HAC summaries must be labeled **nominal inference for the conditional measured-component mean**, never full-strategy significance or full net alpha.
 
 ## 1. Scope and evidence gate
 

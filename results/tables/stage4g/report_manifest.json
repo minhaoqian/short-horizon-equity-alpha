@@ -1,0 +1,53 @@
+{
+  "qa_passed": true,
+  "journal_qa": {
+    "uni_reversal_5": {
+      "primitive_rows": 18077042,
+      "unique_primitives": 18077042,
+      "nonfinite_amounts": 0,
+      "primitive_aggregate_reconciliation": true,
+      "wholly_identified_closed_lifecycles": 1341514,
+      "maximum_lifecycle_accounting_error": 5.002220859751105e-12
+    },
+    "ridge": {
+      "primitive_rows": 17852036,
+      "unique_primitives": 17852036,
+      "nonfinite_amounts": 0,
+      "primitive_aggregate_reconciliation": true,
+      "wholly_identified_closed_lifecycles": 1335859,
+      "maximum_lifecycle_accounting_error": 7.275957614183426e-12
+    }
+  },
+  "reporting_dates_per_candidate": 4278,
+  "original_eligible_development_keys": 3829908,
+  "original_decision_dates": 4279,
+  "full_account_wealth_identified": false,
+  "market_value_coverage_unavailable": true,
+  "performance_scope": "Conditional simulation under a generalized unresolved-position reservation convention",
+  "sd_label": "annualized SD of conditional measured-component daily contribution",
+  "hac_label": "nominal inference for the conditional measured-component mean",
+  "unknowns_imputed": false,
+  "sharpe_nav_drawdown_or_selection_computed": false,
+  "holdout_outcomes_read": false,
+  "baseline_only": true,
+  "output_hashes": {
+    "results/tables/stage4g/annual_component_summary.csv": "dda11b80e3ad7543c953e3b0d635d99c03bd45a5b11e1b5e583a7ea13ed6fa65",
+    "results/tables/stage4g/conditional_mean_hac.csv": "86be557b5e67d61ba76ebb5c6b7019e1e6fe4663fe44555709ad3541ee9eae4c",
+    "results/tables/stage4g/cost_borrow_decomposition.csv": "4d857d18776050fe47ee8a974d1490ed157624924d81074a1fb7ae06d423a4c4",
+    "results/tables/stage4g/verified_turnover.csv": "d7120acf413b9fd7526315048fab72828c798aa054cf0e38e4f938d92fb35ce8",
+    "results/tables/stage4g/daily_component_contributions.csv": "9d66f502a54d3e3ae504c296b530f6d2fba01b85627ae6e84d7eb7b3686f12f4",
+    "results/tables/stage4g/descriptive_candidate_comparison.csv": "ab29cb8a746b66e5750be2cfeab861c7598c302b59ecf2608062131512c02d5a",
+    "results/tables/stage4g/accounting_qa.csv": "1c712d57dee89debeccb71d55c7eabd9113dcd9fa9b2269a5ffa1a198785b63f",
+    "results/tables/stage4g/strict_findings.csv": "0606a9162d14936b828bff214389b1ff37652e9e13ad419102870182ed7827d0",
+    "results/tables/stage4g/daily_annual_coverage.csv": "540dcbcdd4ea4bcf231266cbbed70130f715857eaf8f4092af94773d1b4426b1",
+    "results/figures/stage4g/daily_components_coverage.png": "65932e49bff3526e9470764869f7515104b031b060357cd271cafa4f80bcc663",
+    "results/figures/stage4g/contribution_distribution_coverage.png": "c3b75aab0c8b8ad3af7d834e5362be7b789895060a6019cf70485347dfc9bf54",
+    "results/figures/stage4g/annual_components_coverage.png": "0557c86a70b80bd4d3665f866a4ee76dd7a85fd97691286fb1ac2b2e1250f47f",
+    "results/figures/stage4g/turnover_cost_coverage.png": "2be63129205a14ac408027889d342996c5ffec4ecdcab8b62fbd6a4f0487a42d"
+  },
+  "source_manifest_sha256": "b00e746c3af44e47c29d2f700f2bed938aa8043470811c2160d2b5e6828760d7",
+  "source_daily_sha256": {
+    "uni_reversal_5": "e321913032f25b4c05aad33ed578f10a744ae612d1626304d2be4c9bf7d17acc",
+    "ridge": "a910d70f433a76c08f52b0adfc1d9a526f9f6b7fdd52ce165a8da87200a1d494"
+  }
+}

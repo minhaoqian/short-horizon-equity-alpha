@@ -38,3 +38,6 @@ results/experiments/*.joblib
 # Large reproducible Stage 4F aggregate paths remain local.
 /results/tables/stage4f/daily_reservation_coverage.csv
 /results/tables/stage4f/phase_reservation_path.csv
+
+# Large reproducible Stage 4G aggregate reporting calendar remains local.
+/results/tables/stage4g/daily_component_contributions.csv

@@ -1,0 +1,7 @@
+stage,finding,halt_date,operational_dates,original_development_dates,limitation,performance_scope
+4A,Strict identification failed,2003-01-13,7.0,4279,Unidentified scheduled exit; no complete ledger,Conditional simulation under a generalized unresolved-position reservation convention
+4B,Five-date fallback failed,2003-03-31,60.0,4279,Unidentified received inventory,Conditional simulation under a generalized unresolved-position reservation convention
+4C,Legal entitlement recovered only,,,4279,0.535 economic ratio; delivery/cash method not established,Conditional simulation under a generalized unresolved-position reservation convention
+4D,Historical settlement identification unresolved,,,4279,Delivery D and issuer method M unidentified; branch closed,Conditional simulation under a generalized unresolved-position reservation convention
+4E,All hypothetical cases halt at second event,2003-04-16,72.0,4279,D0/D2/D5 retained equally; not historical settlement,Conditional simulation under a generalized unresolved-position reservation convention
+4F,Reference-budget continuation feasible,,4279.0,4279,Full wealth unknown; reserve not value/funding/solvency,Conditional simulation under a generalized unresolved-position reservation convention

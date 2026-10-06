@@ -348,3 +348,63 @@ unidentified despite technically feasible measured-component accounting.
 Conditional reporting/performance requires separate research-lead review;
 no full headline NAV/Sharpe/drawdown or selection from partial components.
 Reference-budget exhaustion is never evidence of insolvency or margin failure.
+
+## Stage 4G approved conditional component reporting contract (RL-088–091)
+
+Research-lead approves docs/stage4g_measured_component_protocol.md. Preserve all
+Stage1–4F specifications and permanent identification failures. Replay immutable
+Stage4F orders/reserves from the empty2003book, without new forecasts, sizing,
+availability filters or event-specific recovery. Canonical later terminal states
+are reconciliation expectations only, never timing/quantity/valuation inputs.
+
+Report every global date2003-01-03–2019-12-31. At opening d recognize identified
+signed preceding-open asset increments, independently established cash rights,
+execution costs at d and ACT365 borrowing over the preceding calendar interval.
+New entries have no preceding-period asset gain; their opening fees still post.
+Split/share transport, entry-day excluded/exit-day included rights, verified cash
+replacement and fixed claims follow the frozen ledger. No principal/receipt
+income, doubled claim, quarantine write-off/transfer, gap bridging, later-price
+recovery or hypothetical successor wealth. Late2019positions/orders remain
+outstanding; no2020outcome/runoff access in this report.
+
+Gross, fixed6bp, impact.10 and borrow100bp/year primitives remain distinct;
+financing0. Known fixed fees remain when impact is unknown; known original-entry
+short borrowing remains when asset wealth is unknown. Unknown queued quantities,
+notionals and borrowing/cost bases stay null, never planned-proxy estimates.
+Frozen gross planned security flow/ADV and prior-close raw sigma determine
+participation/impact, without cross-sleeve netting or future volume. Independently
+known claims may coexist with a disjoint unknown asset/claim bundle.
+
+Identified signed subtotals are not strict total-book sums. Unknown components
+stay null and retain explicit counts/reasons; all-unmeasured active subtotals are
+null. Verified absence/flat increments may be zero. Known expenses/cash flows
+are not discarded because associated wealth is unknown. No empty idle phase or
+zero financing creates a zero return for an otherwise wholly unmeasured book.
+The strict measured_sum primitive is unchanged. Fixed referenceN=$10m is the only
+diagnostic denominator; no surviving-capital normalization, inverse coverage,
+compounding, synthetic full-book NAV/Sharpe/drawdown or candidate selection.
+
+Every daily/annual/statistical/figure result discloses original denominators,
+asset-cohort and complete-component count coverage, verified-entry-basis proxy,
+unknown queued bases/claim bundles/cost obligations, raw/paired reserves and
+unmatched allowance. Annual interval coverage is ratio of summed counts, not mean
+of daily fractions. Stage4G expense posting differs from Stage4F availability
+screening; neither certifies unknown full-account wealth. Full-account market-value
+coverage/bounds remain unavailable. Reference deployment is not funding,
+neutrality, collateral, loss-bound, margin or solvency evidence.
+
+Daily mean and sample SD use numeric identified net subtotals/N with n/T retained
+on the full calendar. Annualized dispersion must be labeled **annualized SD of
+conditional measured-component daily contribution**. Bartlett/Newey–West lag20
+primary and fixedlag4 sensitivity use original calendar lag positions and the
+approved masked-score sandwich; a masked score is not a zero ledger value.
+Inference requires n>lag+1 and positive finite SE; otherwise unavailable. Every
+HAC statistic is **nominal inference for the conditional measured-component mean**,
+never statistical significance of the full strategy or full net alpha. No lag,
+outlier, date or coverage choice is adjusted to results. Changing measured
+composition/nonstationarity/nonrandom unknowns remain interpretation limitations.
+
+Stage4A–E failures and Stage4F reservations precede conditional findings. Reversal
+and Ridge share rules/calendar; comparison is descriptive only. Full-ledger
+candidate-selection prerequisites remain unmet. RL-091 completes implementation;
+stop for final research-lead synthesis. No new stage or holdout access is authorized.

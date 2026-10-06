@@ -113,23 +113,28 @@ Derived compact QA tables may be committed only when licensing and repository po
 
 ## Current handoff state
 
-Latest completed methodology log entry: **RL-087**.
+Latest completed methodology log entry: **RL-091**.
 
-Current work: **Stage 4G conditional measured-component protocol PROPOSAL / review required**.
-See docs/stage4g_measured_component_protocol.md. Stage4F feasibility accepted;
-full-account wealth remains unidentified. Proposed identified subtotals + null
-residuals, fixedN=$10m diagnostic ratios, opening-boundary calendar, coverage
-beside every result and nominalHAC20/fixed4. No proposal implementation or
-performance computed; frozen methodology/code/data unchanged. Reject synthetic
-NAV/Sharpe/drawdown, proxy-as-wealth/funding and candidate selection; prior
-Stage4A–E/RL-082 findings retained. No holdout outcomes/newfits/source recovery.
-Next action: research-lead review before Stage4G implementation/performance.
+Current work: **Stage 4G conditional measured-component implementation COMPLETE / final synthesis review boundary**.
+See docs/stage4g_completion.md and docs/stage4g_measured_component_protocol.md.
+Each candidate retains 4,278 reporting dates, 2003-01-03–2019-12-31, with original
+3,829,908 decision keys / 4,279 dates / 68 forecast hashes and exact Stage4F execution,
+claim, inventory/reserve reconciliation. 18,077,042 / 17,852,036 unique primitives;
+22 focused / 187 repository tests pass. Asset-interval coverage 80.5789% / 79.9866%,
+ending 69.1160% / 68.4329%; unknown wealth remains null. Identified costs/claims
+remain even when related stock wealth is unknown. Fixed N=$10m; conditional mean
+−1.220 / −1.718 bp/day, nominal HAC20 / fixed HAC4 only. No full-account significance,
+Sharpe/NAV/drawdown/selection, newfit/holdout outcome or event-recovery search.
+Annualized dispersion is conditional-contribution SD, not portfolio volatility.
+Safe tables/figures under results/{tables,figures}/stage4g; licensed journals
+under data/interim/stage4g stay ignored. Prior strict failures retained.
+Next action: final research-lead synthesis; do not automatically start a new stage.
 
-Stage4F completed: both3,829,908keys/4,279developmentdates; all permit newpaired
+Stage4F completed: both3829908keys/4279developmentdates; all permit newpaired
 reference deployment, no budget exhaustion. Reversal828/Ridge840unresolved;
-executed-basis reserves$7.714m/$8.016m, queued planned proxies$20,724.42/$0.
-165tests passed at implementation closure; no new tests claimed for this proposal.
-Reference-budget capacity does not establish funding, neutrality or solvency.
+executed-basis reserves$7.714m/$8.016m, queued planned proxies$20724.42/$0.
+165tests passed at Stage4F closure. Reference-budget capacity does not establish
+funding, neutrality or solvency; reserves are never wealth/NAV/loss bounds.
 
 Completed stage: **Stage 3A — Walk-Forward Baseline Signal Combination: CLOSED**.
 See docs/stage3a_completion.md and RL-057–RL-059. All 68 quarterly expanding
@@ -192,8 +197,8 @@ bounds/sensitivity analysis; complete-case evaluation remains conditional on
 measurability. The 45 missing-lag source observations remain preserved; never
 interpolate/forward-fill them. Stage 3A baseline models have been fitted only under the approved development protocol.
 
-Next action: review docs/stage4g_measured_component_protocol.md before any performance computation. Historical event-by-event recovery is closed; no individual successor investigation or performance authorized.
-Stop before further models, feature selection, portfolios, new horizons or holdout evaluation.
+Next action: final research-lead synthesis of docs/stage4g_completion.md. Historical event-by-event recovery remains closed; no individual successor investigation or further performance stage is authorized.
+Stop before further models, feature selection, portfolio changes, new horizons or holdout evaluation.
 
 ## Autonomous execution policy
 

@@ -20,14 +20,21 @@ Can short-horizon cross-sectional equity forecasts generate economically meaning
 
 ## Current stage
 
-**Stage 4G — Conditional Measured-Component Performance: PROPOSAL FOR REVIEW (RL-087)**
+**Stage 4G — Conditional Measured-Component Performance: COMPLETE / FINAL SYNTHESIS REVIEW (RL-091)**
 
-[Reporting protocol](docs/stage4g_measured_component_protocol.md) proposes
-identified gross/expense/net contributions with explicit unknown residuals,
-fixed reference-capital ratios and coverage beside every result. No performance
-computed. Full-account wealth stays unidentified; no synthetic NAV, Sharpe,
-drawdown or winner selection. Holdout outcomes remain untouched.
-Stop for research-lead review before implementation.
+[Completion report](docs/stage4g_completion.md): both frozen candidates retain
+all 4,278 development reporting dates, with exact Stage4F order/claim/reserve
+reconciliation and 187 tests passing. Identified signed components retain explicit
+unknown residuals; no quarantine write-off or missing-value substitution.
+Conditional daily mean/N is −1.220 bp (reversal) / −1.718 bp (Ridge), with asset-interval
+coverage of 80.58% / 79.99%, declining to roughly 69% by the end of 2019. These are partial
+components, not full-account returns or candidate-selection evidence.
+
+[Tables](results/tables/stage4g) and [figures](results/figures/stage4g) show separate
+cost/borrow/verified-turnover primitives, coverage and budget proxies. Nominal HAC20
+and fixed HAC4 describe the conditional mean only. Full-account wealth remains
+unidentified; no NAV/Sharpe/drawdown/winner, new fits or holdout outcomes.
+Stop for final research-lead synthesis; no automatic next portfolio stage.
 
 **Stage 4F — Generalized Reservation Feasibility: COMPLETE / REVIEW BOUNDARY (RL-085)**
 
