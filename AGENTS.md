@@ -113,12 +113,14 @@ Derived compact QA tables may be committed only when licensing and repository po
 
 ## Current handoff state
 
-Latest completed methodology log entry: **RL-044**.
+Latest completed methodology log entry: **RL-045**.
 
-Current work: **Stage 2A — Feature Framework / Baseline Signals: synthetic QA passed**.
+Current work: **Stage 2A — Feature Framework / Baseline Signals: historical verification review gate**.
 See `docs/stage2a_feature_framework_proposal.md` and `docs/stage2a_fixture_qa.md`.
-24 synthetic tests passed. No historical feature computation or ML has begun;
-full-panel computation is not authorized. Live field/event adapters remain to validate.
+25 fixture/source tests passed. Bounded historical source QA found an event-verification
+ambiguity (RL-045; docs/stage2a_historical_source_review.md). No historical features
+or ML computed. Full-panel authorization is conditional on passing that gate.
+Do not infer event-free status from missing/outcome-selected event histories.
 
 Completed stage: **Stage 1G — Target Formula Freeze: CLOSED**.
 Cumulative-factor verification and distribution-aware close-to-close
@@ -146,5 +148,21 @@ bounds/sensitivity analysis; complete-case evaluation remains conditional on
 measurability. The 45 missing-lag source observations remain preserved; never
 interpolate/forward-fill them. No model has been trained.
 
-Next action: authorize a small bounded historical sample QA of calendar, live
-field/event adapters and availability masks. Preserve the frozen Stage 1G contract.
+Next action: research-lead review of a globally consistent through-t event-verification
+and admission rule. Stop full construction until the RL-045 ambiguity is resolved.
+Preserve the frozen Stage 1G contract.
+
+## Autonomous execution policy
+
+Within an approved sub-stage, proceed through methodology check, implementation,
+processing, QA, descriptive outputs, log/docs/handoff and commit without routine
+engineering approval. Use caches; report unexpectedly expensive work before running.
+Stop for material specification changes, ambiguous economic/source evidence or
+uncertain point-in-time validity, performance-driven specification risk, material
+integrity problems, external authentication/permission, and major stage boundaries.
+Never retry failed authentication automatically. Preserve all keys, forbid future
+inputs/outcome metadata as predictors and unauthorized filling, and log material
+findings/failures sequentially. Assess useful safe tables and figures at each
+material sub-stage; no performance charts before authorization. Commit tested safe
+code/docs/aggregate outputs only; push only when policy/credentials permit.
+Do not cross into predictive evaluation, ML or portfolios without authorization.

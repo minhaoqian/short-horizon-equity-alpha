@@ -1,0 +1,9 @@
+check,observations,distinct_permnos,interpretation
+historical_sample_rows,32010,275,bounded partition 00; 2020-11-02 through 2021-04-30
+sample_rows_with_selected_event_history,5251,43,coverage diagnostic only; not a feature mask
+sample_rows_without_selected_event_history,26759,232,absence of returned events does not certify event-free
+sample_eligible_signal_keys,4971,,close-date eligibility only; no target access
+sample_eligible_keys_without_selected_event_history,974,,do not filter features using outcome-selected extraction coverage
+single_period_trade_previous_price_mismatches,0,,numerical anchor check only
+zero_value_event_corner_case_records,8,7,at most 50 prespecified records; no full daily panel scan
+eligible_event_days_passing_daily_zero_effect_screen,2,2,event-free certification fails; methodological review required

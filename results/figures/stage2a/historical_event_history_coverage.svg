@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="275" viewBox="0 0 680 275">
+      <rect width="680" height="275" fill="white"/>
+      <text x="20" y="30" font-size="19">Bounded source audit: event-history coverage</text>
+      <text x="20" y="54" font-size="13">32,010 cached rows; partition 00; Nov 2020-Apr 2021</text>
+      <text x="20" y="85" font-size="15">Existing selected event history: 5,251 rows</text><rect x="20" y="95" width="98.43" height="24" fill="#276678"/><text x="20" y="157" font-size="15">Outside selected event history: 26,759 rows</text><rect x="20" y="167" width="501.57" height="24" fill="#c98b35"/><text x="20" y="230" font-size="13">Coverage is not a feature-availability rule or a performance result.</text>
+      <text x="20" y="250" font-size="13">No full-panel feature computation. Stage 2A review gate remains open.</text></svg>
