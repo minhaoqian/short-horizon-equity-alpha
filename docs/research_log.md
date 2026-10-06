@@ -1160,3 +1160,23 @@ Research-lead approves equal-status D0Mar31/D2Apr2/D5Apr7 hypothetical pre-open 
 **Date:** 2026-10-06
 
 Narrow existing parquet query yields one positive March28 HSBC ADS price with TR flag. Official local CRSP guide certifies last regular-session closing trade semantics; no bid/ask substitution. Issuer circular§2.2.2(b) specifies WSJ US National Edition quotation; neither cache nor two narrowly scoped searches establishes exact publication equality. Do not equate valid CRSP close with certified prescribed quotation silently. Required gate remains unresolved; user explicitly requires stop. Private quote manifest ignored, safe documentation contains no licensed price extract. No adapter/test/scenario/feasibility/PnL/WRDS/rawscan/holdout run. Previous artifacts and methodology unchanged. Next review: explicitly approve verified CRSP same-date close as hypothetical cash reference, or certify prescribed WSJ quote. Docs/diff/license QA only; no figure useful for binary prerequisite.
+
+
+---
+
+## RL-075 — Stage4E CRSP reference clarification approved; conditional feasibility resumed
+**Date:** 2026-10-06
+
+Research-lead explicitly approves same-date CRSP51.35/TR as fixed hypotheticalfractionalcashreference, not certifiedWSJquote or historicallyselectedissuerM. No further search or outcome-driven quote/date substitution. AllD0/D2/D5 equallyreported. Re-readmethodology/AGENTS/latestlog/proposal/prioraudit/tests; preserveStage4A–D and frozenStage1–3. Only event-specific adapter/accounting/execution feasibility authorized, no PnL/Sharpe/drawdown/selection/holdout.
+
+## RL-076 — Signed settlement adapter and reproducible audit QA; engineering corrections retained
+**Date:** 2026-10-06
+
+Added src/portfolio/settlement.py, settlement_audit.py, settlement_report.py; scripts/35_stage4e_settlement_feasibility.py and18focused tests. Decimal e/W/F with signedshorts, no netting/fractionaltrade, samefixedcashreference, creditedonce independently of wholeexit, pre-opendelivery gate and immutablecap. Priorcashentitlement preserved by entrydate; no futurelabels/status projected. Restoredmissing existingproject QA dependencies locally. Initial pandas date-dtype merge failed and was normalized. Strengthened fixedcredit-dateassertion exposed requeuing an alreadycredited claim: cashamount was not creditedtwice but metadata date could be overwritten. Corrected pendingclaim registration; final historical assertion passes. Focused-vs-chronological exit/quantity/cash checks, first-open/duration/cap checks and originalpremerger order equality pass.137fulltests pass; earlierStage4A–Dartifacthashes unchanged. No specchange.
+
+## RL-077 — All Household cohorts resolve conditionally; April16differentmerger persistently halts every scenario
+**Date:** 2026-10-06
+
+EachDscenario resolves6/6originalcohorts (3eachcandidate): D0exitsMar31/Apr1/Apr4 delays0/0/0; D2Apr2/Apr2/Apr4 delays2/1/0; D5Apr7all delays5/4/1. Whole381/403/−390ADS and signedfractionalcashapprox12.19142839/32.68431665/−24.40776389 held separately; no preferredscenario. NewOS/SP/SECMRG April16parent18382->successor21936 has unverifiedreceivedquantity outsideadapter scope; eachcandidate/scenario retains1unresolvedlong enteredApr14, scheduledApr22, capApr29. FirstknownclosehaltApr16; queuedentries honored; no newdecisionorders thereafter.72/4279dates operational(1.682636%) andpersistentunknownstate through2019underfrozenstrictpolicy. Sixruns each13,770submittedorders,35,328prehalteligiblekeys; reversal13765market/2cashtermination/2cancel/1unknown, Ridge13761/6/2/1. All68forecastchecksums and3,829,908originalkeys verified. No laterprices/assumption/cap expansion attempted; no fullperiod accounting/performance feasible. Stopforreview at newmerger evidencegate.
+
+Safe5QA tables/1visuallychecked nonperformancefigure and completionreport docs/stage4e_conditional_feasibility.md; privateinventories/claims/manifests ignored. Rawscan/WRDS/auth/2020sourceoutcome/holdout/newfit/PnL allzero. Year2003cache reused; laterdevelopmentdates are haltedpolicy states, not virtualorders. Frozenmethodology and earlierfindings unchanged. Nextaction: research-lead review of April16receivedquantity evidence; no automatic new settlement convention or portfolio performance.

@@ -20,19 +20,20 @@ Can short-horizon cross-sectional equity forecasts generate economically meaning
 
 ## Current stage
 
+**Stage 4E — Conditional settlement feasibility: COMPLETE / full-period gate FAILED (RL-077)**
+
+[Feasibility report](docs/stage4e_conditional_feasibility.md): D0/D2/D5 resolve
+all six Household obligations using the approved hypothetical CRSP cash reference.
+A separate April16merger leaves one unresolved long per candidate/scenario;
+all books halt close2003-04-16, with72/4279dates operational(1.682636%).
+137tests pass; five QA tables and one execution-availability figure. No PnL,
+Sharpe, drawdown, candidate selection or holdout access. Stop for evidence review.
+
 **Stage 4D historical-identification branch: CLOSED UNRESOLVED (RL-072)**
 
 [Final bounded search](docs/stage4d_historical_identification_closure.md) did not
-identify actual holder delivery D or issuer fractional-cash method M. Approved
-structure and0.535 entitlement remain; earlier Stage4A/B/C findings are preserved.
-
-**Stage 4E — Conditional feasibility approved; quote prerequisite stopped (RL-074)**
-
-[Conditional scenario proposal](docs/stage4e_hypothetical_settlement_proposal.md)
-separates assumed delivery/cash settlement from historical evidence.
-[Quote prerequisite](docs/stage4e_quote_certification_gate.md): CRSP closing-trade
-semantics certified; specified WSJ quotation remains uncertified. No adapter,
-scenario execution, feasibility rerun or portfolio performance has occurred.
+identify actual holder delivery D or issuer fractional-cash method M. Stage4E
+assumptions do not reinterpret that finding. Earlier Stage4A/B/C artifacts retained.
 
 **Stage 4C — Successor Quantity Recovery: OPEN / executable inventory gate (RL-068)**
 

@@ -1,0 +1,7 @@
+scenario,candidate,original_development_keys,development_decision_dates,processed_pre_halt_eligible_keys,submitted_orders,merger_cohorts_resolved,merger_cohorts_unresolved,missing_entries_canceled,market_exited_orders,measurable_cash_terminations,canceled_entry_close_sized_notional,unresolved_positions,unresolved_permnos,unresolved_longs,unresolved_shorts,first_halt_decision_close,operational_decision_dates,operational_fraction,persistent_halt,full_period_execution_feasible,full_portfolio_accounting_certified,performance_computed,exits_delay_0,exits_delay_1,exits_delay_2,exits_delay_3,exits_delay_4,exits_delay_5
+D0,uni_reversal_5,3829908,4279,35328,13770,3,0,2,13765,2,40816.32653061225,1,1,1,0,2003-04-16,72,0.01682636129936901,True,False,False,False,13762,3,0,0,0,0
+D0,ridge,3829908,4279,35328,13770,3,0,2,13761,6,41707.39654610622,1,1,1,0,2003-04-16,72,0.01682636129936901,True,False,False,False,13760,1,0,0,0,0
+D2,uni_reversal_5,3829908,4279,35328,13770,3,0,2,13765,2,40816.32653061225,1,1,1,0,2003-04-16,72,0.01682636129936901,True,False,False,False,13760,4,1,0,0,0
+D2,ridge,3829908,4279,35328,13770,3,0,2,13761,6,41707.39654610622,1,1,1,0,2003-04-16,72,0.01682636129936901,True,False,False,False,13758,2,1,0,0,0
+D5,uni_reversal_5,3829908,4279,35328,13770,3,0,2,13765,2,40816.32653061225,1,1,1,0,2003-04-16,72,0.01682636129936901,True,False,False,False,13759,4,0,0,1,1
+D5,ridge,3829908,4279,35328,13770,3,0,2,13761,6,41707.39654610622,1,1,1,0,2003-04-16,72,0.01682636129936901,True,False,False,False,13757,2,0,0,1,1

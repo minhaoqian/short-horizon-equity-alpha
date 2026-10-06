@@ -1,0 +1,7 @@
+scenario,candidate,unresolved_known_date,side,resolution_reason,observations,distinct_permnos
+D0,uni_reversal_5,2003-04-16,long,unsupported_corporate_action_quantity_or_terms,1,1
+D0,ridge,2003-04-16,long,unsupported_corporate_action_quantity_or_terms,1,1
+D2,uni_reversal_5,2003-04-16,long,unsupported_corporate_action_quantity_or_terms,1,1
+D2,ridge,2003-04-16,long,unsupported_corporate_action_quantity_or_terms,1,1
+D5,uni_reversal_5,2003-04-16,long,unsupported_corporate_action_quantity_or_terms,1,1
+D5,ridge,2003-04-16,long,unsupported_corporate_action_quantity_or_terms,1,1
