@@ -1,6 +1,6 @@
 # Stage 3A — Walk-forward baseline signal combination proposal
 
-2026-10-06, RL-056. **REVIEW REQUIRED; no model fitting authorized yet.**
+2026-10-06, RL-056. **APPROVED in RL-057; implementation authorized within Stage 3A.**
 Stage 1G targets, Stage 2A features and Stage 2B temporal split remain frozen.
 
 ## Methodology gate and scope
@@ -193,3 +193,16 @@ Approve or revise this dated quarterly expanding protocol, fixed normalized
 lambda1/date-balanced Ridge objective, complete-feature/no-imputation policy,
 and training-only signed combination/univariate benchmark coefficients.
 No frozen methodology is modified until approval. No fitting has occurred.
+
+## Approval and objective/metric caveat (RL-057)
+
+User approved the protocol and schedule without changes to Stage 1/2 contracts.
+Ridge minimizes squared error on raw frozen five-day returns, while primary
+evaluation uses cross-sectional Rank IC. This difference is intentional and
+must not be altered after observing results. Any later target transformation
+or rank-oriented model requires a separately prespecified stage. Complete-case
+selection coverage must be reported against all original eligible signals by
+date/year and label status; missingness is not assumed random. Earlier review
+wording above records the pre-approval proposal, not a current execution block.
+
+Execution completed without specification changes: Stage 3A CLOSED, RL-059; see stage3a_completion.md.

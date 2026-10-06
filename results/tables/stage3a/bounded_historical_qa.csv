@@ -1,0 +1,11 @@
+check,value
+bounded_rows,3582
+bounded_dates,10
+independent_ridge_max_coefficient_error,3.3610267347050637e-18
+sql_moment_agreement,true
+future_label_perturbation_invariance,true
+first_training_rows,943294
+first_training_dates,2451
+first_training_max_signal,"""2002-12-20"""
+first_training_max_exit,"""2002-12-31"""
+qa_passed,true

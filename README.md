@@ -20,13 +20,13 @@ Can short-horizon cross-sectional equity forecasts generate economically meaning
 
 ## Current stage
 
-**Stage 3A — Walk-Forward Baseline Signal Combination: OPEN / protocol review (RL-056)**
+**Stage 3A — Walk-Forward Baseline Signal Combination: CLOSED (RL-059)**
 
-Stage 2B development evaluation is CLOSED (RL-055).
-The [dated Stage 3A proposal](docs/stage3a_walk_forward_proposal.md) specifies
-quarterly expanding Ridge validation from 2003-01-02 through 2019-12-31.
-No model has been fitted; penalty, missing-feature handling and benchmark
-protocol await approval. Frozen inputs/targets and protected holdout unchanged.
+[Completion report](docs/stage3a_completion.md): all 68 quarterly forward blocks
+completed under the approved fixed protocol, with 3,829,908 eligible keys retained.
+Ridge mean Rank IC .013399; no demonstrated gain over univariate reversal.
+87 tests pass. Frozen Stage 1/2 inputs and protected 2020–2025 holdout unchanged.
+Stop for research-lead review before another model or portfolio stage.
 
 Stage 1G remains CLOSED (RL-042).
 

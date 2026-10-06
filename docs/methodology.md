@@ -182,6 +182,26 @@ feature/target measurability, with nonrandom missing outcomes left explicit for
 later sensitivity/bounds. Completion does not authorize feature selection,
 model fitting, portfolio rules or opening the protected final holdout.
 
+## Stage 3A approved walk-forward baseline contract (RL-057)
+
+Protocol/schedule: docs/stage3a_walk_forward_proposal.md and its 68-quarter table.
+Expanding1993 history, quarterly previous-market-close fit cutoffs, forward
+signals2003-01-02–2019-12-31. Exit and ledger information must mature by cutoff.
+All eight frozen z features, complete-eight/no-imputation model inputs; preserve
+all prediction keys and report selection by date/year/status against eligible
+denominators. Score availability cannot depend on future label status.
+Normalized equal-date raw-return squared loss plus fixed lambda1 L2 penalty,
+unpenalized intercept and unconstrained training-only coefficients. No tuning,
+feature selection, pooled scaling, target clipping/transformation or input flips.
+Benchmarks: fixed equal-weight and eight matched-sample univariate Ridge models.
+Stage2B Rank IC/HAC4/HAC20/all phases/quantiles and paired difference inference
+apply; no holdout signal access, portfolios/costs or other model families.
+
+The squared-error training objective versus Rank-IC evaluation distinction is
+intentional. Never alter it after Stage3A results; alternative transformed targets
+or rank-oriented models need a separately prespecified stage. Complete-case
+missingness is not assumed random. Static snapshot-vintage limitations persist.
+
 ## Model ladder
 
 Complexity must earn its place out of sample.
@@ -239,3 +259,5 @@ Baseline security eligibility:
 - TradingStatusFlg = A
 
 This definition was locked after metadata-integrity and exchange/status breadth diagnostics.
+
+Stage 3A execution completed under this approved contract (RL-059); see docs/stage3a_completion.md. No subsequent model, portfolio or holdout evaluation is authorized by closure.

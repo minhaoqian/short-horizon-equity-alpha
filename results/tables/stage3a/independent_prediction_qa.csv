@@ -1,0 +1,6 @@
+check,fold,rows,passed,max_error
+independent_stored_prediction_recompute,1,100,True,8.673617379884035e-19
+independent_stored_prediction_recompute,34,100,True,8.673617379884035e-19
+independent_stored_prediction_recompute,68,100,True,4.336808689942018e-19
+checksum_verified_all_fold_files,0,204,True,0.0
+paired_difference_mean_and_calendar_HAC,0,34,True,0.0

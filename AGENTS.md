@@ -113,16 +113,18 @@ Derived compact QA tables may be committed only when licensing and repository po
 
 ## Current handoff state
 
-Latest completed methodology log entry: **RL-056**.
+Latest completed methodology log entry: **RL-059**.
 
-Current work: **Stage 3A — Walk-Forward Baseline Signal Combination: OPEN / protocol review**.
-See docs/stage3a_walk_forward_proposal.md and the proposed 68-quarter schedule.
-Protocol design only authorized; no model implementation/fitting yet. Proposed
-quarterly expanding Ridge starts 2003-01-02, uses matured training labels from
-1993 onward, fixed normalized lambda1/date-balanced loss and all eight unchanged
-features. Complete-feature/no-imputation and training-only signed coefficients
-(including matched univariate benchmarks) require review. Holdout untouched.
-Do not treat this proposal as an approved frozen model specification.
+Current work: **Stage 3A — Walk-Forward Baseline Signal Combination: CLOSED**.
+See docs/stage3a_completion.md and RL-057–RL-059. All 68 quarterly expanding
+fits / 612 fixed Ridge fits completed; 3,829,908 original forward keys retained,
+3,764,003 predictions and 3,759,878 evaluation pairs. Fixed normalized lambda1,
+equal-date raw-return squared loss, unpenalized intercept, all eight unchanged
+z features and complete-eight/no-imputation policy preserved. Prediction never
+uses target status. Rank IC objective/metric caveat is intentional and frozen.
+Ridge mean IC .013399; no demonstrated improvement over univariate reversal.
+87 tests pass; structured missingness and revision-vintage caveats remain.
+Holdout SIGNAL dates 2020–2025 untouched; no tuning or portfolio construction.
 
 Current completed stage: **Stage 2B — Baseline Signal Evaluation: development CLOSED**.
 See docs/stage2b_completion.md and RL-053–RL-055. Development SIGNAL dates
@@ -172,11 +174,10 @@ All missing labels retain reasons and holdings/event flags. These are outcome
 metadata, not predictors. The 6,069 valid-entry unresolved paths require later
 bounds/sensitivity analysis; complete-case evaluation remains conditional on
 measurability. The 45 missing-lag source observations remain preserved; never
-interpolate/forward-fill them. No model has been trained.
+interpolate/forward-fill them. Stage 3A baseline models have been fitted only under the approved development protocol.
 
-Next action: research-lead approval/revision of docs/stage3a_walk_forward_proposal.md.
-Stop before model implementation/fitting; no feature selection, portfolios,
-new target horizons or holdout evaluation.
+Next action: research-lead review of docs/stage3a_completion.md and approval of a separately prespecified next stage.
+Stop before further models, feature selection, portfolios, new horizons or holdout evaluation.
 
 ## Autonomous execution policy
 
