@@ -113,14 +113,15 @@ Derived compact QA tables may be committed only when licensing and repository po
 
 ## Current handoff state
 
-Latest completed methodology log entry: **RL-045**.
+Latest completed methodology log entry: **RL-047**.
 
 Current work: **Stage 2A — Feature Framework / Baseline Signals: historical verification review gate**.
 See `docs/stage2a_feature_framework_proposal.md` and `docs/stage2a_fixture_qa.md`.
-25 fixture/source tests passed. Bounded historical source QA found an event-verification
-ambiguity (RL-045; docs/stage2a_historical_source_review.md). No historical features
-or ML computed. Full-panel authorization is conditional on passing that gate.
-Do not infer event-free status from missing/outcome-selected event histories.
+Global complete event sources acquired with one login: 670,977 distributions
+(1993–2025) and reused complete 29,833 delistings. Both rights cases detected.
+59 repository tests pass. Declaration/ex-date timing conflicts require review
+(RL-047; docs/stage2a_global_event_layer.md). No full-panel features or ML.
+Full-panel authorization remains conditional on passing point-in-time QA.
 
 Completed stage: **Stage 1G — Target Formula Freeze: CLOSED**.
 Cumulative-factor verification and distribution-aware close-to-close
@@ -148,8 +149,9 @@ bounds/sensitivity analysis; complete-case evaluation remains conditional on
 measurability. The 45 missing-lag source observations remain preserved; never
 interpolate/forward-fill them. No model has been trained.
 
-Next action: research-lead review of a globally consistent through-t event-verification
-and admission rule. Stop full construction until the RL-045 ambiguity is resolved.
+Next action: research-lead review of information-time interpretation and treatment
+of conflicting/missing declaration dates. Global scope is verified; stop full
+construction until the RL-047 point-in-time ambiguity is resolved.
 Preserve the frozen Stage 1G contract.
 
 ## Autonomous execution policy

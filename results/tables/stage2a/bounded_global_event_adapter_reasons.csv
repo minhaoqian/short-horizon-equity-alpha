@@ -1,0 +1,5 @@
+reason,sample_rows,eligible_keys
+cash_terms_declaration_timestamp_missing,50,0
+globally_verified_event_absence,31629,4930
+stored_delisting_return_interval,7,0
+supported_dated_event_terms,324,41

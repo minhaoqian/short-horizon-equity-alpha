@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="335" viewBox="0 0 680 335">
+        <rect width="680" height="335" fill="white"/>
+        <text x="20" y="30" font-size="19">Global CRSP event-date verification</text>
+        <text x="20" y="54" font-size="13">670,977 records; ex-dates 1993-2025; all securities/event types</text>
+        <text x="20" y="90" font-size="15">Declaration after ex-date: 109</text><rect x="20" y="98" width="196.20" height="20" fill="#b24b3f"/><text x="20" y="158" font-size="15">Declaration date missing: 61,542</text><rect x="20" y="166" width="460.28" height="20" fill="#b78c38"/><text x="20" y="226" font-size="15">Declaration on/before ex-date: 609,326</text><rect x="20" y="234" width="555.98" height="20" fill="#2e6d83"/><text x="20" y="302" font-size="13">Bar widths: log10(count+1); labels show exact record counts.</text>
+        <text x="20" y="322" font-size="13">Chronology QA only. Timing conflicts require review; no feature results.</text></svg>

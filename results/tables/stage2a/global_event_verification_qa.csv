@@ -1,0 +1,11 @@
+check,count,interpretation
+global_distribution_records,670977,all PERMNOs; DisExDt 1993-2025; all event types/values
+complete_delisting_records,29833,reused complete table; amounts/payment/status not admission inputs
+bounded_sample_rows,32010,no Stage 1G scope selection in adapter
+bounded_sample_eligible_keys,4971,current eligibility only
+rights_counterexamples_detected,2,global index rejects event-free certification
+declaration_after_exdate,109,timing-review gate; not automatically blacked out or admitted
+missing_declaration_date,61542,event presence known from exdate; amount publication not proven
+later_declaration_cash_probe_rows,20,bounded first 20 cash records by exdate
+cash_probe_earlier_daily_amounts,20,daily amount already present before recorded declaration
+cash_probe_eligible_rows,1,timing conflict reaches locked sample

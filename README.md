@@ -20,7 +20,7 @@ Can short-horizon cross-sectional equity forecasts generate economically meaning
 
 ## Current stage
 
-**Stage 2A — Feature Framework / Baseline Signals: historical source verification requires review (RL-045)**
+**Stage 2A — Feature Framework / Baseline Signals: global event timing requires review (RL-047)**
 
 Stage 1G remains CLOSED (RL-042).
 
@@ -36,9 +36,10 @@ Local licensed dataset: data/interim/stage1g_targets/targets_5d.parquet.
 Reproduction: scripts/20_construct_stage1g_targets.py.
 Feature definitions, timing, preprocessing and descriptive-output plans are
 documented in docs/stage2a_feature_framework_proposal.md. The small synthetic
-framework and bounded source audit passed 25 regression tests. Historical source
-verification exposed an event-admission ambiguity; see
-docs/stage2a_historical_source_review.md. No full-panel features or models computed.
+global event layer now covers all securities for 1993–2025; both rights cases
+are detected and all 59 repository tests pass. Declaration/ex-date conflicts
+require point-in-time review; see docs/stage2a_global_event_layer.md.
+No full-panel features or models computed.
 
 ## Core design
 
