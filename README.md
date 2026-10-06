@@ -20,14 +20,17 @@ Can short-horizon cross-sectional equity forecasts generate economically meaning
 
 ## Current stage
 
-**Stage 4D — Settlement-Convention Evidence: OPEN / review required (RL-070)**
+**Stage 4D historical-identification branch: CLOSED UNRESOLVED (RL-072)**
 
-[Settlement proposal](docs/stage4d_settlement_convention_proposal.md): accepted
-0.535ADS-equivalent entitlement unchanged. Actual fractional-cash method and dated
-holder delivery remain unidentified in reviewed contemporaneous material.
-Simulated ADS election and signed whole-inventory/fractional-claim separation
-proposed; no method/date assumed, inventory implemented or performance computed.
-Prior Stage4A/B/C findings retained unchanged.
+[Final bounded search](docs/stage4d_historical_identification_closure.md) did not
+identify actual holder delivery D or issuer fractional-cash method M. Approved
+structure and0.535 entitlement remain; earlier Stage4A/B/C findings are preserved.
+
+**Stage 4E — Hypothetical Settlement: proposal awaiting review**
+
+[Conditional scenario proposal](docs/stage4e_hypothetical_settlement_proposal.md)
+separates assumed delivery/cash settlement from historical evidence. No scenario
+execution, feasibility rerun or portfolio performance has occurred.
 
 **Stage 4C — Successor Quantity Recovery: OPEN / executable inventory gate (RL-068)**
 

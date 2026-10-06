@@ -1,0 +1,4 @@
+scenario,global_date_offset,hypothetical_preopen_delivery,hypothetical_cash_credit_date,hypothetical_cash_method,historical_D_status,historical_M_status,execution_status
+D0,0,2003-03-31,2003-03-31,"Effective-date ADS closing quotation, subject to quote certification",UNIDENTIFIED,UNIDENTIFIED,PROPOSAL_ONLY
+D2,2,2003-04-02,2003-04-02,"Effective-date ADS closing quotation, subject to quote certification",UNIDENTIFIED,UNIDENTIFIED,PROPOSAL_ONLY
+D5,5,2003-04-07,2003-04-07,"Effective-date ADS closing quotation, subject to quote certification",UNIDENTIFIED,UNIDENTIFIED,PROPOSAL_ONLY

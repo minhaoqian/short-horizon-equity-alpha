@@ -113,19 +113,19 @@ Derived compact QA tables may be committed only when licensing and repository po
 
 ## Current handoff state
 
-Latest completed methodology log entry: **RL-070**.
+Latest completed methodology log entry: **RL-072**.
 
-Current work: **Stage 4D — OPEN / settlement convention proposed for review**.
-Accepted0.535signed ADS-equivalent ratio remains fixed. See
-docs/stage4d_settlement_convention_proposal.md and RL-069–070. Reviewed
-contemporaneous circular/closing disclosures: selected fractional cash method
-and dated holder ADS credit not recovered. Listing is not delivery; later2012
-judgment is a research lead, not through-t certification. Proposed simulated
-ADS election, whole/fraction separation and signed short obligations await review;
-actual account election alone does not block simulation. No D/M/date assumption
-implemented. Preserve Stage4A/B/C artifacts, frozenmethodology and5datecap.
-No PnL/performance/WRDS/rawscan/holdout or authentication. Documentation-only;
-119previous tests, no new code. Stop before implementation/feasibility rerun.
+Current work: **Stage 4D historical-identification branch CLOSED UNRESOLVED; Stage 4E hypothetical proposal awaiting review**.
+Accepted 0.535 signed ADS-equivalent ratio remains fixed. ADS election,
+whole/fraction separation, symmetric shorts, no cohort netting and delivery gating
+are approved structurally. Final bounded search did not identify historical D/M;
+see docs/stage4d_historical_identification_closure.md and RL-071–072.
+Stage4E proposes explicitly hypothetical D0/D2/D5, fixed effective-date quotation
+cash method subject to quote certification, same-D cash credit and account
+processing assumptions. None is approved for execution or historical evidence.
+Preserve Stage4A/B/C artifacts, frozen methodology and five-date cap.
+No PnL/performance/WRDS/raw scan/holdout or authentication. Documentation-only;
+119 previous tests, no new code. Stop for Stage4E review before implementation.
 
 Completed stage: **Stage 3A — Walk-Forward Baseline Signal Combination: CLOSED**.
 See docs/stage3a_completion.md and RL-057–RL-059. All 68 quarterly expanding
@@ -188,7 +188,7 @@ bounds/sensitivity analysis; complete-case evaluation remains conditional on
 measurability. The 45 missing-lag source observations remain preserved; never
 interpolate/forward-fill them. Stage 3A baseline models have been fitted only under the approved development protocol.
 
-Next action: review docs/stage4d_settlement_convention_proposal.md and seek the original exchange package documenting issuer cash method and delivery; no performance or expanded delay cap.
+Next action: review docs/stage4e_hypothetical_settlement_proposal.md; no simulation or performance authorized. Final bounded Stage4D search exhausted; historical D/M remain unidentified. See docs/stage4d_historical_identification_closure.md. Preserve all earlier strict/fallback/entitlement findings.
 Stop before further models, feature selection, portfolios, new horizons or holdout evaluation.
 
 ## Autonomous execution policy

@@ -1,0 +1,7 @@
+query_id,scope,query,date,disposition
+1,exchange_package,"""Household"" ""HSBC"" ""Computershare"" ""letter of transmittal"" -notes -units -plan",2026-10-06,No qualifying original evidence recovered; unrelated instruments/dates rejected
+2,delivery,"""Household"" ""HSBC"" ""DTC"" ""2003"" merger delivery",2026-10-06,No qualifying original evidence recovered; unrelated instruments/dates rejected
+3,cash_method,"""Household"" ""HSBC"" ""cash in lieu"" ""March"" ""2003"" -notes -units -plan",2026-10-06,No qualifying original evidence recovered; unrelated instruments/dates rejected
+4,exchange_package,"""Household"" ""HSBC"" ""Computershare"" ""April 3, 2003"" exchange",2026-10-06,No qualifying original evidence recovered; unrelated instruments/dates rejected
+5,cash_method,"""Household"" ""HSBC"" ""cash in lieu"" site:computershare.com",2026-10-06,No qualifying original evidence recovered; unrelated instruments/dates rejected
+6,delivery,"""Household"" ""HSBC"" ""2003"" merger delivery site:dtcc.com",2026-10-06,No qualifying original evidence recovered; unrelated instruments/dates rejected
