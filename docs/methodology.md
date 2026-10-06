@@ -300,3 +300,29 @@ RL-066 audit fails on unverified successor quantities, halting both candidates
 close2003-03-31 throughdevelopmentend; no performance/selection authorized or
 computed. See docs/stage4b_execution_protocol.md and execution_feasibility.md.
 Do not expand fallback cap or invent received inventory to pass this gate.
+
+## Stage 4F approved generalized reservation contract (RL-080–082)
+
+Separate conditional simulation; preserve Stage4A–E strict/conditional findings.
+From empty2003book apply one generic quarantine policy, including Household,
+without Stage4E-specific settlement exceptions. Reserve absolute original verified
+executed entry notional, never asset value/NAV/collateral/loss/termination value.
+No phase/cohort/side netting or unsupported release. Deduct long/short reserves
+and retained/pending commitments separately; new equal paired deployment uses
+minimum remaining side allowance in the current phase, under frozen ranks/caps/
+ADV/fixed-share execution/cost/borrow/five-date cap. Honor submitted orders;
+record opening overcommitments, block new affected-identity orders through known
+information, and continue unrelated verified positions. Ordinary cap failures
+also quarantine; canceled missing-open entries create no executed reserve.
+Unknown obligations/wealth remain separate from verified inventory, measured
+claims/cash and deployment accounting. Reference deployment exhaustion means no
+new paired reference allowance, NOT insolvency or broker-margin failure.
+
+Only feasibility/reservation/measurement-coverage evidence authorized. Full NAV,
+Sharpe/drawdown and candidate selection cannot be reconstructed from measured
+components. Conditional measured-component performance requires separate review.
+RL-082 stops full feasibility at unidentified queued-entry share transformations:
+no approved rule substitutes planned notional for an uncertified executed-entry
+basis or silently changes share quantities. Synthetic/bounded QA passes; full
+2003–2019 counts and measured-book feasibility remain uncertified pending review.
+Frozen Stage1–3 and Stage4A–E contracts remain unchanged.

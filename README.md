@@ -20,14 +20,14 @@ Can short-horizon cross-sectional equity forecasts generate economically meaning
 
 ## Current stage
 
-**Stage 4F — Generalized Conditional Portfolio Simulation: proposal for review (RL-079)**
+**Stage 4F — Generalized Reservation Feasibility: BLOCKED FOR REVIEW (RL-082)**
 
-[Reservation protocol](docs/stage4f_generalized_simulation_proposal.md) proposes
-position-level quarantine, fixed entry-notional budgeting reserves and equal
-new long/short deployment limited by remaining phase capital. Unknown wealth
-stays unknown; no full headline historically executable Sharpe. Event-by-event
-historical recovery is closed. No implementation or performance yet.
-
+[Audit report](docs/stage4f_generalized_feasibility.md): synthetic and bounded
+historical accounting QA pass. Full development audit stopped at unidentified
+entry-day share-basis transformations on queued orders; executed-entry reserve
+basis cannot be certified. No full-panel counts or performance claims.
+160 tests pass. Reference-budget exhaustion is not insolvency. Earlier strict
+identification results remain unchanged; holdout remains untouched.
 
 **Stage 4E — Conditional settlement feasibility: COMPLETE / full-period gate FAILED (RL-077)**
 

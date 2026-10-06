@@ -1,0 +1,2 @@
+candidate,event_type,payment_type,detail_type,provisional_affected_order_keys,distinct_securities,first_entry_date,last_entry_date,status
+uni_reversal_5,SP,OS,SECDO,2,2,2006-10-13,2013-01-29,INCOMPLETE AUDIT / UNCERTIFIED EXECUTION QUANTITY
