@@ -20,6 +20,14 @@ Can short-horizon cross-sectional equity forecasts generate economically meaning
 
 ## Current stage
 
+**Stage 5 — Predictive Holdout Evaluation: CLOSED / FINAL PROJECT SYNTHESIS (RL-097)**
+
+[Completion report](docs/stage5_completion.md): single approved2020–2025predictive opening,1,882,649eligible keys /1,872,680numeric labels;24quarter frozen expanding refits,195tests passing. Reversal/univariate/Ridge mean Rank IC0.015817/0.016043/0.015672; all annual and phase means positive, aggregate quintiles increasing. Same-key Ridge incremental difference−0.000371 has a confidence interval spanning zero. No tuning, new horizon, portfolio result or selected winner.
+
+[Holdout tables](results/tables/stage5) and [figures](results/figures/stage5) retain coverage, HAC4/HAC20, all phases, annual evidence and descriptive development comparison. Holdout has now been evaluated; it is not a reusable tuning sample or a new untouched holdout. Earlier Stage4strict-identification and partial-wealth limitations remain permanent. Stop for final project synthesis; no further stage begins automatically.
+
+Historical stage closure records follow. Their earlier untouched-holdout wording describes the boundary at that time.
+
 **Stage 4G — Conditional Measured-Component Performance: COMPLETE / FINAL SYNTHESIS REVIEW (RL-091)**
 
 [Completion report](docs/stage4g_completion.md): both frozen candidates retain

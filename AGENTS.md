@@ -113,7 +113,12 @@ Derived compact QA tables may be committed only when licensing and repository po
 
 ## Current handoff state
 
-Latest completed methodology log entry: **RL-091**.
+Latest completed methodology log entry: **RL-097**.
+
+Current work: **Stage 5 — Untouched Predictive Holdout Evaluation CLOSED / final project synthesis boundary**.
+See docs/stage5_completion.md. One authorized2020–2025signal-date opening;1,882,649eligible keys,1,872,680numeric labels,24quarter expanding fits with prior-close maturity and frozenlambda1.195tests pass; input-only predictions precede labels,144files verified,2,400scores independently recovered. Reversal/univariate/Ridge mean IC0.015817/0.016043/0.015672; same-key Ridge incremental mean−0.000371 with HAC intervals spanning zero. No specification tuning or winner. Holdout now evaluated; do not describe it as untouched or create another holdout. Next action: final research-lead project synthesis only.
+
+Earlier stage closure records below describe their historical authorization boundary. Stage5approval supersedes prior “untouched/do not open” wording only for the completed predictive evaluation. Stage4methodology/findings remain frozen and separate.
 
 Current work: **Stage 4G conditional measured-component implementation COMPLETE / final synthesis review boundary**.
 See docs/stage4g_completion.md and docs/stage4g_measured_component_protocol.md.
@@ -197,7 +202,7 @@ bounds/sensitivity analysis; complete-case evaluation remains conditional on
 measurability. The 45 missing-lag source observations remain preserved; never
 interpolate/forward-fill them. Stage 3A baseline models have been fitted only under the approved development protocol.
 
-Next action: final research-lead synthesis of docs/stage4g_completion.md. Historical event-by-event recovery remains closed; no individual successor investigation or further performance stage is authorized.
+Next action: final research-lead synthesis of docs/stage5_completion.md with all Stage4 limitations preserved. Historical event-by-event recovery remains closed; no individual successor investigation or further performance stage is authorized.
 Stop before further models, feature selection, portfolio changes, new horizons or holdout evaluation.
 
 ## Autonomous execution policy

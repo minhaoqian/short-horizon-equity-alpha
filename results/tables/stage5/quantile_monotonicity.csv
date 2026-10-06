@@ -1,0 +1,7 @@
+model,sample,ascending_steps,descending_steps,strictly_increasing,strictly_decreasing,q5_minus_q1
+raw_reversal,primary_available,4,0,True,False,0.0025221416348882655
+raw_reversal,matched_complete8,4,0,True,False,0.002577204916584387
+univariate_reversal_ridge,primary_available,4,0,True,False,0.002577204916584387
+univariate_reversal_ridge,matched_complete8,4,0,True,False,0.002577204916584387
+ridge,primary_available,4,0,True,False,0.0020757571097111192
+ridge,matched_complete8,4,0,True,False,0.0020757571097111192

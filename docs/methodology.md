@@ -408,3 +408,10 @@ Stage4A–E failures and Stage4F reservations precede conditional findings. Reve
 and Ridge share rules/calendar; comparison is descriptive only. Full-ledger
 candidate-selection prerequisites remain unmet. RL-091 completes implementation;
 stop for final research-lead synthesis. No new stage or holdout access is authorized.
+
+
+## Stage 5 — Approved predictive holdout contract (completed)
+
+Signal-date holdout2020-01-02–2025-12-31 was opened once under the research-lead approval, for predictive evaluation only. Frozen Stage1target/Stage2features/preprocessing/Stage2Binference/Stage3architecture remain unchanged. Candidates: original unfitted signed reversal after unchanged Stage2A preprocessing, univariate reversal Ridge and eight-feature Ridge.24quarter expanding prior-close fits from1993, strict exit/ledger maturity, normalized lambda1, equal-date loss, unpenalized intercept, complete-eight/no-imputation learned forecasts. Matured earlier holdout labels may enter later quarterly training; no specification, sign, feature or parameter tuning. Prediction checkpoints precede future-label/status joins.
+
+Daily tied Spearman/min30, HAC4primary/HAC20fixed, all five globally anchored nonoverlap phases, tie-preserving quintiles, annual stability and coverage against original keys. Raw reversal broader coverage and matched complete-eight results both disclosed; Ridge-minus-reversal paired comparisons require identical security keys. Frozen five-day horizon only. No portfolio/accounting/cost/event changes, PnL/Sharpe/NAV/drawdown or new holdout. Static source revision-vintage and nonrandom missingness caveats persist. Stage5CLOSED; docs/stage5_completion.md and RL-092–RL-097 hold evidence. Final project synthesis review next; no new stage authorized.

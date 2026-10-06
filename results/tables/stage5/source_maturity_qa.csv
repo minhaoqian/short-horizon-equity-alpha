@@ -1,0 +1,25 @@
+fold_number,cutoff,new_training_rows,new_training_dates,cash_labels_verified,terminal_cash_events_verified,contemporaneous_cash_groups_verified,bundled_cash_groups_verified,ordinary_endpoints_verified,maturity_violation_count,economic_maturity_rule,static_publication_vintage_proven
+1,2019-12-31,66314,64,27,27,5,0,67323,0,exit_date under frozen through-exit ledger proof,False
+2,2020-03-31,67173,62,45,45,0,0,67974,0,exit_date under frozen through-exit ledger proof,False
+3,2020-06-30,67734,63,31,31,0,0,68674,0,exit_date under frozen through-exit ledger proof,False
+4,2020-09-30,69184,64,32,32,0,0,70520,0,exit_date under frozen through-exit ledger proof,False
+5,2020-12-31,71655,64,32,32,5,0,73270,0,exit_date under frozen through-exit ledger proof,False
+6,2021-03-31,79549,61,31,31,5,0,81273,0,exit_date under frozen through-exit ledger proof,False
+7,2021-06-30,82944,63,62,62,0,0,84345,0,exit_date under frozen through-exit ledger proof,False
+8,2021-09-30,80857,64,30,30,0,0,82788,0,exit_date under frozen through-exit ledger proof,False
+9,2021-12-31,82964,64,71,76,2,0,84784,0,exit_date under frozen through-exit ledger proof,False
+10,2022-03-31,80138,62,21,21,0,0,81257,0,exit_date under frozen through-exit ledger proof,False
+11,2022-06-30,77592,62,53,53,1,0,78803,0,exit_date under frozen through-exit ledger proof,False
+12,2022-09-30,74597,64,50,50,0,0,75470,0,exit_date under frozen through-exit ledger proof,False
+13,2022-12-30,72917,63,68,68,5,0,73708,0,exit_date under frozen through-exit ledger proof,False
+14,2023-03-31,71649,62,65,65,7,0,72655,0,exit_date under frozen through-exit ledger proof,False
+15,2023-06-30,71997,62,53,53,0,0,72838,0,exit_date under frozen through-exit ledger proof,False
+16,2023-09-29,74226,63,44,44,0,0,75426,0,exit_date under frozen through-exit ledger proof,False
+17,2023-12-29,72097,63,42,42,5,0,73231,0,exit_date under frozen through-exit ledger proof,False
+18,2024-03-28,74974,61,48,48,0,0,75763,0,exit_date under frozen through-exit ledger proof,False
+19,2024-06-28,76760,63,27,27,7,0,77841,0,exit_date under frozen through-exit ledger proof,False
+20,2024-09-30,80154,64,38,38,5,0,81274,0,exit_date under frozen through-exit ledger proof,False
+21,2024-12-31,82326,64,60,60,10,0,83369,0,exit_date under frozen through-exit ledger proof,False
+22,2025-03-31,79041,60,43,43,5,0,80124,0,exit_date under frozen through-exit ledger proof,False
+23,2025-06-30,81076,62,40,40,6,0,82183,0,exit_date under frozen through-exit ledger proof,False
+24,2025-09-30,87878,64,45,45,5,0,89261,0,exit_date under frozen through-exit ledger proof,False

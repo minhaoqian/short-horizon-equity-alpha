@@ -1,0 +1,4 @@
+model,ascending_steps,descending_steps,strictly_increasing,strictly_decreasing,q5_minus_q1
+ridge,4,0,True,False,0.0015180340242909
+uni_reversal_5,4,0,True,False,0.0019256228009923
+raw_reversal_5,4,0,True,False,0.0019256228009923
