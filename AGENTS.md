@@ -113,9 +113,17 @@ Derived compact QA tables may be committed only when licensing and repository po
 
 ## Current handoff state
 
-Latest completed methodology log entry: **RL-059**.
+Latest completed methodology log entry: **RL-060**.
 
-Current work: **Stage 3A — Walk-Forward Baseline Signal Combination: CLOSED**.
+Current work: **Stage 4A — Cost-Aware Market-Neutral Portfolio Protocol: OPEN / review**.
+See docs/stage4a_portfolio_protocol.md and RL-060. Documentation only authorized:
+both unchanged Stage3A candidates carried forward; no portfolios/cost/PnL/Sharpe
+computed. Proposed five sleeves, close-t fixed-share sizing, dollar-neutral plans,
+fixed costs and explicit execution/unknown-wealth gates need review. No holdout
+access. Development-origin 2020 runoff source access requires explicit scope
+approval; no implicit expansion. Stop before portfolio code/evaluation.
+
+Completed stage: **Stage 3A — Walk-Forward Baseline Signal Combination: CLOSED**.
 See docs/stage3a_completion.md and RL-057–RL-059. All 68 quarterly expanding
 fits / 612 fixed Ridge fits completed; 3,829,908 original forward keys retained,
 3,764,003 predictions and 3,759,878 evaluation pairs. Fixed normalized lambda1,
@@ -176,7 +184,7 @@ bounds/sensitivity analysis; complete-case evaluation remains conditional on
 measurability. The 45 missing-lag source observations remain preserved; never
 interpolate/forward-fill them. Stage 3A baseline models have been fitted only under the approved development protocol.
 
-Next action: research-lead review of docs/stage3a_completion.md and approval of a separately prespecified next stage.
+Next action: research-lead review of docs/stage4a_portfolio_protocol.md; stop before portfolio construction/evaluation.
 Stop before further models, feature selection, portfolios, new horizons or holdout evaluation.
 
 ## Autonomous execution policy
