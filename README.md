@@ -20,6 +20,15 @@ Can short-horizon cross-sectional equity forecasts generate economically meaning
 
 ## Current stage
 
+**Stage 4G — Conditional Measured-Component Performance: PROPOSAL FOR REVIEW (RL-087)**
+
+[Reporting protocol](docs/stage4g_measured_component_protocol.md) proposes
+identified gross/expense/net contributions with explicit unknown residuals,
+fixed reference-capital ratios and coverage beside every result. No performance
+computed. Full-account wealth stays unidentified; no synthetic NAV, Sharpe,
+drawdown or winner selection. Holdout outcomes remain untouched.
+Stop for research-lead review before implementation.
+
 **Stage 4F — Generalized Reservation Feasibility: COMPLETE / REVIEW BOUNDARY (RL-085)**
 
 [Audit report](docs/stage4f_reservation_completion.md): both frozen candidates
