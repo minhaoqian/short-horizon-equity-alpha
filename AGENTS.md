@@ -113,15 +113,17 @@ Derived compact QA tables may be committed only when licensing and repository po
 
 ## Current handoff state
 
-Latest completed methodology log entry: **RL-047**.
+Latest completed methodology log entry: **RL-050**.
 
-Current work: **Stage 2A — Feature Framework / Baseline Signals: historical verification review gate**.
-See `docs/stage2a_feature_framework_proposal.md` and `docs/stage2a_fixture_qa.md`.
-Global complete event sources acquired with one login: 670,977 distributions
-(1993–2025) and reused complete 29,833 delistings. Both rights cases detected.
-59 repository tests pass. Declaration/ex-date timing conflicts require review
-(RL-047; docs/stage2a_global_event_layer.md). No full-panel features or ML.
-Full-panel authorization remains conditional on passing point-in-time QA.
+Current work: **Stage 2A — Feature Framework / Baseline Signals: CLOSED**.
+See docs/stage2a_completion.md. 6,699,101 unique eligible feature keys retained;
+eight approved raw/clipped/z baselines, explicit missingness, global outcome-
+independent effective-date events. All 109 chronology conflicts checked: 92
+reconciled / 17 explicitly ambiguous. Both rights regressions pass; 64 tests pass.
+Full integrity/preprocessing QA passes. No target/performance evidence used.
+Licensed outputs are local data/interim/stage2a_features/parts/ (32 partitions)
+plus manifest.json. Static snapshot-vintage limitation remains documented.
+Stop before predictive evaluation, feature selection, ML or portfolios.
 
 Completed stage: **Stage 1G — Target Formula Freeze: CLOSED**.
 Cumulative-factor verification and distribution-aware close-to-close
@@ -149,10 +151,9 @@ bounds/sensitivity analysis; complete-case evaluation remains conditional on
 measurability. The 45 missing-lag source observations remain preserved; never
 interpolate/forward-fill them. No model has been trained.
 
-Next action: research-lead review of information-time interpretation and treatment
-of conflicting/missing declaration dates. Global scope is verified; stop full
-construction until the RL-047 point-in-time ambiguity is resolved.
-Preserve the frozen Stage 1G contract.
+Next action: research-lead authorization/specification for baseline predictive
+signal evaluation, including strict walk-forward and overlapping-label controls.
+Do not begin it automatically. Preserve the frozen Stage 1G contract.
 
 ## Autonomous execution policy
 

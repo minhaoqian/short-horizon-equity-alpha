@@ -20,7 +20,7 @@ Can short-horizon cross-sectional equity forecasts generate economically meaning
 
 ## Current stage
 
-**Stage 2A — Feature Framework / Baseline Signals: global event timing requires review (RL-047)**
+**Stage 2A — Feature Framework / Baseline Signals: CLOSED (RL-050)**
 
 Stage 1G remains CLOSED (RL-042).
 
@@ -34,12 +34,16 @@ and sensitivity analysis.
 
 Local licensed dataset: data/interim/stage1g_targets/targets_5d.parquet.
 Reproduction: scripts/20_construct_stage1g_targets.py.
-Feature definitions, timing, preprocessing and descriptive-output plans are
-documented in docs/stage2a_feature_framework_proposal.md. The small synthetic
-global event layer now covers all securities for 1993–2025; both rights cases
-are detected and all 59 repository tests pass. Declaration/ex-date conflicts
-require point-in-time review; see docs/stage2a_global_event_layer.md.
-No full-panel features or models computed.
+Eight approved baselines are constructed for all 6,699,101 eligible keys;
+raw, clipped, standardized values and explicit missingness are preserved.
+Global event timing QA and full preprocessing/integrity QA passed; 64 tests pass.
+Declaration dates are QA metadata; effective events and contemporaneous daily
+reconciliation govern admission. See [Stage 2A completion](docs/stage2a_completion.md).
+Licensed features: data/interim/stage2a_features/parts/ (32 parquet partitions).
+Descriptive coverage/distribution/dispersion/correlation tables and four figures
+are under results/tables/stage2a/ and results/figures/stage2a/.
+Predictive evaluation, feature selection, ML and portfolios have not begun and
+require separate authorization. Stage 1G remains frozen.
 
 ## Core design
 

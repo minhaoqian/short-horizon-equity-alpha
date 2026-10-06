@@ -1,0 +1,7 @@
+status,reason,event_records,distinct_permnos,eligible_exdate_event_records,eligible_60date_signal_keys
+timing_ambiguous,absent_contemporaneous_daily_row,1,1,0,0
+timing_ambiguous,daily_factor_terms_mismatch,2,2,0,0
+timing_ambiguous,daily_price_anchor_unavailable,2,2,0,0
+timing_ambiguous,received_asset_or_rights_terms_unverified,2,2,0,0
+timing_ambiguous,received_asset_property_or_currency_terms_unverified,10,10,3,180
+reconciled,effective_date_terms_and_return_identity_reconciled,92,84,6,413

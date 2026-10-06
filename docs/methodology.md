@@ -117,6 +117,41 @@ Reproduction: scripts/20_construct_stage1g_targets.py, using existing local
 Stage 1G caches only. Licensed output: data/interim/stage1g_targets/targets_5d.parquet;
 manifest.json records coverage, input fingerprints and accounting QA.
 
+## Stage 2A baseline feature contract (RL-048–RL-050)
+
+Stage 2A feature construction/descriptive QA is complete. Eight baseline definitions
+in docs/stage2a_feature_framework_proposal.md and docs/stage2a_completion.md are
+preserved: compounded reversal (t-4:t), compounded momentum (t-59:t-5, 55 returns),
+sample volatility (latest 20), log mean turnover and dollar liquidity (20 with
+15 valid), dollar-volume shock against the prior 20 (15 valid), event-free
+adjacent-market-date observed overnight gap, and same-day observed intraday return.
+Market-calendar positions are fixed; security-row gaps never shift a window.
+DlyCap is converted from thousands of dollars using 1000*DlyCap.
+
+Economic effective dates govern the through-close-t event layer. Complete global
+StkDistributions/ StkDelists histories establish scope independently of outcomes.
+An event enters only its through-t effective interval. DisDeclareDt is metadata QA,
+not a standalone availability timestamp. Conflicting chronology must reconcile
+with contemporaneous/earlier cached daily terms and the return identity; otherwise
+the affected admitted-return/gap interval is timing_ambiguous and missing. Missing
+metadata never implies no event. Unsupported received assets, nonordinary returns,
+unverified factors and stored-delisting-return intervals remain inadmissible under
+the approved conservative return definition. No later metadata/value repairs a feature.
+Static snapshots do not establish revision-free historical publication vintages.
+
+Preserve all 6,699,101 signal keys with explicit per-feature missingness/reasons.
+Target/status/availability fields cannot construct or preprocess features. The
+frozen target relation remains unchanged and separate; any label/status join occurs
+after feature construction. No filling, future eligibility or future price input.
+
+Preprocessing is per date/feature on finite close-t eligible values: at least 30,
+linear/type-7 1st/99th percentile clipping, then mean/population-SD z-score.
+Keep raw/clipped/z separately. Constant sections have observed z=0 and a flag;
+insufficient/missing sections remain missing. No full-sample normalization or
+performance-driven adjustment. Industry/sector neutralization remains deferred.
+Stage 2A outputs are descriptive only; predictive evaluation requires separate
+approval, strict walk-forward and explicit overlapping-label treatment.
+
 ## Model ladder
 
 Complexity must earn its place out of sample.

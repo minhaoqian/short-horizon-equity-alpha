@@ -8,7 +8,7 @@ D=date(2005,1,28);P=date(2005,1,27)
 
 def event(**changes):
     row=dict(permno=1,disexdt=D,disdeclaredt=P,dispaymenttype='USD',distype='CD',
-        disdetailtype='CDIV',disdivamt=1.0,disfacpr=0.0,disfacshr=0.0,dispermno=0)
+        disdetailtype='CDIV',disordinaryflg='Y',disdivamt=1.0,disfacpr=0.0,disfacshr=0.0,dispermno=0)
     return {**row,**changes}
 
 
@@ -45,12 +45,16 @@ def test_cash_and_splits_exclude_gap_and_ignore_future_payment():
     assert EventLayer([row,split],[]).interval(1,P,D,D).event_type=='ordinary_cash_and_split'
 
 
-def test_future_declaration_requires_review_not_silent_missing_label_rule():
+def test_declaration_is_qa_only_and_conflicts_need_daily_reconciliation():
     row=event(disdeclaredt=date(2005,2,3))
     result=EventLayer([row],[]).interval(1,P,D,D)
-    assert result.return_admissible is None and result.gap_admissible is None
-    assert result.reason=='declaration_after_effective_ex_date'
-    assert EventLayer([event(disdeclaredt=None)],[]).interval(1,P,D,D).return_admissible is None
+    assert result.return_admissible is False and result.gap_admissible is False
+    assert result.reason=='timing_ambiguous'
+    daily=dict(dlyprc=10.,dlyprevprc=10.,dlyfacprc=1.,dlyorddivamt=1.,dlynonorddivamt=0.,dlyret=.1)
+    fixed=EventLayer([row],[]).interval(1,P,D,D,{D:daily})
+    assert fixed.return_admissible is True and fixed.gap_admissible is False
+    assert EventLayer([event(disdeclaredt=None)],[]).interval(1,P,D,D).return_admissible is True
+    assert EventLayer([event(disdeclaredt=date(2030,1,1))],[]).interval(1,P,D,D,{D:daily})==fixed
 
 
 def test_delisting_last_price_and_later_amount_do_not_mask_earlier_interval():

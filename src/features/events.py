@@ -36,7 +36,7 @@ class EventLayer:
         for row in distributions:
             # Allowlist: omit later payment/settlement fields and all outcome data.
             fields={k:row.get(k) for k in ('disexdt','disdeclaredt','dispaymenttype','distype',
-                'disdetailtype','disdivamt','disfacpr','disfacshr','dispermno')}
+                'disdetailtype','disordinaryflg','disdivamt','disfacpr','disfacshr','dispermno')}
             fields['disexdt']=day(fields['disexdt']);fields['disdeclaredt']=day(fields['disdeclaredt'])
             if fields['disexdt'] is None:
                 raise ValueError('Undated distribution cannot certify dated coverage')
@@ -53,7 +53,7 @@ class EventLayer:
         for dates in self.delists.values():
             dates.sort()
 
-    def interval(self,permno,start,end,as_of):
+    def interval(self,permno,start,end,as_of,daily_evidence=None):
         if end>as_of or start>end:
             raise ValueError('Interval cannot extend beyond as-of date')
         lo,hi=self.coverage
@@ -63,10 +63,16 @@ class EventLayer:
         records=self.distributions.get(permno,[])[bisect_right(dates,start):bisect_right(dates,end)]
         stored=self.delists.get(permno,[])
         n_del=bisect_right(stored,end)-bisect_right(stored,start)
-        # Do not assume a retrospectively dated value existed at its ex-date,
-        # nor invent a feature-missingness policy based on a later declaration.
-        if any(r['disdeclaredt'] is not None and r['disdeclaredt']>r['disexdt'] for r in records):
-            return EventDecision(None,None,'review','declaration_after_effective_ex_date',len(records),n_del)
+        # Declaration chronology is QA only. Conflicts require effective-date
+        # daily-term reconciliation, never a declaration-date availability gate.
+        conflicting=any(r['disdeclaredt'] is not None and r['disdeclaredt']>r['disexdt'] for r in records)
+        if conflicting:
+            from .timing_qa import reconcile
+            for d in {r['disexdt'] for r in records}:
+                group=[r for r in records if r['disexdt']==d]
+                daily=(daily_evidence or {}).get(d)
+                if not reconcile(group,daily)[0]:
+                    return EventDecision(False,False,'timing_ambiguous','timing_ambiguous',len(records),n_del)
         if n_del:
             return EventDecision(False,False,'delisting_return','stored_delisting_return_interval',len(records),n_del)
         if not records:
@@ -81,13 +87,11 @@ class EventLayer:
                 if not finite(r['disfacpr']) or abs(r['disfacpr']-r['disfacshr'])>1e-6:
                     return EventDecision(False,None,'review','same_security_split_factor_conflict',len(records),n_del)
                 kinds.append('pure_split')
-            elif (r['dispaymenttype']=='USD' and r['distype'] in ('CD','SD','ROC','CG')
+            elif (r['dispaymenttype']=='USD' and r['disordinaryflg']=='Y' and r['distype'] in ('CD','SD','ROC','CG')
                 and r['disdetailtype'] in ('CDIV','SDIV','SDROC','ROC','CAPG','CDPSR')
                 and finite(r['disdivamt']) and r['disdivamt']>=0
                 and r['disfacpr']==0 and r['disfacshr']==0
                 and (r['dispermno'] is None or r['dispermno']==0)):
-                if r['disdeclaredt'] is None:
-                    return EventDecision(False,None,'review','cash_terms_declaration_timestamp_missing',len(records),n_del)
                 kinds.append('ordinary_cash')
             else:
                 return EventDecision(False,False,'unsupported_event','rights_received_asset_or_ambiguous_terms',len(records),n_del)

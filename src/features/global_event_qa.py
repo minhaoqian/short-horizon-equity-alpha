@@ -19,7 +19,7 @@ def main():
     assert m['complete'] and m['qa_passed'] and m['login_attempts']==1
     assert hashlib.sha256((folder/'stkdistributions.parquet').read_bytes()).hexdigest()==m['distribution_sha256']
     assert hashlib.sha256((folder/'stkdelists.parquet').read_bytes()).hexdigest()==m['delists']['sha256']
-    cols=['permno','disexdt','disdeclaredt','dispaymenttype','distype','disdetailtype',
+    cols=['permno','disexdt','disdeclaredt','dispaymenttype','distype','disdetailtype','disordinaryflg',
         'disdivamt','disfacpr','disfacshr','dispermno']
     c.execute(f"CREATE VIEW s AS SELECT * FROM read_parquet('{folder/'stkdistributions.parquet'}')")
     c.execute(f"CREATE VIEW l AS SELECT * FROM read_parquet('{folder/'stkdelists.parquet'}')")

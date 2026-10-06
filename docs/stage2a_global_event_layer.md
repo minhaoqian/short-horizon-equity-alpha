@@ -1,3 +1,8 @@
+> Superseded timing decision: RL-048–RL-050 approve effective-date admission
+> with contemporaneous daily reconciliation. DisDeclareDt is QA metadata, not
+> a hard availability timestamp. The historical review below preserves RL-047;
+> current rules/results are in docs/stage2a_completion.md.
+
 # Stage 2A global event evidence and timing review
 
 2026-10-06, RL-046–RL-047. Existing feature and frozen Stage 1G definitions

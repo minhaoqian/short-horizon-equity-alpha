@@ -1,6 +1,6 @@
-# Stage 2A — Feature framework proposal (not yet implemented)
+# Stage 2A — Approved feature framework
 
-Date: 2026-10-06. Stage 1G contract remains unchanged. This proposal uses
+Date: 2026-10-06. Implemented/validated under RL-044 and RL-048–RL-050; see docs/stage2a_completion.md. Stage 1G contract remains unchanged. This proposal uses
 interpretability, point-in-time timing and data integrity; no predictive evidence.
 
 ## Timing and admissible observations
@@ -135,5 +135,4 @@ and numerical stability only, with a new log entry if altered. The snapshot's
 historical-revision limitation is not cured by close-t filtering. Proposed
 preprocessing and feature definitions are not yet frozen; target remains frozen.
 
-Next action: approve the feature contract, then implement a small synthetic and
-local-fixture framework QA before full-panel computation.
+The original proposal text is retained as the specification record. Current implementation and QA results are in docs/stage2a_completion.md; predictive evaluation requires separate authorization.

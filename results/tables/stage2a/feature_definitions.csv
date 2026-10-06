@@ -1,0 +1,9 @@
+feature,definition,window,missing_rule
+reversal_5,1-product(1+r),t-4:t,5/5 admitted
+momentum_60_skip5,product(1+r)-1,t-59:t-5,55/55 admitted
+volatility_20,sample standard deviation,t-19:t,20/20 admitted
+turnover_20,log1p(mean(P*V/(1000*DlyCap))),t-19:t,15/20 valid
+dollar_liquidity_20,log1p(mean(P*V)),t-19:t,15/20 valid
+volume_shock_20,log1p(P_t*V_t)-log1p(prior mean(P*V)),t-20:t-1 denominator,15/20 prior plus valid current
+gap_1,observed open_t / observed close_previous_market_date - 1,adjacent event-free interval,positive actual prices; no fallback
+intraday_1,observed close_t / observed open_t - 1,current day,positive actual prices
