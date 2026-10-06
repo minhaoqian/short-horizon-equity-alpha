@@ -113,18 +113,17 @@ Derived compact QA tables may be committed only when licensing and repository po
 
 ## Current handoff state
 
-Latest completed methodology log entry: **RL-066**.
+Latest completed methodology log entry: **RL-068**.
 
-Current work: **Stage 4B — OPEN / successor-quantity feasibility gate failed**.
-See docs/stage4b_execution_protocol.md and execution_feasibility.md, RL-065–066.
-Approved separate entryno-fill and firstopen+5dateexit assumptions implemented,
-no PnL/Sharpe/returns/selection. Both haltclose2003-03-31 on3unknown successor-
-quantity positions each (2long/1short);60/4279dates operational. Missingentries
-canceled without chase/reallocation. No cap extension or inferred quantities.
-114tests pass; safe aggregate outputs/code/docs committed, licensedinputs local.
-Stage4A strict-identification artifacts/conclusion permanently preserved,
-checksummed unchanged; frozen Stage1–3 unchanged. No WRDS/rawscan/newfit or2020
-source/holdout access. Stop for verified successor-quantity recovery review.
+Current work: **Stage 4C — OPEN / executable successor inventory evidence gate**.
+See docs/stage4c_successor_quantity_gate.md, RL-067–068. Legal entitlement ratio
+verified: 2.675 HSBC ordinary shares or0.535ADS per Household common share.
+All6cached cohorts have signed nonintegral ADS-equivalent claims, not certified
+tradable inventory. Holder election/delivery, fractional cash method and short
+lender basket require review.119tests pass. No performance/WRDS/rawscan/holdout
+access. Stage4A/B artifacts checksummed unchanged; five-date cap and frozen
+Stage1–3 preserved. Full Stage4B rerun deferred at this material evidence gate;
+no assumed fractional trading, inventory rounding, zero cash or automatic delivery.
 
 Completed stage: **Stage 3A — Walk-Forward Baseline Signal Combination: CLOSED**.
 See docs/stage3a_completion.md and RL-057–RL-059. All 68 quarterly expanding
@@ -187,7 +186,7 @@ bounds/sensitivity analysis; complete-case evaluation remains conditional on
 measurability. The 45 missing-lag source observations remain preserved; never
 interpolate/forward-fill them. Stage 3A baseline models have been fitted only under the approved development protocol.
 
-Next action: research-lead review of verified successor-quantity recovery in docs/stage4b_execution_feasibility.md; no performance or expanded delay cap.
+Next action: research-lead review of entitlement-to-executable-inventory evidence in docs/stage4c_successor_quantity_gate.md; no performance or expanded delay cap.
 Stop before further models, feature selection, portfolios, new horizons or holdout evaluation.
 
 ## Autonomous execution policy

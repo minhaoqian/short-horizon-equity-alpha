@@ -1,0 +1,5 @@
+candidate,side,observations,legal_ads_ratio,ratio_verified,executable_inventory_verified,stage4b_inventory_gate
+ridge,long,2,0.535,True,False,unresolved_no_assumption_added
+ridge,short,1,0.535,True,False,unresolved_no_assumption_added
+uni_reversal_5,long,2,0.535,True,False,unresolved_no_assumption_added
+uni_reversal_5,short,1,0.535,True,False,unresolved_no_assumption_added

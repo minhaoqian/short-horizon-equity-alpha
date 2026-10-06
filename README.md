@@ -20,6 +20,14 @@ Can short-horizon cross-sectional equity forecasts generate economically meaning
 
 ## Current stage
 
+**Stage 4C — Successor Quantity Recovery: OPEN / executable inventory gate (RL-068)**
+
+[Evidence report](docs/stage4c_successor_quantity_gate.md): legal0.535ADS-per-parent
+entitlement verified from pre-event merger terms. Six positions retain unverified
+executable inventory because election/delivery, fractional cash and short obligations
+are distinct from a gross share-equivalent claim.119tests pass; review required.
+No performance, WRDS or holdout access. Prior Stage4A/B artifacts remain unchanged.
+
 **Stage 4B — Execution-Assumption Feasibility: OPEN / gate failed (RL-066)**
 
 [Approved protocol](docs/stage4b_execution_protocol.md) and
