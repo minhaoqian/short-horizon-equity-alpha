@@ -113,7 +113,7 @@ Derived compact QA tables may be committed only when licensing and repository po
 
 ## Current handoff state
 
-Latest completed methodology log entry: **RL-050**.
+Latest completed methodology log entry: **RL-051**.
 
 Current work: **Stage 2A — Feature Framework / Baseline Signals: CLOSED**.
 See docs/stage2a_completion.md. 6,699,101 unique eligible feature keys retained;
