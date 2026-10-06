@@ -1,0 +1,6 @@
+question,status,source_date,source,limitation
+issuer_fractional_cash_choice,UNRESOLVED,2003-02-27,https://www1.hkexnews.hk/listedco/listconews/sehk/2003/0227/ltn20030227105.pdf,Two allowed methods do not identify actual issuer election
+holder_delivery_procedure,CONFIRMED,2003-02-27,https://www1.hkexnews.hk/listedco/listconews/sehk/2003/0227/ltn20030227105.pdf,Election and exchange prerequisites do not specify a universal credit timestamp
+merger_ads_market_admission,LISTING_ONLY,2003-03-31,https://www.investegate.info/announcement/rns/hsbc-holdings--hsba/acquisition-/481541,Issuer closing notice does not prove delivery to exchanging holder
+holder_ads_credit_time,UNRESOLVED,,https://www1.hkexnews.hk/listedco/listconews/sehk/2003/0227/ltn20030227105.pdf,No contemporaneously verified account or simulated baseline delivery date recovered
+retrospective_exchange_timing_lead,LEAD_NOT_PIT_CERTIFICATION,2012-02-28,https://www.bailii.org/uk/cases/UKFTT/TC/2012/TC01858.html,Indexed judgment excerpts only; later findings do not certify through-t account delivery

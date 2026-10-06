@@ -20,6 +20,15 @@ Can short-horizon cross-sectional equity forecasts generate economically meaning
 
 ## Current stage
 
+**Stage 4D — Settlement-Convention Evidence: OPEN / review required (RL-070)**
+
+[Settlement proposal](docs/stage4d_settlement_convention_proposal.md): accepted
+0.535ADS-equivalent entitlement unchanged. Actual fractional-cash method and dated
+holder delivery remain unidentified in reviewed contemporaneous material.
+Simulated ADS election and signed whole-inventory/fractional-claim separation
+proposed; no method/date assumed, inventory implemented or performance computed.
+Prior Stage4A/B/C findings retained unchanged.
+
 **Stage 4C — Successor Quantity Recovery: OPEN / executable inventory gate (RL-068)**
 
 [Evidence report](docs/stage4c_successor_quantity_gate.md): legal0.535ADS-per-parent
