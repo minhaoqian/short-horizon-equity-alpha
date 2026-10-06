@@ -8,6 +8,8 @@ from .construction import SLEEVE, capped_equal
 class Reservations:
     def __init__(self):
         self.records = {}
+        self.executed_amounts = np.zeros((5, 2))
+        self.planned_amounts = np.zeros((5, 2))
         self.amounts = np.zeros((5, 2))  # long, short; never netted
 
     def quarantine(self, key, phase, side, entry_notional, known_date, reason):
@@ -19,10 +21,30 @@ class Reservations:
             raise ValueError('Positive original EXECUTED entry notional required')
         record = {'phase':phase, 'side':side, 'original_entry_notional':entry_notional,
                   'reserve':entry_notional, 'known_date':known_date, 'reason':reason,
-                  'release_date':None, 'release_evidence':None}
+                  'release_date':None, 'release_evidence':None,
+                  'reserve_basis':'verified_executed_entry_notional', 'planned_notional_reserve_proxy':None}
         self.records[key] = record
         self.amounts[phase, 0 if side == 'long' else 1] += entry_notional
+        self.executed_amounts[phase, 0 if side == 'long' else 1] += entry_notional
         return record
+
+    def queued_proxy(self, key, phase, side, planned_notional, known_date, reason):
+        if key in self.records:
+            raise ValueError('A position cannot be reserved twice')
+        if phase not in range(5) or side not in ('long','short'):
+            raise ValueError('Invalid phase/side')
+        if not isfinite(planned_notional) or planned_notional<=0:
+            raise ValueError('Original positive decision-close planned notional required')
+        r={'phase':phase,'side':side,'original_entry_notional':None,
+           'reserve':planned_notional,'known_date':known_date,'reason':reason,
+           'reserve_basis':'planned_notional_reserve_proxy',
+           'planned_notional_reserve_proxy':planned_notional,
+           'release_date':None,'release_evidence':None}
+        self.records[key]=r
+        i=0 if side=='long' else 1
+        self.planned_amounts[phase,i]+=planned_notional
+        self.amounts[phase,i]+=planned_notional
+        return r
 
     def release(self, key, evidence, as_of):
         """Security prices/delisting dates are not account termination evidence."""
@@ -40,6 +62,8 @@ class Reservations:
             raise ValueError('Release precedes quarantine')
         i = 0 if r['side'] == 'long' else 1
         self.amounts[r['phase'], i] -= r['reserve']
+        basis=self.planned_amounts if r['reserve_basis']=='planned_notional_reserve_proxy' else self.executed_amounts
+        basis[r['phase'],i]-=r['reserve']
         r['reserve'] = 0.
         r['release_date'] = as_of
         r['release_evidence'] = evidence

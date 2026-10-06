@@ -113,18 +113,20 @@ Derived compact QA tables may be committed only when licensing and repository po
 
 ## Current handoff state
 
-Latest completed methodology log entry: **RL-082**.
+Latest completed methodology log entry: **RL-085**.
 
-Current work: **Stage 4F generalized reservation feasibility BLOCKED / review required**.
-Approved uniform executed-entry-notional reservation implementation passes synthetic
-and bounded Jan–Apr2003 QA. No Household-specific exception; all Stage4A–E findings
-preserved. Full development audit stopped at unidentified entry-day non-pure share
-transformations for queued orders: executed quantity/reserve basis uncertified.
-See docs/stage4f_generalized_feasibility.md. Provisional full outputs are invalid;
-160 tests pass. No PnL/Sharpe/drawdown/selection/holdout/newfits/source search.
-Reference-budget exhaustion is not insolvency/margin failure. Do not substitute
-planned notional for executed notional or cancel queued orders without review.
-Next action: review generalized unresolved queued-entry quantity/budget convention.
+Current work: **Stage 4F generalized reservation feasibility COMPLETE / review boundary**.
+See docs/stage4f_reservation_completion.md. Both candidates preserve3,829,908
+keys/4,279developmentdates; all dates permit newpaired deployment, no reserve
+budget exhaustion. Reversal828unresolved, Ridge840. Executed-basis reserves
+$7.714m/$8.016m; distinct queued planned proxies$20,724.42/$0 (2/0cases).
+Queued executed quantity/notional/wealth/borrow/cost bases remain unknown;
+planned proxy is deployment commitment only. No netting/recycling/unsupported
+release, no Household-specific exception. Earlier Stage4A–E/RL-082 findings
+preserved. 165tests pass. Full wealth unidentified; no PnL/Sharpe/drawdown,
+selection, holdout, newfits, extraction or individual event investigation.
+Reference deployment exhaustion is not insolvency or broker-margin failure.
+Next action: research-lead review before conditional measured-component analysis.
 
 Completed stage: **Stage 3A — Walk-Forward Baseline Signal Combination: CLOSED**.
 See docs/stage3a_completion.md and RL-057–RL-059. All 68 quarterly expanding
@@ -187,7 +189,7 @@ bounds/sensitivity analysis; complete-case evaluation remains conditional on
 measurability. The 45 missing-lag source observations remain preserved; never
 interpolate/forward-fill them. Stage 3A baseline models have been fitted only under the approved development protocol.
 
-Next action: review the entry-basis gate in docs/stage4f_generalized_feasibility.md. Historical event-by-event recovery is closed; no individual successor investigation or performance authorized.
+Next action: review the reservation/measurement results in docs/stage4f_reservation_completion.md. Historical event-by-event recovery is closed; no individual successor investigation or performance authorized.
 Stop before further models, feature selection, portfolios, new horizons or holdout evaluation.
 
 ## Autonomous execution policy

@@ -20,14 +20,16 @@ Can short-horizon cross-sectional equity forecasts generate economically meaning
 
 ## Current stage
 
-**Stage 4F — Generalized Reservation Feasibility: BLOCKED FOR REVIEW (RL-082)**
+**Stage 4F — Generalized Reservation Feasibility: COMPLETE / REVIEW BOUNDARY (RL-085)**
 
-[Audit report](docs/stage4f_generalized_feasibility.md): synthetic and bounded
-historical accounting QA pass. Full development audit stopped at unidentified
-entry-day share-basis transformations on queued orders; executed-entry reserve
-basis cannot be certified. No full-panel counts or performance claims.
-160 tests pass. Reference-budget exhaustion is not insolvency. Earlier strict
-identification results remain unchanged; holdout remains untouched.
+[Audit report](docs/stage4f_reservation_completion.md): both frozen candidates
+retain3,829,908keys/4,279developmentdates and permit new paired reference
+allocation throughout2003–2019. Separate executed-basis reserves and unknown
+queued planned proxies reconcile;165tests pass. No budget exhaustion or supported
+reserve releases. Wealth remains incomplete; no performance computed.
+Reference commitments are not wealth or solvency evidence. Earlier strict
+identification failures remain unchanged; holdout remains untouched.
+Stop for research-lead measurement/reporting review before performance.
 
 **Stage 4E — Conditional settlement feasibility: COMPLETE / full-period gate FAILED (RL-077)**
 

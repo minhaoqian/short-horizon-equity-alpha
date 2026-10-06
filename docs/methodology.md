@@ -326,3 +326,25 @@ no approved rule substitutes planned notional for an uncertified executed-entry
 basis or silently changes share quantities. Synthetic/bounded QA passes; full
 2003–2019 counts and measured-book feasibility remain uncertified pending review.
 Frozen Stage1–3 and Stage4A–E contracts remain unchanged.
+
+### Stage 4F queued-execution addendum and feasibility completion (RL-083–085)
+
+Research-lead resolved the RL-082 gate by approving a distinct
+queued_execution_quantity_unresolved state for already-submitted entries whose
+post-event share quantity cannot be verified. Keep original queued order,
+identifiers/reasons and unknown executed quantity/notional/state/wealth/claims/
+obligations. Reserve original decision-close planned dollars solely as
+planned_notional_reserve_proxy, not executed notional, value/exposure/NAV,
+collateral, PnL or loss bound. No recycling, netting or unsupported release;
+unrelated positions continue. Verified executed-entry reserves remain primary.
+Keep both reserve bases separate in phase/side accounting and coverage; unknown
+queued borrow/cost bases cannot be calculated from the proxy. No event-specific
+recovery convention. All other frozen specifications remain unchanged.
+
+RL-085 full2003–2019 feasibility passes: eachcandidate3,829,908keys/4,279dates,
+all dates permit new paired reference deployment, no reserve-budget exhaustion.
+Reversal2unknown queued executions/$20,724.42proxy; Ridge0. Full wealth remains
+unidentified despite technically feasible measured-component accounting.
+Conditional reporting/performance requires separate research-lead review;
+no full headline NAV/Sharpe/drawdown or selection from partial components.
+Reference-budget exhaustion is never evidence of insolvency or margin failure.

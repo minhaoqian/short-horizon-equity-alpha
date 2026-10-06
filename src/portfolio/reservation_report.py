@@ -16,23 +16,49 @@ def report(scope='development'):
     assert json.loads((private/'manifest.json').read_text()).get('qa_passed') is True, 'Incomplete audit cannot produce certified full-panel reports'
     tables=ROOT/'results/tables/stage4f';figures=ROOT/'results/figures/stage4f'
     tables.mkdir(parents=True,exist_ok=True);figures.mkdir(parents=True,exist_ok=True)
-    summaries=[];days=[];phases=[];annual=[];categories=[];over=[];durations=[];costs=[]
+    summaries=[];days=[];phases=[];annual=[];categories=[];over=[];durations=[];costs=[];queued=[]
     for candidate in ('uni_reversal_5','ridge'):
         base=private/candidate
         summary=json.loads((base/'manifest.json').read_text());summaries.append(summary)
         d=pd.read_parquet(base/'daily_coverage.parquet');days.append(d)
-        p=pd.read_parquet(base/'phase_budget_path.parquet');phases.append(p)
+        p=pd.read_parquet(base/'phase_budget_path.parquet')
+        p['replacement_reference_usage_long']=p.reserved_long+p.retained_long
+        p['replacement_reference_usage_short']=p.reserved_short+p.retained_short
+        p['post_decision_reference_commitment_long']=p.replacement_reference_usage_long+p.new_paired_allocation
+        p['post_decision_reference_commitment_short']=p.replacement_reference_usage_short+p.new_paired_allocation
+        phases.append(p)
         events=pd.read_parquet(base/'quarantine_events.parquet')
-        for reason,g in events.groupby(['reason','side']):
-            categories.append(dict(candidate=candidate,reason=reason[0],side=reason[1],positions=len(g),
+        for reason,g in events.groupby(['reason','side','reserve_basis']):
+            categories.append(dict(candidate=candidate,reason=reason[0],side=reason[1],reserve_basis=reason[2],reference_commitment=g.reference_commitment.sum(),positions=len(g),
                 securities=g.permno.nunique(),security_events=g[['permno','quarantine_date']].drop_duplicates().shape[0]))
+        obligations=pd.read_parquet(base/'unresolved_obligations.parquet')
+        qu=obligations[obligations.state=='queued_execution_quantity_unresolved']
+        assert len(qu)==summary['unresolved_queued_execution_count']
+        assert qu.entry_notional.isna().all() and qu.current_shares.isna().all() and qu.borrow_basis.isna().all()
+        if len(qu):
+            assert qu.execution_state_unknown.all() and qu.claims_and_obligations_measurement_unknown.all()
+        remaining_long=(2e6-p.reserved_long-p.retained_long).clip(lower=0)
+        remaining_short=(2e6-p.reserved_short-p.retained_short).clip(lower=0)
+        np.testing.assert_allclose(p.new_allowance_if_current_replacement,np.minimum(remaining_long,remaining_short))
+        assert (p.new_paired_allocation<=p.new_allowance_if_current_replacement+1e-7).all()
+        qevents=events[events.reserve_basis=='planned_notional_reserve_proxy']
+        assert qevents.entry_notional.isna().all() and qevents.last_verified_signed_quantity.isna().all()
+        for side in ('long','short'):
+            q=qevents[qevents.side==side]
+            queued.append(dict(candidate=candidate,side=side,unresolved_queued_executions=len(q),
+                distinct_securities=q.permno.nunique(),planned_notional_reserve_proxy=float(q.reference_commitment.sum()),
+                executed_quantity_known=False,executed_notional_known=False,
+                first_recognition_date=q.quarantine_date.min() if len(q) else None,
+                last_recognition_date=q.quarantine_date.max() if len(q) else None))
         elapsed=(pd.Timestamp(summary.get('end_date','2019-12-31'))-pd.to_datetime(events.quarantine_date)).dt.days
         durations.append(dict(candidate=candidate,unresolved_positions=len(events),all_durations_right_censored=True,
             minimum_calendar_days=int(elapsed.min()),median_calendar_days=float(elapsed.median()),maximum_calendar_days=int(elapsed.max())))
         for year,g in d.groupby('year'):
             last=g.iloc[-1]
             annual.append(dict(candidate=candidate,year=year,decision_dates=len(g),eligible_keys=int(g.eligible_keys.sum()),
-                end_unresolved_positions=int(last.unresolved_positions),end_longs=int(last.unresolved_longs),end_shorts=int(last.unresolved_shorts),
+                end_unresolved_positions=int(last.unresolved_positions),end_unresolved_queued_count=int(last.unresolved_queued_execution_count),
+                end_verified_executed_reserve=last.verified_executed_reserve_long+last.verified_executed_reserve_short,
+                end_planned_notional_proxy=last.planned_proxy_reserve_long+last.planned_proxy_reserve_short,end_longs=int(last.unresolved_longs),end_shorts=int(last.unresolved_shorts),
                 end_reserved_long=last.reserved_long,end_reserved_short=last.reserved_short,
                 end_raw_reserve_over_N=last.raw_reserve_fraction,end_paired_reserve_over_N=last.paired_budget_reserve_fraction,
                 mean_raw_reserve_over_N=g.raw_reserve_fraction.mean(),mean_paired_reserve_over_N=g.paired_budget_reserve_fraction.mean(),
@@ -53,34 +79,49 @@ def report(scope='development'):
             for leg,g in x.groupby('leg'):
                 costs.append(dict(candidate=candidate,year=int(f.stem.split('_')[-1]),leg=leg,executions=len(g),
                     measured_cost_input_count=int(g.cost_inputs_measured.sum()),measured_cost_input_fraction=g.cost_inputs_measured.mean()))
+        import duckdb
+        check=duckdb.connect()
+        keys=check.execute(f"SELECT count(*),count(DISTINCT(permno,signal_date)) FROM read_parquet('{base}/decisions_*.parquet')").fetchone()
+        check.close()
+        assert keys==(summary['eligible_keys'],summary['eligible_keys'])
+        assert summary['planned_proxy_excluded_from_executed_entry_basis_denominator']
         # Durable terminal journal plus final live states covers every submitted key.
-        states=pd.concat([pd.read_parquet(f) for f in sorted(base.glob('terminal_states_*.parquet'))],ignore_index=True)
-        remaining=pd.concat([pd.read_parquet(base/f) for f in ('final_verified_inventory.parquet','final_pending_orders.parquet')],ignore_index=True)
+        states=pd.concat([pd.read_parquet(f,columns=['key','state']) for f in sorted(base.glob('terminal_states_*.parquet'))],ignore_index=True)
+        remaining=pd.concat([pd.read_parquet(base/f,columns=['key','state']) if (base/f).exists() else pd.DataFrame(columns=['key','state']) for f in ('final_verified_inventory.parquet','final_pending_orders.parquet')],ignore_index=True)
         assert not states.key.duplicated().any()
         assert not set(states.key)&set(remaining.key)
         assert len(states)+len(remaining)==summary['submitted']
-        assert len(states[states.state.isin(['corporate_action_unresolved','exit_execution_unresolved'])])==len(events)
+        assert len(states[states.state.isin(['corporate_action_unresolved','exit_execution_unresolved','queued_execution_quantity_unresolved'])])==len(events)
         assert np.allclose(d.reserved_long+d.reserved_short,d.raw_reserve_fraction*1e7)
+        assert np.allclose(d.reserved_long,d.verified_executed_reserve_long+d.planned_proxy_reserve_long)
+        assert np.allclose(d.reserved_short,d.verified_executed_reserve_short+d.planned_proxy_reserve_short)
         grouped=p.groupby('date').paired_reserve.sum()
         assert np.allclose(grouped.to_numpy()/1e7,d.paired_budget_reserve_fraction)
     def save(name,rows):pd.DataFrame(rows).to_csv(tables/f'{name}.csv',index=False)
     flat=[{k:v for k,v in s.items() if not isinstance(v,dict)} for s in summaries]
     save('feasibility_summary',flat);save('annual_reservation_coverage',annual)
     save('quarantine_categories',categories);save('opening_overcommitments_annual',over)
-    save('unresolved_duration_summary',durations);save('execution_input_coverage',costs)
+    save('queued_execution_summary',queued);save('unresolved_duration_summary',durations);save('execution_input_coverage',costs)
     daily=pd.concat(days,ignore_index=True);daily.to_csv(tables/'daily_reservation_coverage.csv',index=False)
     phase=pd.concat(phases,ignore_index=True);phase.to_csv(tables/'phase_reservation_path.csv',index=False)
     endpoints=[]
     for (candidate,ph),g in phase.groupby(['candidate','phase']):
         last=g.iloc[-1];ex=g[g.reference_deployment_exhausted]
         endpoints.append(dict(candidate=candidate,phase=ph,end_reserved_long=last.reserved_long,end_reserved_short=last.reserved_short,
+            end_verified_executed_reserve_long=last.verified_executed_reserve_long,end_verified_executed_reserve_short=last.verified_executed_reserve_short,
+            end_planned_proxy_long=last.planned_proxy_reserve_long,end_planned_proxy_short=last.planned_proxy_reserve_short,
+            end_retained_commitment_long=last.retained_long,end_retained_commitment_short=last.retained_short,
+            end_post_decision_reference_commitment_long=last.post_decision_reference_commitment_long,
+            end_post_decision_reference_commitment_short=last.post_decision_reference_commitment_short,
             end_paired_reserve=last.paired_reserve,end_structural_allowance=last.structural_paired_allowance,
             first_reference_exhaustion_date=ex.date.iloc[0] if len(ex) else None,reference_exhaustion_is_insolvency=False))
     save('phase_end_state',endpoints)
     fig,axes=plt.subplots(3,2,figsize=(13,10),sharex=True)
     for j,(candidate,d) in enumerate(daily.groupby('candidate',sort=False)):
         x=pd.to_datetime(d.date)
-        axes[0,j].plot(x,100*d.raw_reserve_fraction,label='Raw unresolved reserve / N')
+        axes[0,j].plot(x,100*(d.verified_executed_reserve_long+d.verified_executed_reserve_short)/1e7,label='Executed-basis reserve / N')
+        axes[0,j].plot(x,100*(d.planned_proxy_reserve_long+d.planned_proxy_reserve_short)/1e7,label='Planned proxy / N')
+        axes[0,j].plot(x,100*d.raw_reserve_fraction,label='Total raw commitment / N')
         axes[0,j].plot(x,100*d.paired_budget_reserve_fraction,label='Paired-budget reserve / N')
         axes[0,j].set_title(candidate);axes[0,j].set_ylabel('Reference budget (%)');axes[0,j].legend(fontsize=8)
         axes[1,j].plot(x,d.structural_paired_reference_allowance/1e6,label='Remaining paired allowance')
@@ -89,13 +130,14 @@ def report(scope='development'):
         denom=d.component_intervals.replace(0,np.nan)
         axes[2,j].plot(x,100*d.fully_measurable_intervals/denom,label='Complete asset intervals')
         axes[2,j].set_ylabel('Measured interval count (%)');axes[2,j].legend(fontsize=8)
-        for ax in axes[:,j]:ax.grid(alpha=.2)
-    fig.suptitle('Conditional reservation audit — budgeting proxies, not wealth or performance')
+        for ax in axes[:,j]:
+            ax.grid(alpha=.2);ax.set_xlim(x.min(),x.max())
+    fig.suptitle('2003–2019 conditional reservation audit — budgeting proxies, not wealth or performance')
     fig.tight_layout();fig.savefig(figures/'reservation_measurement_paths.png',dpi=160);plt.close(fig)
     (tables/'report_manifest.json').write_text(json.dumps(dict(aggregate_qa_passed=True,
         performance_computed=False,licensed_security_level_data_committed=False,
         reporting_scope='2003–2019 decision dates; terminal development-origin runoff remains separate',
-        component_coverage_is_count_or_entry_basis_not_market_wealth=True),indent=2)+'\n')
+        component_coverage_is_count_or_verified_entry_basis_not_market_wealth=True,planned_proxy_is_never_executed_notional_or_wealth=True),indent=2)+'\n')
     return summaries
 
 

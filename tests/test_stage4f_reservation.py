@@ -153,3 +153,42 @@ def test_entry_day_received_rights_without_parent_basis_change_not_owned():
     from src.portfolio.reservation import verified_entry_multiplier
     e=dict(distype='SP',dispaymenttype='OS',disdetailtype='SECSO',disfacshr=0.,disfacpr=0.,dispermno=2)
     assert verified_entry_multiplier([e])==1
+
+
+def test_planned_proxy_never_acquires_an_executed_notional():
+    b=Reservations();r=b.queued_proxy('queue',0,'long',123,D,'entry_basis')
+    assert r['original_entry_notional'] is None
+    assert r['planned_notional_reserve_proxy']==123
+    assert b.executed_amounts.sum()==0 and b.planned_amounts.sum()==123
+    assert b.budgets()[1][0]==SLEEVE-123
+
+
+@pytest.mark.parametrize('side',['long','short'])
+def test_unknown_queued_state_preserves_order_and_signed_obligations_without_inference(side):
+    from src.portfolio.reservation_audit import reserve_queued_execution
+    q=-10 if side=='short' else 10
+    p=dict(key='queue',phase=2,side=side,planned_entry_notional=1000,
+           order_shares=q,entry_notional=None,current_shares=None)
+    b=Reservations();reserve_queued_execution(p,b,D,[dict(distype='SP',dispermno=2)])
+    assert p['state']=='queued_execution_quantity_unresolved' and p['order_shares']==q
+    for field in ('current_shares','entry_notional','actual_entry_date','executed_entry_notional','borrow_basis','unknown_wealth'):
+        assert p[field] is None
+    assert p['planned_notional_reserve_proxy']==1000
+    assert b.amounts[2,0 if side=='long' else 1]==1000
+
+
+def test_mixed_reserves_reconcile_and_do_not_net_sides_or_basis():
+    b=Reservations();b.quarantine('fill',0,'long',300,D,'event')
+    b.queued_proxy('queue',0,'short',200,D,'entry_basis')
+    np.testing.assert_array_equal(b.amounts,b.executed_amounts+b.planned_amounts)
+    assert b.amounts.sum()==500 and b.budgets()[1][0]==SLEEVE-300
+    with pytest.raises(ValueError):b.queued_proxy('queue',0,'short',200,D,'duplicate')
+
+
+def test_planned_proxy_release_requires_same_independent_account_evidence():
+    b=Reservations();b.queued_proxy('queue',1,'short',100,D,'entry_basis')
+    with pytest.raises(ValueError):b.release('queue',{'positive_open':50},D)
+    proof=dict(account_obligation_terminated=True,all_remaining_claims_terminated=True,
+               independent_account_source='synthetic complete canceled/settled order receipt',effective_date=D,known_date=D)
+    b.release('queue',proof,D)
+    assert b.amounts.sum()==b.planned_amounts.sum()==b.executed_amounts.sum()==0

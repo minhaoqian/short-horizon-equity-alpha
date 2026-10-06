@@ -55,6 +55,7 @@ def event_batch(events,daily,delists,on_date):
 def reserve_position(p,budgets,on_date,reason,events):
     if p['state'] in ('corporate_action_unresolved','exit_execution_unresolved'):
         raise ValueError('Duplicate quarantine')
+    p['reserve_basis']='verified_executed_entry_notional'
     p['last_verified_signed_quantity']=p['current_shares']
     p['current_shares']=None
     p['state']='exit_execution_unresolved' if reason=='five_global_date_cap_failure' else 'corporate_action_unresolved'
@@ -64,6 +65,24 @@ def reserve_position(p,budgets,on_date,reason,events):
     p['linked_identifiers']=sorted({int(e['dispermno']) for e in events if e.get('dispermno') is not None and np.isfinite(e['dispermno']) and e['dispermno']!=0})
     p['unknown_successor_quantity']=None;p['unknown_wealth']=None
     return budgets.quarantine(p['key'],p['phase'],p['side'],p['entry_notional'],on_date,reason)
+
+
+def reserve_queued_execution(p,budgets,on_date,events):
+    """No executed shares/notional inferred from a positive post-event open."""
+    p.update(state='queued_execution_quantity_unresolved',reserve_basis='planned_notional_reserve_proxy',
+        entry_status='queued_execution_quantity_unresolved',current_shares=None,
+        entry_notional=None,actual_entry_date=None,executed_entry_notional=None,
+        last_verified_signed_quantity=None,quantity_current_verified=False,
+        unknown_successor_quantity=None,unknown_wealth=None,borrow_basis=None,
+        entry_cost_inputs_known=None,exit_cost_inputs_known=None,
+        execution_state_unknown=True,claims_and_obligations_measurement_unknown=True,
+        quarantine_date=on_date,quarantine_reason='entry_boundary_share_basis_unverified',
+        planned_notional_reserve_proxy=p['planned_entry_notional'])
+    p['unknown_event_types']='|'.join(sorted({e['distype'] for e in events}))
+    p['linked_identifiers']=sorted({int(e['dispermno']) for e in events
+        if e.get('dispermno') is not None and np.isfinite(e['dispermno']) and e['dispermno']!=0})
+    return budgets.queued_proxy(p['key'],p['phase'],p['side'],
+        p['planned_entry_notional'],on_date,p['quarantine_reason'])
 
 
 def add_claims(p,terms,q0,on_date,claims,claim_events):
@@ -103,6 +122,7 @@ def retained_at_replacement(book,submitted,today,tomorrow):
 def write_table(path,rows):
     if rows:
         pd.DataFrame(rows).to_parquet(path,index=False)
+    elif path.exists():path.unlink()
 
 
 def audit_candidate(src,candidate,end):
@@ -133,7 +153,9 @@ def audit_candidate(src,candidate,end):
         if month!=(today.year,today.month):
             month=(today.year,today.month)
             print(f'{candidate} {today}: reserves={budgets.amounts.sum():,.0f}, quarantined={len(unknown)}, entered={count["entered"]:,}',flush=True)
-        start_u=len(unknown);start_basis=float(budgets.amounts.sum())
+        start_u=len(unknown);start_basis=float(budgets.executed_amounts.sum())
+        start_verified_u=sum(p['state']!='queued_execution_quantity_unresolved' for p in unknown)
+        for p in unknown:p['original_exit_cap_exceeded']=today>p['deadline']
         n_interval=start_u;basis_interval=start_basis
         n_wealth=n_full=n_expenses=0;basis_full=basis_wealth=0.
         today_quarantine=[];today_executed=[]
@@ -203,7 +225,7 @@ def audit_candidate(src,candidate,end):
             p['last_open_measured']=end_mark
         # Quarantined stock wealth stays unknown: later prices are not substitutes.
         # Known fixed-basis borrowing inputs remain separately measurable.
-        n_expenses+=start_u
+        n_expenses+=start_verified_u
         for p in today_executed+today_quarantine:terminal_states.append(p.copy())
         book=[p for p in book if p['state']=='outstanding']
         before_entry=occupied(book,{})+budgets.amounts
@@ -215,7 +237,26 @@ def audit_candidate(src,candidate,end):
                 count['canceled_entry']+=1
                 terminal_states.append(p.copy())
                 continue
-            q=p['order_shares']*verified_entry_multiplier(src.events.get((p['permno'],today),[]))
+            terms=src.events.get((p['permno'],today),[])
+            try:
+                entry_multiplier=verified_entry_multiplier(terms)
+            except EntryBasisUnidentified:
+                reserve_queued_execution(p,budgets,today,terms)
+                unknown.append(p);count['queued_execution_quantity_unresolved']+=1
+                count['quarantined']+=1;terminal_states.append(p.copy())
+                blocked.add(p['permno']);blocked.update(p['linked_identifiers'])
+                event_rows.append({'candidate':candidate,'permno':p['permno'],
+                    'signal_date':p['signal_date'],'phase':p['phase'],'side':p['side'],
+                    'quarantine_date':today,'event_type':p['unknown_event_types'],
+                    'reason':p['quarantine_reason'],'entry_notional':None,
+                    'last_verified_signed_quantity':None,'linked_identifiers':p['linked_identifiers'],
+                    'deadline':p['deadline'],'release_date':None})
+                execution_legs.append({'candidate':candidate,'permno':p['permno'],
+                    'signal_date':p['signal_date'],'date':today,'leg':'queued_entry_unknown',
+                    'cost_inputs_measured':False,'execution_notional':None,
+                    'sigma_decision_date':p['signal_date'],'no_performance_computed':True})
+                continue
+            q=p['order_shares']*entry_multiplier
             p['current_shares']=q;p['entry_notional']=abs(q)*opening
             p['actual_entry_date']=today;p['state']='outstanding';p['entry_status']='assumed_entry'
             p['quantity_current_verified']=True;p['last_open_measured']=True
@@ -230,7 +271,7 @@ def audit_candidate(src,candidate,end):
         full_occupied=occupied(book,submitted)
         over=budgets.opening_overcommitment(full_occupied)
         # Every excess is recorded, not erased; distinguish queued contribution.
-        queue_phases={p['phase'] for p in queued if p['entry_status']=='assumed_entry'}
+        queue_phases={p['phase'] for p in queued if p['entry_status'] in ('assumed_entry','queued_execution_quantity_unresolved')}
         for ph,side in zip(*np.nonzero(over>1e-8)):
             overcommits.append({'candidate':candidate,'date':today,'phase':int(ph),
                 'side':'long' if side==0 else 'short','overcommitment':float(over[ph,side]),
@@ -258,7 +299,11 @@ def audit_candidate(src,candidate,end):
         assert np.isclose(new_amount,-dollars[dollars<0].sum(),atol=1e-7)
         for ph in range(5):
             phase_rows.append({'candidate':candidate,'date':today,'phase':ph,
-                'reserved_long':float(budgets.amounts[ph,0]),'reserved_short':float(budgets.amounts[ph,1]),
+                'reserved_long':float(budgets.amounts[ph,0]),
+                'verified_executed_reserve_long':float(budgets.executed_amounts[ph,0]),
+                'verified_executed_reserve_short':float(budgets.executed_amounts[ph,1]),
+                'planned_proxy_reserve_long':float(budgets.planned_amounts[ph,0]),
+                'planned_proxy_reserve_short':float(budgets.planned_amounts[ph,1]),'reserved_short':float(budgets.amounts[ph,1]),
                 'retained_long':float(retained[ph,0]),'retained_short':float(retained[ph,1]),
                 'paired_reserve':float(max(budgets.amounts[ph])),
                 'raw_reserve_fraction':float(budgets.amounts[ph].sum()/CAPITAL),
@@ -294,7 +339,13 @@ def audit_candidate(src,candidate,end):
             'eligible_keys':len(g),'unresolved_positions':len(unknown),
             'unresolved_longs':sum(p['side']=='long' for p in unknown),
             'unresolved_shorts':sum(p['side']=='short' for p in unknown),
-            'reserved_long':float(budgets.amounts[:,0].sum()),'reserved_short':float(budgets.amounts[:,1].sum()),
+            'reserved_long':float(budgets.amounts[:,0].sum()),
+            'verified_executed_reserve_long':float(budgets.executed_amounts[:,0].sum()),
+            'verified_executed_reserve_short':float(budgets.executed_amounts[:,1].sum()),
+            'planned_proxy_reserve_long':float(budgets.planned_amounts[:,0].sum()),
+            'planned_proxy_reserve_short':float(budgets.planned_amounts[:,1].sum()),
+            'unresolved_queued_execution_count':sum(p['state']=='queued_execution_quantity_unresolved' for p in unknown),
+            'unresolved_queued_proxy_commitment':float(budgets.planned_amounts.sum()),'reserved_short':float(budgets.amounts[:,1].sum()),
             'raw_reserve_fraction':float(budgets.amounts.sum()/CAPITAL),
             'paired_budget_reserve_fraction':float(budgets.amounts.max(axis=1).sum()/CAPITAL),
             'structural_paired_reference_allowance':float(structural_pair.sum()),
@@ -307,10 +358,13 @@ def audit_candidate(src,candidate,end):
             'component_intervals':n_interval,'wealth_measurable_intervals':n_wealth,
             'expense_inputs_measurable_intervals':n_expenses,'fully_measurable_intervals':n_full,
             'interval_entry_basis_denominator':basis_interval,
+            'interval_planned_proxy_denominator_separate':float(budgets.planned_amounts.sum()),
+            'coverage_denominator_excludes_unmeasured_executed_notional':True,
             'identified_wealth_entry_basis':basis_wealth,'fully_measured_entry_basis':basis_full,
             'verified_outstanding_inventory_positions':len(book),
             'measured_claim_components':len(claims),
-            'unresolved_short_borrow_basis':sum(p['borrow_basis'] for p in unknown if p['side']=='short'),
+            'unresolved_short_borrow_basis':sum(p['borrow_basis'] for p in unknown if p['side']=='short' and p['borrow_basis'] is not None),
+            'unknown_short_borrow_basis_count':sum(p['side']=='short' and p['borrow_basis'] is None for p in unknown),
             'reference_exhaustion_is_insolvency':False})
         # Claim state transfer is not a gain or loss; reserve never released.
         for c in claims:
@@ -326,32 +380,44 @@ def audit_candidate(src,candidate,end):
     write_table(out/'final_verified_inventory.parquet',book)
     write_table(out/'final_pending_orders.parquet',pending)
     write_table(out/'unresolved_obligations.parquet',unknown)
+    for e in event_rows:
+        key=f"{e['permno']}:{e['signal_date']}";r=budgets.records[key]
+        e['reserve_basis']=r['reserve_basis'];e['reference_commitment']=r['reserve']
+        e['planned_notional_reserve_proxy']=r['planned_notional_reserve_proxy']
     write_table(out/'quarantine_events.parquet',event_rows)
     write_table(out/'daily_coverage.parquet',coverage)
     write_table(out/'phase_budget_path.parquet',phase_rows)
     write_table(out/'opening_overcommitments.parquet',overcommits)
     write_table(out/'remaining_measurable_claims.parquet',claims)
-    assert count['submitted']==count['entered']+count['canceled_entry']+len(pending)
-    assert count['entered']==count['market_exited']+count['cash_termination']+len(unknown)+len(book)
+    assert count['submitted']==count['entered']+count['canceled_entry']+count['queued_execution_quantity_unresolved']+len(pending)
+    assert count['entered']==count['market_exited']+count['cash_termination']+len(unknown)-count['queued_execution_quantity_unresolved']+len(book)
     assert count['quarantined']==len(unknown)==len(budgets.records)
-    assert np.isclose(budgets.amounts.sum(),sum(p['entry_notional'] for p in unknown))
+    assert np.isclose(budgets.executed_amounts.sum(),sum(p['entry_notional'] for p in unknown if p['entry_notional'] is not None))
+    assert np.isclose(budgets.planned_amounts.sum(),sum(p['planned_notional_reserve_proxy'] for p in unknown if p['state']=='queued_execution_quantity_unresolved'))
+    np.testing.assert_allclose(budgets.amounts,budgets.executed_amounts+budgets.planned_amounts)
     assert all(p['current_shares'] is None and p['unknown_wealth'] is None for p in unknown)
-    assert all(p['entry_notional']==budgets.records[p['key']]['reserve'] for p in unknown)
+    assert all(p['entry_notional']==budgets.records[p['key']]['reserve'] for p in unknown if p['state']!='queued_execution_quantity_unresolved')
+    assert all(p['entry_notional'] is None and p['borrow_basis'] is None for p in unknown if p['state']=='queued_execution_quantity_unresolved')
     cov=pd.DataFrame(coverage);phase=pd.DataFrame(phase_rows)
     assert not cov.duplicated(['candidate','date']).any()
     assert not phase.duplicated(['candidate','date','phase']).any()
     if not bounded:assert processed==3829908 and len(cov)==4279
     unknown_frame=pd.DataFrame(unknown)
     summary={'candidate':candidate,'scope':tag,'eligible_keys':processed,
-        'decision_dates':len(cov),**dict(count),
+        'decision_dates':len(cov),'end_date':str(end),**dict(count),
         'unresolved_positions_created':len(unknown),
         'unresolved_distinct_securities':int(unknown_frame.permno.nunique()) if len(unknown) else 0,
         'distinct_quarantine_security_dates':len({(p['permno'],p['quarantine_date']) for p in unknown}),
-        'distinct_corporate_events':len({(p['permno'],p['quarantine_date']) for p in unknown if p['state']=='corporate_action_unresolved'}),
+        'distinct_corporate_events':len({(p['permno'],p['quarantine_date']) for p in unknown if p['state'] in ('corporate_action_unresolved','queued_execution_quantity_unresolved')}),
         'unresolved_longs':sum(p['side']=='long' for p in unknown),
         'unresolved_shorts':sum(p['side']=='short' for p in unknown),
         'corporate_action_unresolved_positions':sum(p['state']=='corporate_action_unresolved' for p in unknown),
         'ordinary_cap_failure_positions':sum(p['state']=='exit_execution_unresolved' for p in unknown),
+        'ending_verified_executed_reserve':float(budgets.executed_amounts.sum()),
+        'ending_planned_notional_proxy_reserve':float(budgets.planned_amounts.sum()),
+        'unresolved_queued_execution_count':count['queued_execution_quantity_unresolved'],
+        'unresolved_queued_longs':sum(p['state']=='queued_execution_quantity_unresolved' and p['side']=='long' for p in unknown),
+        'unresolved_queued_shorts':sum(p['state']=='queued_execution_quantity_unresolved' and p['side']=='short' for p in unknown),
         'ending_reserved_long':float(budgets.amounts[:,0].sum()),'ending_reserved_short':float(budgets.amounts[:,1].sum()),
         'ending_raw_reserve_fraction':float(budgets.amounts.sum()/CAPITAL),
         'ending_paired_budget_reserve_fraction':float(budgets.amounts.max(axis=1).sum()/CAPITAL),
@@ -364,6 +430,9 @@ def audit_candidate(src,candidate,end):
         'dates_with_new_paired_orders':int((cov.new_paired_allocation>1e-8).sum()),
         'fully_measurable_component_interval_fraction':float(cov.fully_measurable_intervals.sum()/max(1,cov.component_intervals.sum())),
         'wealth_measurable_component_interval_fraction':float(cov.wealth_measurable_intervals.sum()/max(1,cov.component_intervals.sum())),
+        'expense_inputs_measurable_interval_fraction':float(cov.expense_inputs_measurable_intervals.sum()/max(1,cov.component_intervals.sum())),
+        'identified_verified_entry_basis_fraction':float(cov.identified_wealth_entry_basis.sum()/cov.interval_entry_basis_denominator.sum()),
+        'planned_proxy_excluded_from_executed_entry_basis_denominator':True,
         'component_interval_count':int(cov.component_intervals.sum()),
         'fully_measurable_component_intervals':int(cov.fully_measurable_intervals.sum()),
         'opening_overcommitment_side_dates':len(overcommits),
@@ -382,6 +451,9 @@ def audit_candidate(src,candidate,end):
 
 def run(end=date(2019,12,31)):
     before=preserve_prior();src=DevelopmentSources()
+    if end==date(2019,12,31):
+        prior=src.root/'development';archive=src.root/'development_entry_gate_provisional'
+        if prior.exists() and not archive.exists():prior.rename(archive)
     tag='bounded' if end<date(2019,12,31) else 'development'
     (src.root/tag).mkdir(exist_ok=True)
     (src.root/tag/'manifest.json').write_text(json.dumps({'qa_passed':False,'status':'RUNNING','performance_computed':False})+'\n')

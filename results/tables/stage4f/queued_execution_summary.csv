@@ -1,0 +1,5 @@
+candidate,side,unresolved_queued_executions,distinct_securities,planned_notional_reserve_proxy,executed_quantity_known,executed_notional_known,first_recognition_date,last_recognition_date
+uni_reversal_5,long,1,1,9690.671353043997,False,False,2013-01-29,2013-01-29
+uni_reversal_5,short,1,1,11033.74466889555,False,False,2006-10-13,2006-10-13
+ridge,long,0,0,0.0,False,False,,
+ridge,short,0,0,0.0,False,False,,
