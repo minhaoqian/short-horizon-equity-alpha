@@ -20,6 +20,16 @@ Can short-horizon cross-sectional equity forecasts generate economically meaning
 
 ## Current stage
 
+**Stage 4B — Execution-Assumption Feasibility: OPEN / gate failed (RL-066)**
+
+[Approved protocol](docs/stage4b_execution_protocol.md) and
+[feasibility result](docs/stage4b_execution_feasibility.md): first-open capped
+fallback resolves ordinary gaps but both candidates halt close2003-03-31 on
+unverified successor quantities.60/4279decisiondates operational;114tests pass.
+No portfolio performance/selection or holdout access. Review required; no cap extension.
+
+Stage4A strict-identification audit and permanent limitation remain unchanged.
+
 **Stage 4A — Cost-Aware Market-Neutral Portfolio Protocol: OPEN / strict continuation infeasible (RL-064)**
 
 [Proposed dated portfolio and cost protocol](docs/stage4a_portfolio_protocol.md)

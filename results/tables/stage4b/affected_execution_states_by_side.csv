@@ -1,0 +1,12 @@
+candidate,side,state,observations,distinct_permnos
+ridge,long,assumed_exited,1,1
+ridge,long,measurable_cash_termination,6,3
+ridge,long,unresolved_execution,2,1
+ridge,short,canceled_entry,1,1
+ridge,short,unresolved_execution,1,1
+uni_reversal_5,long,assumed_exited,2,2
+uni_reversal_5,long,measurable_cash_termination,2,2
+uni_reversal_5,long,unresolved_execution,2,1
+uni_reversal_5,short,assumed_exited,1,1
+uni_reversal_5,short,canceled_entry,2,2
+uni_reversal_5,short,unresolved_execution,1,1

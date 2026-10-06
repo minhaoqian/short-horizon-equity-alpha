@@ -1,0 +1,16 @@
+candidate,side,state,actual_delay,observations
+ridge,long,assumed_exited,0.0,5675
+ridge,long,assumed_exited,1.0,1
+ridge,long,measurable_cash_termination,,6
+ridge,long,unresolved_execution,,2
+ridge,short,assumed_exited,0.0,5682
+ridge,short,canceled_entry,,1
+ridge,short,unresolved_execution,,1
+uni_reversal_5,long,assumed_exited,0.0,5678
+uni_reversal_5,long,assumed_exited,1.0,2
+uni_reversal_5,long,measurable_cash_termination,,2
+uni_reversal_5,long,unresolved_execution,,2
+uni_reversal_5,short,assumed_exited,0.0,5680
+uni_reversal_5,short,assumed_exited,1.0,1
+uni_reversal_5,short,canceled_entry,,2
+uni_reversal_5,short,unresolved_execution,,1

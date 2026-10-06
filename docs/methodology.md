@@ -282,3 +282,21 @@ RL-064 feasibility audit finds both candidates persistently halted from close
 2003-01-13 through2019; no fullperiod primaryperformance identified. Stop for a
 separately prespecified execution-assumption stage. No such assumption or PnL
 is authorized/implemented by this conclusion; frozen Stage1–3 unchanged.
+
+
+## Stage 4B prespecified simulation execution contract (RL-065–RL-066)
+
+Separate benchmark simulation, not observed historical execution; preserve the
+Stage4A identification result permanently. Positive observed scheduled entryopen
+t+1 else assume nofill/cancel/cash, no chase/future reallocation. Exitopen t+6
+else first admissible positiveopen on next1–5 GLOBALdates; preserve all owned
+assets/claims/quantities and short obligations until actual assumed liquidation.
+No sixth-date extension, imputed open or bestprice choice. Aftercap failure use
+unresolvedexecution/strictknown-close halt; earlier unknown corporate quantities
+are integrity gates. Record assumeddates/reasons/globaldelay/realizedholding;
+this does not alter frozen Stage1 five-day targets or Stage2/3specifications.
+
+RL-066 audit fails on unverified successor quantities, halting both candidates
+close2003-03-31 throughdevelopmentend; no performance/selection authorized or
+computed. See docs/stage4b_execution_protocol.md and execution_feasibility.md.
+Do not expand fallback cap or invent received inventory to pass this gate.

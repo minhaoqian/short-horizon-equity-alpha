@@ -1,0 +1,7 @@
+candidate,scheduled_exit_date,five_day_deadline,side,fallback_reason,observations,distinct_permnos
+ridge,2003-03-31,2003-04-07,long,received_asset_quantity_or_terms_unverified,1,1
+ridge,2003-04-01,2003-04-08,long,received_asset_quantity_or_terms_unverified,1,1
+ridge,2003-04-04,2003-04-11,short,received_asset_quantity_or_terms_unverified,1,1
+uni_reversal_5,2003-03-31,2003-04-07,long,received_asset_quantity_or_terms_unverified,1,1
+uni_reversal_5,2003-04-01,2003-04-08,long,received_asset_quantity_or_terms_unverified,1,1
+uni_reversal_5,2003-04-04,2003-04-11,short,received_asset_quantity_or_terms_unverified,1,1
