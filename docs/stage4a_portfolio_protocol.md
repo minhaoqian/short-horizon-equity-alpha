@@ -1,7 +1,7 @@
 # Stage 4A — proposed cost-aware portfolio protocol
 
-Date: 2026-10-06. Status: PROPOSED / research-lead review required (RL-060).
-No portfolios, weights, PnL, costs or Sharpe have been computed. Stage 1–3 contracts unchanged.
+Date: 2026-10-06. Status: APPROVED for implementation with clarifications (RL-061).
+Approval is recorded before implementation; Stage 1–3 contracts unchanged.
 
 ## Methodology gate and candidates
 
@@ -17,7 +17,7 @@ Primary candidates: unchanged Stage 3A `uni_reversal_5` and `ridge`; `equal_weig
 - Empty initial book; no pre-2003 candidate signals. Explicit five-day ramp-up, no fictitious full exposure initially.
 - Stop new signals after 2019-12-31. Keep every already-created five-day holding and its original planned exit; no forced 2019 liquidation or removal of late development signals.
 - Daily performance window: first entry through last development-sleeve exit. Report 2003–2019 calendar performance separately from the pending development-origin runoff. Trading days/cutoffs use the global market calendar, never next available security row.
-- **Permission gate:** late-2019 holdings require 2020 open/ledger marks for runoff and possibly daily accounting. Existing frozen development endpoint labels are permissible; they do not supply all required daily marks. No 2020 source records are accessed in Stage 4A. Before implementation, obtain explicit approval for an isolated development-origin runoff projection if needed, with no 2020 signal/forecast/eligibility/holdout performance. Without it, record pending runoff; full-horizon evaluation remains incomplete, not silently truncated.
+- **Approved runoff scope (RL-061):** read only the minimum 2020 accounting/settlement records for positions created by development signals whose frozen holdings extend into 2020. No 2020 signals, eligibility, forecasts, holdout evaluation or specification selection. Use existing caches first; no broader extraction. Scope must derive from existing positions, not future eligibility.
 
 ## Holding architecture and capital
 
@@ -63,7 +63,7 @@ cost_k=V_k*c_k; p_k=aggregate gross planned security flow at close t / ADV20_t. 
 
 Borrow fee baseline100bp annual ACT/365 on original short-entry notional, accruing calendar days from entry through before cover; weekends included. Splits do not alter that basis; verified partial corporate repayment reduces the basis proportionally. This fixed-basis convention is an approximation, not historical securities-loan quotes. Short dividend/corporate obligations are debited via the same signed economic ledger, not a second borrowing expense. Cash, margin balances and short proceeds earn/pay zero baseline financing interest/rebate; gross200% is not a claim of unrestricted margin availability.
 
-Prespecified independent sensitivities, all shown without best-case selection: linear execution allowance3/6/12bp; impact coefficient0/.10/.25; borrow100/300/500bp; additional financing drag200bp/year on N using ACT/365. Baseline6bp/.10/100bp/zero-financing kept headline assumption. No combinatorial optimization, changing AUM or ADV limit after observed returns. Historical borrow/recall, short-sale restrictions and auction depth are not certified by CRSP. Both candidates evaluated under the same assumptions; present scenario-net simulated performance, never claim proven executable net alpha absent evidence of these frictions.
+Prespecified independent sensitivities, all shown without best-case selection: linear execution allowance3/6/12bp (REPLACES, never adds to, baseline fixed6bp); impact coefficient0/.10/.25; borrow100/300/500bp; additional financing drag200bp/year on N using ACT/365. Baseline6bp/.10/100bp/zero-financing kept headline assumption. No combinatorial optimization, changing AUM or ADV limit after observed returns. Historical borrow/recall, short-sale restrictions and auction depth are not certified by CRSP. Both candidates evaluated under the same assumptions; present scenario-net simulated performance, never claim proven executable net alpha absent evidence of these frictions.
 
 Turnover: traded-notional turnover T_d=sum_all_legs V_k/N (both buys and sells). Conventional one-way turnover=T_d/2, reported with that label; charge c*T_d, not c*T_d/2. Corporate asset conversion/payment is not a market trade; verified liquidation trade is. Borrow/time charges separate from traded turnover. Show gross flows before any optional netting, cost components, participation breaches and utilization against ADV.
 
@@ -98,3 +98,7 @@ Before real portfolios: approve this protocol and scenario assumptions; resolve 
 Later authorized reusable code under src/portfolio/, entry under scripts/, licensed order/holdings/marks local in data/interim/stage4/. Public aggregates under results/tables/stage4/ and figures under results/figures/stage4/, with conditional qualifications. Expected tables: decisions/coverage, exposures/capacity, cost assumptions/decomposition, ledger QA, annual/paired candidate statistics and all phase/sensitivity results. Expected figures after authorization: gross/net equity and drawdown, turnover/cost drag, exposures, capacity and unresolved-notional paths. No performance figure now; the assumption table is the useful auditable artifact at this review gate.
 
 Official context (no numeric cost calibration): FINRA explains MOO orders and cancellation of unfilled opening portions: https://www.finra.org/investors/insights/time-parameters-qualifiers-stock-orders . SEC Regulation SHO guidance explains locate obligations and dividend compensation by short sellers: https://www.sec.gov/investor/pubs/regsho.htm . These do not establish historical auction fills, borrow availability or the proposed numerical cost assumptions.
+
+## Research-lead clarifications approved before implementation (RL-061)
+
+Development-origin 2020 runoff is authorized only for pre-existing development holdings. Linear cost scenarios replace the baseline fixed6bp: one_way_cost=linear_bp/10000+impact_coefficient*sigma20*sqrt(participation). Baseline6bp/.10/100bpborrow/zero-financing unchanged. Strict primary unknown propagation remains. If headline measurement fails, separately labeled measured segments, measurable-date conditional diagnostics, unresolved notional/count/duration and defensible bounds may be produced; none is full headline strategy performance. No new fit/holdout signals authorized.

@@ -20,12 +20,14 @@ Can short-horizon cross-sectional equity forecasts generate economically meaning
 
 ## Current stage
 
-**Stage 4A — Cost-Aware Market-Neutral Portfolio Protocol: OPEN / review (RL-060)**
+**Stage 4A — Cost-Aware Market-Neutral Portfolio Protocol: OPEN / bounded continuation review (RL-062)**
 
 [Proposed dated portfolio and cost protocol](docs/stage4a_portfolio_protocol.md)
 retains reversal and Ridge candidates with identical five-sleeve rules.
-No portfolios, PnL, transaction-cost results or Sharpe computed. Review required
-before implementation; unknown execution/wealth and development runoff gates explicit.
+Synthetic and bounded initial-sleeve QA completed; no PnL or Sharpe computed.
+[Continuation-policy gate](docs/stage4a_bounded_qa.md): unresolved exit execution
+requires residual capacity/sleeve-reuse review before full implementation.
+Narrow development-origin2020 runoff authorized, no2020records accessed yet.
 2020–2025 holdout remains untouched.
 
 **Stage 3A — Walk-Forward Baseline Signal Combination: CLOSED (RL-059)**

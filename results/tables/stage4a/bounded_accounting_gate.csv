@@ -1,0 +1,3 @@
+candidate,original_bounded_signal_keys,planned_entry_orders,valid_entry_unresolved_exit_orders,unresolved_decision_notional,unresolved_entry_notional,earliest_unresolved_planned_exit,unknown_residual_inventory_policy_required,performance_computed
+uni_reversal_5,923,360,1,22222.222222222223,22149.002379644884,2003-01-13,True,False
+ridge,923,360,1,22222.222222222223,22149.002379644884,2003-01-13,True,False

@@ -1034,3 +1034,27 @@ matches `1 + DlyRetX` within 1e-6 in 499/500 examples. The remaining error is ap
 **Unresolved feasibility gates made explicit:** Missingopen does not establish nofill; unknownfill/exit/dailyprice/assetterms propagate unknownwealth, prohibit unqualified headline/selection. Cash/eventledger matches frozen endpoint identities; short obligations preserved; no silent missinglabel drop. CRSP does not establish borrow/recall/auctiondepth; simulatednet results conditional on access assumptions. Late2019 sleeves retained; narrow development-origin2020 runoff permission needed before any additional2020 daily source access, no holdoutsignals. This proposal grants no extraction or downstream execution. Static-vintage/nonrandommeasurement limitations remain. No evidence used to dismiss unknown positions as negligible.
 
 **Outputs/decision:** Documentation-only dated protocol useful at review gate; no fictitious performance figure/table, no portfolio code or modified frozenmethodology. AGENTS/README handoff updated to Stage4A OPEN/protocolreview. No code change, tests unnecessary; document/diff/data-policy QA before commit. Next action: research-lead review of architecture, sizing/neutrality interpretation, cost/borrow assumptions, unresolved-ledger headline gate, runoff permission and selection criterion. Stop before construction/evaluation.
+
+---
+
+## RL-061 — Stage 4A implementation approved; runoff, replacement costs and measurement hierarchy locked
+**Date:** 2026-10-06
+
+**Approval/methodology gate:** Research-lead approves RL-060 architecture, both unchanged candidates, all limits/costs/selection rule, synthetic/bounded QA followed by development implementation. Re-read AGENTS, methodology, latest logs, portfolio proposal, frozen ledger and cached schemas. Permitted: approved development holdings/accounting/performance subject to headline measurement gate. No new forecasts/fits/target/feature rules, holdoutsignals or outcome-driven parameter changes. Existing caches preferred; no rawscan.
+
+**Clarifications:** Minimum2020 source records only for development-origin positions and their frozen runoff; no2020signals/eligibility/forecasts/holdoutresults or choice of specifications. Linear3/6/12bp REPLACE baseline6bp, not add; baseline6bp/.10impact/100bpborrow/zero-financing. Unknownexecution/wealth strictly propagates. Incomplete headlineledger prohibits full PnL/Sharpe/drawdown; separately qualified measuredsegments/measurable-date diagnostics, unresolvedcounts/notional/duration and defensiblebounds permitted without masquerading as complete performance.
+
+**Execution gates:** Synthetic tests precede bounded real-ledger QA. Stop for a newly material accounting/timing/constraint contradiction; expected frozen unresolved paths remain explicit, no silent removal. No authentication attempted at approval-record step.
+
+---
+
+## RL-062 — Stage 4A synthetic QA passes; bounded unknown-exit continuation policy requires review
+**Date:** 2026-10-06
+
+**Implementation/QA:** Reusable src/portfolio construction/ledger primitives, scripts/31_stage4a_bounded_qa.py and12 focused synthetic tests. Cappedrank/equal-dollar redistribution, fixedshares/openingdrift, ties/grossflows, replacementcostscenarios, ACT365borrow, fivecalendarphases, entry/exit entitlement, signedcash/splits, unknownpropagation and receivabletransfer checked. Routine float-equality fixture corrected to tolerance. Bounded verifier first mistakenly included measurablecashdelist paths with noexitopen; narrowed unknown-exit classification after constructing decisions, preserving legitimate cashsettlement. DATE/timestamp and Noneforecast comparison fixes, no methodology change.
+
+**Bounded evidence:** First two2003signal dates923keys/360plannedorders per candidate, all decisions/reasons retained; existing firstquarter cache only. Both candidates have one valid-entryunknown-exit order from signal2003-01-03, entry2003-01-06, exit2003-01-13. Planned$22,222.22, observedentry$22,149.00 each. Exitrow has neither observedopen norclose; no effective distribution/delist replacement/sharechange explains it. Outcomes joined after construction solely for accounting QA. No return/costtotal/Sharpe, WRDS/rawscan/2020record access or newfit.
+
+**Material gate:** Missingwealth is anticipated by frozenpolicy and is not alone a new blocker. Unknown exitexecution creates uncertain residualinventory/borrowtermination after scheduledsleeve expiry; continued capacity/capital reuse requires a deterministic policy not explicit in approved contract. Five plannedsleeves cannot certify five actualexposure vintages after unknownexit. Do not silently drop/zero/retry exit or reserve guessed exposure. Stop before subsequent book continuation/fullrun, keep Stage4A OPEN. Conservative proposed haltnewprimaryorders while retainingunknownassets versus separatelyapproved residualreservation/conditionalvirtualschedule requires review. No proposed extension implemented.
+
+**Outputs/next action:** docs/stage4a_bounded_qa.md, safe bounded_accounting_gate.csv; licensed decisions/witnesses/manifest remain private. All99 repository tests pass, including12 focused tests. No performance chart justified. Nextaction: review unknown-execution residual capacity/sleeve-reuse policy; then resume existing authorized scope. Approved2020runoff scope unchanged, not yet needed/accessed.

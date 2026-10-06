@@ -113,15 +113,16 @@ Derived compact QA tables may be committed only when licensing and repository po
 
 ## Current handoff state
 
-Latest completed methodology log entry: **RL-060**.
+Latest completed methodology log entry: **RL-062**.
 
-Current work: **Stage 4A — Cost-Aware Market-Neutral Portfolio Protocol: OPEN / review**.
-See docs/stage4a_portfolio_protocol.md and RL-060. Documentation only authorized:
-both unchanged Stage3A candidates carried forward; no portfolios/cost/PnL/Sharpe
-computed. Proposed five sleeves, close-t fixed-share sizing, dollar-neutral plans,
-fixed costs and explicit execution/unknown-wealth gates need review. No holdout
-access. Development-origin 2020 runoff source access requires explicit scope
-approval; no implicit expansion. Stop before portfolio code/evaluation.
+Current work: **Stage 4A — OPEN / bounded accounting continuation review**.
+Protocol approved RL-061 with narrow development-origin2020 runoff, replacing
+linear cost scenarios and strict measurement hierarchy. Synthetic primitives
+and bounded first-two-date construction completed RL-062. Unknown exit execution
+on2003-01-13 for both candidates leaves residual inventory/capacity and sleeve
+reuse undefined; see docs/stage4a_bounded_qa.md. Stop before full book continuation,
+review halt/reserve/explicit conditional schedule rule. No PnL/Sharpe/newfit,
+WRDS/rawscan or2020record access. Stage1–3 remain frozen.
 
 Completed stage: **Stage 3A — Walk-Forward Baseline Signal Combination: CLOSED**.
 See docs/stage3a_completion.md and RL-057–RL-059. All 68 quarterly expanding
@@ -184,7 +185,7 @@ bounds/sensitivity analysis; complete-case evaluation remains conditional on
 measurability. The 45 missing-lag source observations remain preserved; never
 interpolate/forward-fill them. Stage 3A baseline models have been fitted only under the approved development protocol.
 
-Next action: research-lead review of docs/stage4a_portfolio_protocol.md; stop before portfolio construction/evaluation.
+Next action: research-lead review of docs/stage4a_bounded_qa.md residual execution/capacity policy.
 Stop before further models, feature selection, portfolios, new horizons or holdout evaluation.
 
 ## Autonomous execution policy
