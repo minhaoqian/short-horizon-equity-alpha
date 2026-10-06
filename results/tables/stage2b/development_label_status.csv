@@ -1,0 +1,6 @@
+label_status,observations,numeric_labels,eligible_pct
+measurable_cash_only_delisting,2549,2549,0.05292277385926404
+measurable_ordinary_event_adjusted,4801521,4801521,99.69000002491461
+missing_entry_measurement,7232,0,0.1501520206160053
+other_unresolved_corporate_action,1616,0,0.03355166832348791
+valid_entry_unresolved_exit_wealth,3534,0,0.07337351228663755

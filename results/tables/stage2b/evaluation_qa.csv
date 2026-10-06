@@ -1,0 +1,27 @@
+check,value
+keys,4816452
+numeric_labels,4804070
+development_signal_dates,"[""1993-01-04"", ""2019-12-31""]"
+cross_boundary_eligible,6488
+cross_boundary_numeric,6482
+calendar_rows,6799
+calendar_index_mismatches,0
+source_feature_hashes_verified,32
+holdout_signal_values_materialized,false
+holdout_predictive_diagnostics,false
+duplicate_or_key_difference_count,0
+all_quintile_pair_counts_reconciled,true
+all_feature_pair_counts_reconciled,true
+preprocessing_recomputed,false
+features_dropped_or_flipped,false
+horizons_constructed,[5]
+independent_rank_checks,24
+independent_rank_max_error,2.498001805406602e-16
+quantile_empty_buckets,0
+missing_label_rows,12382
+development_cash_delisting_numeric,2549
+development_valid_entry_unresolved,5150
+fixed_lags,"[4, 20]"
+sampled_phase_lag,4
+phase_anchor,"""1993-01-04"""
+qa_passed,true

@@ -20,7 +20,7 @@ Can short-horizon cross-sectional equity forecasts generate economically meaning
 
 ## Current stage
 
-**Stage 2B — Baseline Signal Evaluation: OPEN / methodology review (RL-052)**
+**Stage 2B — Baseline Signal Evaluation: development CLOSED (RL-055)**
 
 Stage 1G remains CLOSED (RL-042).
 
@@ -42,10 +42,19 @@ reconciliation govern admission. See [Stage 2A completion](docs/stage2a_completi
 Licensed features: data/interim/stage2a_features/parts/ (32 parquet partitions).
 Descriptive coverage/distribution/dispersion/correlation tables and four figures
 are under results/tables/stage2a/ and results/figures/stage2a/.
-Stage 2A is CLOSED. Stage 2B source/key/coverage preflight passed; no IC computed.
-See [evaluation proposal](docs/stage2b_evaluation_proposal.md). Evaluation/holdout
-dates need review; nearby-horizon decay would require new targets. Feature
-selection, ML and portfolios have not begun. Stage 1G remains frozen.
+Stage 2A is CLOSED. Stage 2B development evaluation is complete for signal dates
+1993-01-04–2019-12-31: 4,816,452 original keys / 4,804,070 numeric labels.
+The 2020–2025 final holdout remains untouched for predictive analysis/tuning.
+All development signals with holding windows crossing into 2020 remain assigned
+by signal date. Daily tied Rank IC, fixed HAC4/HAC20, five nonoverlap phases,
+quintiles, annual stability and redundancy diagnostics passed QA; 78 tests pass.
+Reversal's mean IC is +0.029921; intraday's is −0.020688. Weak, mixed and negative
+signals remain unchanged; these conditional development diagnostics are not
+implemented portfolios or net-alpha claims. See [Stage 2B completion](docs/stage2b_completion.md)
+for all eight results, coverage/selection limits and safe tables/six figures.
+Reproduction: scripts/29_evaluate_stage2b_baselines.py. No feature selection, ML,
+portfolios or IC decay begun. Next protocol needs research-lead approval.
+Stage 1G target and Stage 2A features remain frozen.
 
 ## Core design
 

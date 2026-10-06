@@ -30,3 +30,7 @@ venv/
 results/experiments/*.parquet
 results/experiments/*.pkl
 results/experiments/*.joblib
+
+# Large reproducible Stage 2B aggregate diagnostics stay local.
+/results/tables/stage2b/daily_quintiles.csv
+/results/tables/stage2b/daily_quintile_spread.csv

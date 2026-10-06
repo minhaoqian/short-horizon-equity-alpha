@@ -1,26 +1,17 @@
-# Stage 2B — Baseline signal evaluation: pre-performance review
+# Stage 2B — Baseline signal evaluation: approved development specification
 
-2026-10-06, RL-052. Stage 2A and the frozen Stage 1 target remain unchanged.
-Stage 2B is OPEN. No IC or target-spread statistic has been computed.
+2026-10-06, RL-052–RL-053. Stage 2A and the frozen Stage 1 target remain unchanged.
+The scope/inference proposal was approved before results (RL-053). Development
+evaluation is now complete (RL-055); see docs/stage2b_completion.md.
 
-## Scope requiring review
+## Approved temporal scope (RL-053)
 
-The methodology requires a protected final holdout but does not define dated
-train/development/evaluation/holdout boundaries. The candidate extraction period
-is not an authorization to expose the eventual holdout to signal-performance
-inspection. Required decision: specify which signal dates may be evaluated and
-which dates must remain untouched, including treatment of labels whose holding
-windows cross the protected boundary. Retain those original keys, annotate
-partition/boundary exclusions separately, and never alter frozen label status.
-Do not choose the period from IC results or retrospectively call inspected years
-an untouched holdout.
-
-Only the certified five-day wealth target is materialized. Cached entry/exit
-prices and terminal wealth components are for that horizon; they do not supply
-complete day-1/day-10 corporate-action/delisting wealth ledgers. A daily close
-return, shifted five-day label or shortened price-only ratio is not an equivalent
-next-open target. Proposed decision: defer nearby-horizon IC decay in Stage 2B.
-Constructing/approving extra target horizons is a separate methodology gate.
+Development/evaluation signal dates: 1993-01-04 through 2019-12-31.
+Untouched final holdout signal dates: 2020-01-02 through 2025-12-31.
+Assignment is signal-date only. Cross-boundary development holdings remain
+unaltered development observations. No holdout signal performance is read,
+computed or reported; no holdout-driven design/tuning/selection.
+IC decay is explicitly deferred; only frozen five-day targets are authorized.
 
 ## Primary metric and sample
 
@@ -45,7 +36,7 @@ Sharpe, costs, learned weights, feature pruning or model fitting.
 
 ## Overlap inference specified before results
 
-Five-day holding windows overlap for signal separations 1–4 trading days. Proposed
+Five-day holding windows overlap for signal separations 1–4 trading days. Approved
 primary inference: intercept-only mean IC with Newey–West/Bartlett HAC, lag L=4,
 95% normal-approximation confidence interval. Fix lag from the horizon, never
 from significance. Also report a fixed L=20 sensitivity to broader monthly serial
@@ -80,8 +71,7 @@ calendar positions and undefined/missing observations explicitly.
 Fixed features have no fitted parameters or training step in Stage 2B. Evaluate
 chronologically only on the authorized period; retain annual/block diagnostics.
 That is not a substitute for a later dated walk-forward model-selection protocol.
-Preserve the untouched holdout and explicitly handle horizon-straddling labels
-before evaluation. No random split, pooled normalization, future-dependent
+Preserve the untouched holdout; development horizon-straddling labels remain development by approved signal-date assignment. No random split, pooled normalization, future-dependent
 preprocessing, orientation/window tuning or retrospective period selection.
 
 ## Quantiles, stability and redundancy
@@ -95,7 +85,7 @@ This is a conditional cross-sectional target contrast, not a tradable portfolio
 return. Use the same prespecified horizon HAC for spread inference if reported.
 Assess ordered bucket curves without changing sign or choosing buckets/results.
 
-Report existing Stage 2A feature-correlation evidence (all eligible keys) and
+Recompute feature-correlation evidence on development eligible keys only, and
 same-scope feature-pair/IC-pair correlations with date/pair counts. IC correlations
 use common valid dates and are descriptive; preserve weak, negative and redundant
 signals without deleting/reweighting any feature. Confidence intervals are nominal
@@ -134,6 +124,4 @@ correlation heatmaps, quantile curves. Do not synthesize figures before authoriz
 performance computation. The three current preflight tables are reproducible via
 scripts/28_qa_stage2b_sources.py and contain no target-return statistic.
 
-Stop now at the temporal-scope/new-horizon review gate. Once dates/boundary policy
-and decay deferral are confirmed, continue authorized five-day Stage 2B work and
-stop again at completion before ML/portfolios. No source download needed.
+Temporal-scope and horizon gates resolved in RL-053. Execute development-only five-day evaluation; stop at a material gate or completion before ML/portfolios. No source download needed.

@@ -152,6 +152,36 @@ performance-driven adjustment. Industry/sector neutralization remains deferred.
 Stage 2A outputs are descriptive only; predictive evaluation requires separate
 approval, strict walk-forward and explicit overlapping-label treatment.
 
+## Stage 2B development evaluation contract (RL-053–RL-055)
+
+Signal-date split: development/evaluation 1993-01-04 through 2019-12-31;
+untouched final holdout 2020-01-02 through 2025-12-31. Development labels with
+holdings crossing into 2020 remain development observations. Do not truncate,
+censor or reassign them solely for crossing the boundary. Holdout signal
+performance and use for feature/preprocessing/design/model/hyperparameter/cost
+or portfolio choices are prohibited until the later research design/model/
+portfolio freeze. Preserve every original key and frozen label status.
+
+Stage 2B uses fixed signed stored-z features and numeric frozen 5D labels,
+including measurable cash delistings: date-local average-tied-rank Spearman IC,
+minimum 30 finite pairs, explicit undefined constants, equal-date summaries.
+No preprocessing on the labeled subset. Approved primary mean-IC inference is
+Bartlett/Newey–West HAC lag4 with fixed lag20 sensitivity, original calendar
+gaps and intercept correction. Every-fifth-market-date robustness reports all
+five phases anchored at 1993-01-04, with sampled lag4 HAC (20 market days).
+No best-phase/lag/sign/feature selection. Five tie-preserving quantiles and
+Q5-Q1 target contrasts are descriptive signal diagnostics, not portfolio returns.
+Annual summaries and feature/IC correlations are development-only. Fixed-feature
+chronological evaluation fits no model; later model fitting requires strict
+walk-forward, no random splits, and explicit label-maturity/overlap controls.
+IC decay is deferred; no new target horizon is authorized in Stage 2B.
+
+Development evaluation completed in RL-055; see docs/stage2b_completion.md.
+All fixed features remain unchanged. Reported statistics are conditional on
+feature/target measurability, with nonrandom missing outcomes left explicit for
+later sensitivity/bounds. Completion does not authorize feature selection,
+model fitting, portfolio rules or opening the protected final holdout.
+
 ## Model ladder
 
 Complexity must earn its place out of sample.

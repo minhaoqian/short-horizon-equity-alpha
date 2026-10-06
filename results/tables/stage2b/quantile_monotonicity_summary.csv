@@ -1,0 +1,9 @@
+feature,ordered_bucket_spearman,ascending_steps,descending_steps,strictly_increasing,strictly_decreasing,q5_minus_q1
+reversal_5,0.9999999999999999,4,0,True,False,0.004030983086309629
+momentum_60_skip5,0.7,3,1,False,False,0.0012282899288495125
+volatility_20,-0.3,2,2,False,False,-0.0008009305665416756
+turnover_20,-0.3,2,2,False,False,-0.0002573699407232787
+dollar_liquidity_20,-0.7,1,3,False,False,-0.00028017931681331145
+volume_shock_20,-0.09999999999999999,2,2,False,False,-9.213199418661461e-05
+gap_1,-0.09999999999999999,2,2,False,False,-0.000695600223751433
+intraday_1,-0.9999999999999999,0,4,False,True,-0.0030372279619111267

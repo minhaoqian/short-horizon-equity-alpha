@@ -113,14 +113,21 @@ Derived compact QA tables may be committed only when licensing and repository po
 
 ## Current handoff state
 
-Latest completed methodology log entry: **RL-052**.
+Latest completed methodology log entry: **RL-055**.
 
-Current work: **Stage 2B — Baseline Signal Evaluation: OPEN / pre-performance review**.
-See docs/stage2b_evaluation_proposal.md and RL-052. Source/key/coverage preflight
-passed: 6,699,101 keys / 6,676,750 numeric labels; 68 repository tests pass.
-No IC or target-spread statistic computed. Evaluation/holdout dates and boundary
-policy remain undefined; nearby horizons would require new target construction.
-Stop for review of temporal scope and proposed IC-decay deferral before results.
+Current completed stage: **Stage 2B — Baseline Signal Evaluation: development CLOSED**.
+See docs/stage2b_completion.md and RL-053–RL-055. Development SIGNAL dates
+1993-01-04–2019-12-31; 4,816,452 original keys / 4,804,070 numeric labels.
+All 6,488 development signals crossing into 2020 retain their frozen labels.
+Final holdout SIGNAL dates 2020-01-02–2025-12-31 remain untouched for predictive
+analysis or design/tuning. Stored-z tied Rank IC/HAC4 + fixedHAC20, all five
+nonoverlap phases, quintiles, annual stability and redundancy QA completed;
+78 tests pass. All eight fixed features/signs retained, including weak/negative
+signals. No ML, selection, portfolio or IC decay/new target horizon.
+Private cache/manifest: data/interim/stage2b; safe tables/figures under stage2b.
+Known conditional-label/feature selection and snapshot-vintage limits remain.
+Stop before the next research stage; require research-lead approval of its
+fixed dated walk-forward protocol. Do not open the final holdout.
 
 Completed stage: **Stage 2A — Feature Framework / Baseline Signals: CLOSED**.
 See docs/stage2a_completion.md. 6,699,101 unique eligible feature keys retained;
@@ -158,9 +165,9 @@ bounds/sensitivity analysis; complete-case evaluation remains conditional on
 measurability. The 45 missing-lag source observations remain preserved; never
 interpolate/forward-fill them. No model has been trained.
 
-Next action: research-lead confirmation of Stage 2B evaluation/untouched-holdout
-dates and boundary treatment, plus deferral of new-horizon IC decay. Resume fixed
-5D evaluation only after review; do not change frozen targets/features.
+Next action: research-lead review of completed development diagnostics and
+approval of the next dated walk-forward research protocol. No automatic feature
+selection, ML, portfolios, new target horizons or holdout evaluation.
 
 ## Autonomous execution policy
 
