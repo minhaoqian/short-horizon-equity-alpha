@@ -102,3 +102,7 @@ Official context (no numeric cost calibration): FINRA explains MOO orders and ca
 ## Research-lead clarifications approved before implementation (RL-061)
 
 Development-origin 2020 runoff is authorized only for pre-existing development holdings. Linear cost scenarios replace the baseline fixed6bp: one_way_cost=linear_bp/10000+impact_coefficient*sigma20*sqrt(participation). Baseline6bp/.10/100bpborrow/zero-financing unchanged. Strict primary unknown propagation remains. If headline measurement fails, separately labeled measured segments, measurable-date conditional diagnostics, unresolved notional/count/duration and defensible bounds may be produced; none is full headline strategy performance. No new fit/holdout signals authorized.
+
+## Strict primary continuation policy approved (RL-063)
+
+At the first decision close when a scheduled exit's execution or remaining quantity is unresolved, halt that candidate's new primary orders; never retrospectively cancel previously submitted orders. Retain existing assets, claims, liabilities and borrowing obligations without assuming termination. No capital reuse/residual-reservation approximation, later-price substitution, interpolation, zero-PnL or horizon shift. Resume only on independent proof of termination of the unresolved position/obligations. Development-wide feasibility audit precedes PnL; if permanent early halt remains, stop for a separate prespecified execution-assumption stage. A virtual scheduled-sleeve diagnostic is conditional mechanical evidence only, not the primary/live book.

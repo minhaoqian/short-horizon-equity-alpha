@@ -1,0 +1,4 @@
+candidate,scope,start,planned_exit,end_censor,calendar_elapsed_days,affected_decision_dates_inclusive,right_censored,observed_termination_date,scope_beyond_2019
+uni_reversal_5,actual_primary_valid_entry_order,2003-01-13,2003-01-13,2019-12-31,6196,4272,True,,not_assessed
+ridge,actual_primary_valid_entry_order,2003-01-13,2003-01-13,2019-12-31,6196,4272,True,,not_assessed
+ridge,already_submitted_unknown_entry_quantity,2003-01-13,2003-01-21,2019-12-31,6196,4272,True,,not_assessed

@@ -261,3 +261,24 @@ Baseline security eligibility:
 This definition was locked after metadata-integrity and exchange/status breadth diagnostics.
 
 Stage 3A execution completed under this approved contract (RL-059); see docs/stage3a_completion.md. No subsequent model, portfolio or holdout evaluation is authorized by closure.
+
+
+## Stage 4A approved continuation contract and identification stop (RL-061–RL-064)
+
+Preserve the approved five-sleeve fixedcapital/rank/cap/ADV/cost protocol in
+docs/stage4a_portfolio_protocol.md. Linear3/6/12bp scenarios replace baseline
+fixed6bp; narrow2020runoff permitted only for pre-existing development holdings,
+never holdout signals/eligibility/forecasts/design choices. Strict unknown
+propagation precludes full headlineperformance without a complete measured ledger.
+Halt new primary orders from the first decision close when a scheduled exit's
+execution/remaining quantity is unresolved; retain holdings, claims, liabilities
+and borrowing, no capitalreuse/reservation approximation. Already-submitted
+orders cannot be canceled retrospectively. Resume needs independent termination
+evidence; later prices or security-level payment flags alone do not certify
+account quantities/obligations. No filling, price substitution or horizon shift.
+A virtual schedule is conditional mechanics only, not headline/live-book returns.
+
+RL-064 feasibility audit finds both candidates persistently halted from close
+2003-01-13 through2019; no fullperiod primaryperformance identified. Stop for a
+separately prespecified execution-assumption stage. No such assumption or PnL
+is authorized/implemented by this conclusion; frozen Stage1–3 unchanged.

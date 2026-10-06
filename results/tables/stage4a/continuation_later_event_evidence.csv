@@ -1,0 +1,3 @@
+candidate,event_date,payment_type,completion_status,proves_parent_security_event,proves_account_exit_or_all_obligations_terminated
+uni_reversal_5,2011-04-08,CSHN,FPAY,True,False
+ridge,2011-04-08,CSHN,FPAY,True,False

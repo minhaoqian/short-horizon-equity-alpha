@@ -1,0 +1,15 @@
+candidate,signal_date,nonbinding_conservative_due_flow
+uni_reversal_5,2003-01-02,True
+uni_reversal_5,2003-01-03,True
+uni_reversal_5,2003-01-06,True
+uni_reversal_5,2003-01-07,True
+uni_reversal_5,2003-01-08,True
+uni_reversal_5,2003-01-09,True
+uni_reversal_5,2003-01-10,True
+ridge,2003-01-02,True
+ridge,2003-01-03,True
+ridge,2003-01-06,True
+ridge,2003-01-07,True
+ridge,2003-01-08,True
+ridge,2003-01-09,True
+ridge,2003-01-10,True
