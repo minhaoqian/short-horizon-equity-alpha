@@ -113,21 +113,20 @@ Derived compact QA tables may be committed only when licensing and repository po
 
 ## Current handoff state
 
-Latest completed methodology log entry: **RL-077**.
+Latest completed methodology log entry: **RL-079**.
 
-Current work: **Stage 4E conditional feasibility COMPLETE / full-period gate FAILED**.
-See docs/stage4e_conditional_feasibility.md. Approved CRSP51.35/TR is a hypothetical
-fractional cash reference, not WSJ equivalence or historical issuer selection.
-D0/D2/D5 each resolve all6 Household obligations; original0.535 ratio, separate
-whole/fraction signed claims, credit once and five-date cap preserved.
-Every scenario/candidate next halts close2003-04-16 on unverified receivedquantity
-for another merger (parent18382 -> successor21936); retain1unresolvedlong each.
-72/4279developmentdecisiondates operational(1.682636%); no certified resumption.
-137tests pass; safe5tables/1figure. Private outputs data/interim/stage4e_scenarios.
-Stage4A strictfailure, Stage4B original failedfeasibility, Stage4C entitlement and
-Stage4D historical CLOSED UNRESOLVED artifacts verified unchanged by hashes.
-No PnL/Sharpe/drawdown/selection/holdout/WRDS/rawscan/auth or new forecasting fit.
-Stop for review of April16merger evidence gate; no broader assumption or cap.
+Current work: **Stage 4F generalized conditional simulation PROPOSAL / review required**.
+Event-by-event historical recovery is CLOSED after Stage4E; do not investigate
+parent18382 -> successor21936 individually. Preserve all Stage4A–E artifacts.
+See docs/stage4f_generalized_simulation_proposal.md: proposed fixed original
+entry-notional reserves, separate signed unknown obligations, phase-specific
+paired deployment limited by tighter remaining side, no capital recycling,
+no invented successor/termination/wealth. Reservation is a budget proxy, not
+certified exposure/margin or a short-loss bound. Queued-order exception and
+conditional reporting/measurement hierarchy require research-lead review.
+Proposal only; frozenmethodology unchanged; no implementation, data processing,
+performance, holdout, event search or model fitting. No new tests claimed.
+Next action: review Stage4F proposal before synthetic/bounded feasibility work.
 
 Completed stage: **Stage 3A — Walk-Forward Baseline Signal Combination: CLOSED**.
 See docs/stage3a_completion.md and RL-057–RL-059. All 68 quarterly expanding
@@ -190,7 +189,7 @@ bounds/sensitivity analysis; complete-case evaluation remains conditional on
 measurability. The 45 missing-lag source observations remain preserved; never
 interpolate/forward-fill them. Stage 3A baseline models have been fitted only under the approved development protocol.
 
-Next action: review docs/stage4e_conditional_feasibility.md and the April16received-quantity evidence gate. Do not begin portfolio performance or invent another settlement rule.
+Next action: review docs/stage4f_generalized_simulation_proposal.md. Historical event-by-event recovery is closed; no individual successor investigation or performance authorized.
 Stop before further models, feature selection, portfolios, new horizons or holdout evaluation.
 
 ## Autonomous execution policy

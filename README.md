@@ -20,6 +20,15 @@ Can short-horizon cross-sectional equity forecasts generate economically meaning
 
 ## Current stage
 
+**Stage 4F — Generalized Conditional Portfolio Simulation: proposal for review (RL-079)**
+
+[Reservation protocol](docs/stage4f_generalized_simulation_proposal.md) proposes
+position-level quarantine, fixed entry-notional budgeting reserves and equal
+new long/short deployment limited by remaining phase capital. Unknown wealth
+stays unknown; no full headline historically executable Sharpe. Event-by-event
+historical recovery is closed. No implementation or performance yet.
+
+
 **Stage 4E — Conditional settlement feasibility: COMPLETE / full-period gate FAILED (RL-077)**
 
 [Feasibility report](docs/stage4e_conditional_feasibility.md): D0/D2/D5 resolve
@@ -27,7 +36,7 @@ all six Household obligations using the approved hypothetical CRSP cash referenc
 A separate April16merger leaves one unresolved long per candidate/scenario;
 all books halt close2003-04-16, with72/4279dates operational(1.682636%).
 137tests pass; five QA tables and one execution-availability figure. No PnL,
-Sharpe, drawdown, candidate selection or holdout access. Stop for evidence review.
+Sharpe, drawdown, candidate selection or holdout access. Event-by-event recovery now closed; findings preserved.
 
 **Stage 4D historical-identification branch: CLOSED UNRESOLVED (RL-072)**
 
