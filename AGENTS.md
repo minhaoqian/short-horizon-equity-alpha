@@ -113,7 +113,16 @@ Derived compact QA tables may be committed only when licensing and repository po
 
 ## Current handoff state
 
-Latest completed methodology log entry: **RL-055**.
+Latest completed methodology log entry: **RL-056**.
+
+Current work: **Stage 3A — Walk-Forward Baseline Signal Combination: OPEN / protocol review**.
+See docs/stage3a_walk_forward_proposal.md and the proposed 68-quarter schedule.
+Protocol design only authorized; no model implementation/fitting yet. Proposed
+quarterly expanding Ridge starts 2003-01-02, uses matured training labels from
+1993 onward, fixed normalized lambda1/date-balanced loss and all eight unchanged
+features. Complete-feature/no-imputation and training-only signed coefficients
+(including matched univariate benchmarks) require review. Holdout untouched.
+Do not treat this proposal as an approved frozen model specification.
 
 Current completed stage: **Stage 2B — Baseline Signal Evaluation: development CLOSED**.
 See docs/stage2b_completion.md and RL-053–RL-055. Development SIGNAL dates
@@ -165,9 +174,9 @@ bounds/sensitivity analysis; complete-case evaluation remains conditional on
 measurability. The 45 missing-lag source observations remain preserved; never
 interpolate/forward-fill them. No model has been trained.
 
-Next action: research-lead review of completed development diagnostics and
-approval of the next dated walk-forward research protocol. No automatic feature
-selection, ML, portfolios, new target horizons or holdout evaluation.
+Next action: research-lead approval/revision of docs/stage3a_walk_forward_proposal.md.
+Stop before model implementation/fitting; no feature selection, portfolios,
+new target horizons or holdout evaluation.
 
 ## Autonomous execution policy
 
